@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+//using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using VotingSystems.Models;
 
 namespace VotingSystems.Models
 {
@@ -24,7 +26,7 @@ namespace VotingSystems.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<VoteCan>()
+            modelBuilder.Entity<VoteCan>()          // To stop looping with models.
                 .HasOne<Vote>(p => p.Votes)
                 .WithMany(v => v.VoteCandidates)
                 .HasForeignKey(v => v.Vote_ID)
@@ -33,5 +35,7 @@ namespace VotingSystems.Models
 
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<VotingSystems.Models.VoteCan> VoteCan { get; set; }
     }
 }
