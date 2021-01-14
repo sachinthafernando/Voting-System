@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VotingSystems.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class SerialNo : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -165,8 +165,7 @@ namespace VotingSystems.Migrations
                 columns: table => new
                 {
                     NIC = table.Column<int>(type: "int", nullable: false),
-                    SerialNo = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SerialNo = table.Column<int>(type: "int", nullable: false),
                     Voted = table.Column<bool>(type: "bit", nullable: false),
                     GND = table.Column<int>(type: "int", nullable: false)
                 },

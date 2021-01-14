@@ -11,7 +11,7 @@ namespace VotingSystems.Models
     {
         [Key,Required,DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int NIC { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SerialNo { get; set; }
         public bool Voted { get; set; }
 

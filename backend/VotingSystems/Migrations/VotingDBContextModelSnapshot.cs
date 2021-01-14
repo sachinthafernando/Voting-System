@@ -154,9 +154,7 @@ namespace VotingSystems.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SerialNo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<bool>("Voted")
                         .HasColumnType("bit");

@@ -10,8 +10,8 @@ using VotingSystems.Models;
 namespace VotingSystems.Migrations
 {
     [DbContext(typeof(VotingDBContext))]
-    [Migration("20210113185951_initialMigration")]
-    partial class initialMigration
+    [Migration("20210114060139_SerialNo")]
+    partial class SerialNo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,9 +156,7 @@ namespace VotingSystems.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SerialNo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<bool>("Voted")
                         .HasColumnType("bit");
