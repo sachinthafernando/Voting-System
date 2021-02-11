@@ -15,16 +15,16 @@ namespace VotingSystems.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.0")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("VotingSystems.Models.Admin", b =>
                 {
                     b.Property<int>("AdminID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(100)");
@@ -45,7 +45,7 @@ namespace VotingSystems.Migrations
                     b.Property<int>("CandidateID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("CandidateName")
                         .HasColumnType("nvarchar(100)");
@@ -71,7 +71,7 @@ namespace VotingSystems.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(50)");
@@ -86,7 +86,7 @@ namespace VotingSystems.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("ED_ID")
                         .HasColumnType("int");
@@ -106,7 +106,7 @@ namespace VotingSystems.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(50)");
@@ -126,7 +126,7 @@ namespace VotingSystems.Migrations
                     b.Property<int>("PartyID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<byte[]>("Color")
                         .HasColumnType("varbinary(200)");
@@ -148,9 +148,7 @@ namespace VotingSystems.Migrations
             modelBuilder.Entity("VotingSystems.Models.Person", b =>
                 {
                     b.Property<int>("NIC")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("GND")
                         .HasColumnType("int");
@@ -173,7 +171,7 @@ namespace VotingSystems.Migrations
                     b.Property<int>("VoteID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("Party_ID")
                         .HasColumnType("int");
@@ -193,7 +191,7 @@ namespace VotingSystems.Migrations
                     b.Property<int>("VoteCanID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("Candidate_ID")
                         .HasColumnType("int");
@@ -220,6 +218,8 @@ namespace VotingSystems.Migrations
                         .HasForeignKey("Party_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Party");
                 });
 
             modelBuilder.Entity("VotingSystems.Models.Division", b =>
@@ -229,6 +229,8 @@ namespace VotingSystems.Migrations
                         .HasForeignKey("ED_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("District");
                 });
 
             modelBuilder.Entity("VotingSystems.Models.GNDivision", b =>
@@ -238,6 +240,8 @@ namespace VotingSystems.Migrations
                         .HasForeignKey("PD_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Division");
                 });
 
             modelBuilder.Entity("VotingSystems.Models.Person", b =>
@@ -247,6 +251,8 @@ namespace VotingSystems.Migrations
                         .HasForeignKey("GND")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("GNDivision");
                 });
 
             modelBuilder.Entity("VotingSystems.Models.Vote", b =>
@@ -256,6 +262,8 @@ namespace VotingSystems.Migrations
                         .HasForeignKey("Party_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Party");
                 });
 
             modelBuilder.Entity("VotingSystems.Models.VoteCan", b =>
@@ -270,6 +278,42 @@ namespace VotingSystems.Migrations
                         .WithMany("VoteCandidates")
                         .HasForeignKey("Vote_ID")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Candidate");
+
+                    b.Navigation("Votes");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.Candidate", b =>
+                {
+                    b.Navigation("VoteCandidates");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.District", b =>
+                {
+                    b.Navigation("Divisions");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.Division", b =>
+                {
+                    b.Navigation("GNDivisions");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.GNDivision", b =>
+                {
+                    b.Navigation("People");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.Party", b =>
+                {
+                    b.Navigation("Candidates");
+
+                    b.Navigation("Votes");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.Vote", b =>
+                {
+                    b.Navigation("VoteCandidates");
                 });
 #pragma warning restore 612, 618
         }
