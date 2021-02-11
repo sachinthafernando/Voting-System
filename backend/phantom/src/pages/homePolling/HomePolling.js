@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Candidate extends Component {
+export default class HomePolling extends Component {
     render() {
         return (
             <div>

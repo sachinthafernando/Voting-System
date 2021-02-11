@@ -1,9 +1,12 @@
 import React from 'react'
+import React, { Component } from 'react'
 
-export default function CandidateList() {
-    return (
-        <div>
-            
-        </div>
-    )
+export default class CandidateList extends Component {
+    render() {
+        return (
+            <div>
+                
+            </div>
+        )
+    }
 }
