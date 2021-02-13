@@ -11,11 +11,12 @@ const Nav = styled.nav`
 height: 60px;
 display: flex;
 justify-content: space-between;
-padding: 1rem  2rem;
+padding: 1rem  2.5rem;
 z-index: 100;
 position: fixed;
 width: 100%;
 background: #2EAAD6;
+top: 0;
 `;
 
 const NavLink =css`
@@ -113,7 +114,8 @@ const Navbar = ({toggle}) => {
                 <NavBtn>
                     <Router>
                     <Route>
-                    <SubButton to='/contact' primary= 'true' >Contact us</SubButton>
+                    <SubButton to='/contact' primary= 'true' >Contact us
+                    </SubButton>
                     </Route>
                     </Router>
                     </NavBtn> 

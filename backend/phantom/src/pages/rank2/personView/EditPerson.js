@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import TabView from './TabView'
 
-export default class HomeRank2 extends Component {
+export default class EditPerson extends Component {
     render() {
         return (
             <div>
-                <TabView/>
+                
             </div>
         )
     }

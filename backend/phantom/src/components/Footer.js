@@ -32,9 +32,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: 'Black',
         color: 'white',
         textAlign: 'center',
-        
-        
-        
+        position: 'relative'
   },
   footer_icons: {
     fontSize: '2rem',

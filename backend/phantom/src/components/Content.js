@@ -1,9 +1,31 @@
-import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react'
 
-export default function Content() {
-    return (
-        <div>
-            
-        </div>
-    )
+import EditAdmin from '../pages/admin/EditAdmin';
+import Home from '../pages/home/Home';
+import HomeRank2 from '../pages/rank2/HomeRank2';
+import AdminList from '../pages/admin/AdminList';
+import HomePolling from '../pages/homePolling/HomePolling';
+import AddPerson from '../pages/person/AddPerson';
+import EditPerson from '../pages/rank2/personView/EditPerson';
+
+export default class Content extends Component {
+    render() {
+        return (
+            <div style={{ top:'60px', position:'relative', paddingBottom:'60px'}}>
+                <Router>
+                    <Switch>
+                    <Route exact path = "/" component={Home} />
+                    <Route path = "/adminList" component={AdminList} />
+                    <Route path = "/editAdmin/:id" component={EditAdmin} />
+
+                    <Route path = "/homeRank2" component={HomeRank2} />
+                    <Route path = "/homePolling" component={HomePolling} />
+                    <Route path= "/addPerson" component={AddPerson}/>
+                    <Route path = "/editPerson/:id" component={EditPerson} />
+                    </Switch>
+                </Router>
+            </div>
+        )
+    }
 }

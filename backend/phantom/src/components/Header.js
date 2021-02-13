@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Header() {
     return (
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar>
                     <Grid container>
                         <Grid item>

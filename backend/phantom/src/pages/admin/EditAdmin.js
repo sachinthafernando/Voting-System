@@ -1,5 +1,28 @@
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Dialog, DialogTitle, DialogContent, DialogContentText } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
+
+const styles = {
+    root: {
+          margin: "30px auto",
+          minWidth: 230,
+    },
+    formControl: {
+        margin: "10px auto",
+        minWidth: 230,
+    },
+    textField: {
+        margin: "10px auto",
+        width: 230,
+      },
+    sMargin:{
+        margin: "30px auto",
+    },
+    paper : {
+        margin: "30px auto",
+        padding: 20,
+    }
+}
 
 export default class EditAdmin extends Component {
 
@@ -68,12 +91,84 @@ export default class EditAdmin extends Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit} autoComplete="off">
-                <input name="name" placeholder="Name" onChange={this.onChangeName} value={this.state.Name} /> <br />
+            // <Dialog>
+            //     <DialogTitle id= "form-dialog-title">Edit User Details</DialogTitle>
+            //     <DialogContent>
+            //         <DialogContentText>
+            //             this is dummy text using to test the subject.
+            //         </DialogContentText>
+            //     </DialogContent>
+            // </Dialog>
+            <Container>
+                <Paper style={styles.paper} elevation={3}>
+                <form onSubmit={this.onSubmit} autoComplete="off" noValidate style={styles.root}>
+                <Grid container>
+                    <Grid item xs={4}>
+                        <TextField
+                            name = "name"
+                            variant = "outlined"
+                            label = "Name"
+                            value = {this.state.Name}
+                            onChange = {this.onChangeName}
+                            style= {styles.textField}
+                        />
+                        <TextField
+                            name = "password"
+                            variant = "outlined"
+                            label = "Password"
+                            value = {this.state.Password}
+                            onChange = {this.onChangePassword}
+                            style= {styles.textField}
+                        />
+                        {/* <TextField
+                            name = "rank"
+                            variant = "outlined"
+                            label = "Rank"
+                            value = {this.state.Rank}
+                            onChange = {this.onChangeRank}
+                        /> */}
+                        <FormControl variant="outlined" style={styles.formControl}>
+                            <InputLabel >Rank</InputLabel>
+                            <Select
+                                name= "rank"
+                                value = {this.state.Rank}
+                                onChange= {this.onChangeRank}
+                            >
+                                <MenuItem value="">Select Rank</MenuItem>  
+                                <MenuItem value="1">Rank 1</MenuItem> 
+                                <MenuItem value="2">Rank 2</MenuItem> 
+                                <MenuItem value="3">Rank 3</MenuItem> 
+                                <MenuItem value="4">Rank 4</MenuItem> 
+                                </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <div>
+                            <Button
+                                variant = "contained"
+                                color = "primary"
+                                type = "submit"
+                                style= {styles.sMargin}
+                            >
+                                Submit
+                            </Button>
+                            <Button
+                                variant = "contained"
+                                style= {styles.sMargin}
+                            >
+                                Reset
+                            </Button>
+                        </div>
+                    </Grid>
+                </Grid>
+
+                {/* <input name="name" placeholder="Name" onChange={this.onChangeName} value={this.state.Name} /> <br />
                 <input name="password" placeholder="Password" onChange={this.onChangePassword} value={this.state.Password} /> <br />
                 <input name="rank" placeholder="Rank" onChange={this.onChangeRank} value={this.state.Rank} /> <br />
-                <button type="submit">Submit</button>
-            </form>
+                <button type="submit">Submit</button> */}
+                </form>
+            </Paper>
+            </Container>
         )
     }
 }

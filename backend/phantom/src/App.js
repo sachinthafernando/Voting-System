@@ -21,6 +21,7 @@ import GlobalStyle from './components/GlobalStyles';
 import { ThemeProvider, CssBaseline } from '@material-ui/core';
 import theme from './components/Theme';
 import HomePolling from './pages/homePolling/HomePolling';
+import Content from './components/Content';
 
 function App() {
 
@@ -37,21 +38,11 @@ function App() {
     <Navbar  toggle = {toggle}/>
     <Dropdown isOpen = {isOpen} toggle={toggle} />
 
-      <Router>
-        <Switch>
-          <Route exact path = "/" component={Home} />
-          <Route path = "/adminList" component={AdminList} />
-          <Route path = "/editAdmin/:id" component={EditAdmin} />
-
-          <Route path = "/homeRank2" component={HomeRank2} />
-          <Route path = "/homePolling" component={HomePolling} />
-          <Route path = "/adminList" component={AdminList} />
-        </Switch>
-      </Router>
-    
-      <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Footer/>
+    {/* <Header/> */}
+    <Content/>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Footer/>
     </ThemeProvider>
     </div>
     </> 
