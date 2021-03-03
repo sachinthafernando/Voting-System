@@ -7,7 +7,8 @@ import HomeRank2 from '../pages/rank2/HomeRank2';
 import AdminList from '../pages/admin/AdminList';
 import HomePolling from '../pages/homePolling/HomePolling';
 import AddPerson from '../pages/person/AddPerson';
-import EditPerson from '../pages/rank2/personView/EditPerson';
+import AddParty from '../pages/party/AddParty';
+import AddCandidate from '../pages/candidate/AddCandidate';
 
 export default class Content extends Component {
     render() {
@@ -16,13 +17,14 @@ export default class Content extends Component {
                 <Router>
                     <Switch>
                     <Route exact path = "/" component={Home} />
+
                     <Route path = "/adminList" component={AdminList} />
-                    <Route path = "/editAdmin/:id" component={EditAdmin} />
 
                     <Route path = "/homeRank2" component={HomeRank2} />
                     <Route path = "/homePolling" component={HomePolling} />
                     <Route path= "/addPerson" component={AddPerson}/>
-                    <Route path = "/editPerson/:id" component={EditPerson} />
+                    <Route path= "/addParty" component={AddParty}/>
+                    <Route path = "/addCandidate" component={AddCandidate} />
                     </Switch>
                 </Router>
             </div>

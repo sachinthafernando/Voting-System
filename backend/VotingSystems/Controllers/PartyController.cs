@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +16,12 @@ namespace VotingSystems.Controllers
     public class PartyController : ControllerBase
     {
         private readonly VotingDBContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public PartyController(VotingDBContext context)
+        public PartyController(VotingDBContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this._hostEnvironment = hostEnvironment;
         }
 
         // GET: api/Party
@@ -74,12 +78,14 @@ namespace VotingSystems.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Party>> PostParty(Party party)
-        {
+        public async Task<ActionResult<Party>> PostParty([FromForm] Party party)
+          {
+            party.Logo = await SaveLogo(party.LogoFile);
             _context.Parties.Add(party);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetParty", new { id = party.PartyID }, party);
+            //return CreatedAtAction("GetParty", new { id = party.PartyID }, party);
+            return StatusCode(201);
         }
 
         // DELETE: api/Party/5
@@ -101,6 +107,19 @@ namespace VotingSystems.Controllers
         private bool PartyExists(int id)
         {
             return _context.Parties.Any(e => e.PartyID == id);
+        }
+
+        [NonAction]
+        public async Task<string> SaveLogo(IFormFile logoFile)
+        {
+            string logoName = new String(Path.GetFileNameWithoutExtension(logoFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            logoName = logoName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(logoFile.FileName);
+            var logoPath = Path.Combine(_hostEnvironment.ContentRootPath, "Logos", logoName);
+            using (var fileStream = new FileStream(logoPath, FileMode.Create))
+            {
+                await logoFile.CopyToAsync(fileStream);
+            }
+            return logoName;
         }
     }
 }

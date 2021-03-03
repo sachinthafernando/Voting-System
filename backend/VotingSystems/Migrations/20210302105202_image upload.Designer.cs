@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VotingSystems.Models;
 
 namespace VotingSystems.Migrations
 {
     [DbContext(typeof(VotingDBContext))]
-    partial class VotingDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210302105202_image upload")]
+    partial class imageupload
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,9 +57,6 @@ namespace VotingSystems.Migrations
 
                     b.Property<int>("CandidateVoteCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Party_ID")
                         .HasColumnType("int");

@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Container, Paper } from '@material-ui/core';
 import PersonList from './personView/PersonList';
+import PartyList from './partyView/PartyList';
+import CandidateList from './candidateView/CandidateList';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -80,10 +82,10 @@ export default function TabView() {
                     <PersonList/>
                 </TabPanel>
                 <TabPanel value={value} index={1} className={classes.content}>
-                    this is for representing party details
+                    <PartyList/>
                 </TabPanel>
                 <TabPanel value={value} index={2} className={classes.content}>
-                    this is for representing candidate details
+                    <CandidateList/>
                 </TabPanel>
             </div>
         </Paper>

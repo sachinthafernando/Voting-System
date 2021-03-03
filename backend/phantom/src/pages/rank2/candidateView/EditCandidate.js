@@ -1,7 +1,6 @@
-import React from 'react'
 import React, { Component } from 'react'
 
-export default class CandidateList extends Component {
+export default class EditCandidate extends Component {
     render() {
         return (
             <div>

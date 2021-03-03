@@ -1,7 +1,7 @@
 import { Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
-import PersonTable from './PersonTable';
+import PartyTable from './PartyTable';
 
 const styles = {
     root: {
@@ -15,7 +15,7 @@ const styles = {
     }
 }
 
-export default class PersonList extends Component {
+export default class PartyList extends Component {
 
     constructor(props) {
         super(props);
@@ -24,7 +24,7 @@ export default class PersonList extends Component {
 
     componentDidMount(){
         debugger;
-        axios.get('http://localhost:5000/api/person/')
+        axios.get('http://localhost:5000/api/party/')
         .then(response => {
             this.setState({ business: response.data});
             debugger;
@@ -36,10 +36,10 @@ export default class PersonList extends Component {
 
     tabRow(){
         return this.state.business.map(function (object, i) {
-            return <PersonTable obj={object} key={i} /> ;
+            return <PartyTable obj={object} key={i} /> ;
         })
     }
-    
+
     render() {
         return (
             <Container>
@@ -50,10 +50,10 @@ export default class PersonList extends Component {
                             <Table>
                             <TableHead style={styles.root}>
                                 <TableRow>
-                                    <TableCell>Serial No</TableCell>
-                                    <TableCell>NIC</TableCell>
-                                    <TableCell>GN Division</TableCell>
-                                    <TableCell>Voted</TableCell>
+                                    <TableCell>Party ID</TableCell>
+                                    <TableCell>Party Name</TableCell>
+                                    <TableCell>Color</TableCell>
+                                    <TableCell>Logo</TableCell>
                                     <TableCell>Actions</TableCell>
                                 </TableRow>
                             </TableHead>

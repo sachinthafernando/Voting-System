@@ -1,14 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class Party extends Component {
-
-    
-
-    render() {
-        return (
-            <div>
-                
-            </div>
-        )
-    }
+export default function Party() {
+    return (
+        <div>
+            
+        </div>
+    )
 }
+

@@ -46,10 +46,6 @@ export default class AddPerson extends Component {
 
     componentDidMount(){
         axios.get('http://localhost:5000/api/GNDivision/')
-        // .then(response => {
-        //     debugger;
-        //     return response;
-        // })
         .then(response => {
             debugger;
             let GNDfromApi = response.data.map(gndOption =>{

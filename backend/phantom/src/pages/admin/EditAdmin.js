@@ -41,14 +41,14 @@ export default class EditAdmin extends Component {
         }
     }
 
-    componentDidMount() {
-        axios.get('http://localhost:5000/api/admin/'+this.props.match.params.id)
+    componentDidMount() {debugger;
+        axios.get('http://localhost:5000/api/admin/'+this.props.user)
         .then(response => {
             this.setState({
                 Name: response.data.name,
                 Password: response.data.password,
                 Rank: response.data.rank
-            });
+            });debugger;
         })
         .catch(function (error) {
             console.log(error);
@@ -77,33 +77,24 @@ export default class EditAdmin extends Component {
         debugger;
         e.preventDefault();
         const obj = {
-            Id: this.props.match.params.id,
+            Id: this.state.adminID,
             Name: this.state.Name,
             Password: this.state.Password,
             Rank: parseInt(this.state.Rank)
         };
-        axios.put('http://localhost:5000/api/admin/'+this.props.match.params.id, obj)
+        axios.put('http://localhost:5000/api/admin/'+this.props.user, obj)
         .then(res => {console.log(res.config.data);});
         debugger;
-        this.props.history.push('/adminList');
-        debugger;
+        this.props.close();
+        // this.props.history.push('/adminList');
+        // debugger;
     }
 
     render() {
         return (
-            // <Dialog>
-            //     <DialogTitle id= "form-dialog-title">Edit User Details</DialogTitle>
-            //     <DialogContent>
-            //         <DialogContentText>
-            //             this is dummy text using to test the subject.
-            //         </DialogContentText>
-            //     </DialogContent>
-            // </Dialog>
-            <Container>
-                <Paper style={styles.paper} elevation={3}>
+            <Container maxWidth="lg" >
                 <form onSubmit={this.onSubmit} autoComplete="off" noValidate style={styles.root}>
                 <Grid container>
-                    <Grid item xs={4}>
                         <TextField
                             name = "name"
                             variant = "outlined"
@@ -120,13 +111,6 @@ export default class EditAdmin extends Component {
                             onChange = {this.onChangePassword}
                             style= {styles.textField}
                         />
-                        {/* <TextField
-                            name = "rank"
-                            variant = "outlined"
-                            label = "Rank"
-                            value = {this.state.Rank}
-                            onChange = {this.onChangeRank}
-                        /> */}
                         <FormControl variant="outlined" style={styles.formControl}>
                             <InputLabel >Rank</InputLabel>
                             <Select
@@ -141,8 +125,7 @@ export default class EditAdmin extends Component {
                                 <MenuItem value="4">Rank 4</MenuItem> 
                                 </Select>
                         </FormControl>
-                    </Grid>
-                    <Grid item xs={8}>
+                </Grid>
                         <div>
                             <Button
                                 variant = "contained"
@@ -159,15 +142,12 @@ export default class EditAdmin extends Component {
                                 Reset
                             </Button>
                         </div>
-                    </Grid>
-                </Grid>
 
                 {/* <input name="name" placeholder="Name" onChange={this.onChangeName} value={this.state.Name} /> <br />
                 <input name="password" placeholder="Password" onChange={this.onChangePassword} value={this.state.Password} /> <br />
                 <input name="rank" placeholder="Rank" onChange={this.onChangeRank} value={this.state.Rank} /> <br />
                 <button type="submit">Submit</button> */}
                 </form>
-            </Paper>
             </Container>
         )
     }

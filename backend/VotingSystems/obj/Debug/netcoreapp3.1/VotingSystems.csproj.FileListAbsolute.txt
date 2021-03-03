@@ -276,5 +276,5 @@ H:\Engineering\6th Semester\Academic\Software Project\Project\backend\VotingSyst
 H:\Engineering\6th Semester\Academic\Software Project\Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\VoteCan\Details.cshtml.g.cs
 H:\Engineering\6th Semester\Academic\Software Project\Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\VoteCan\Edit.cshtml.g.cs
 H:\Engineering\6th Semester\Academic\Software Project\Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\VoteCan\Index.cshtml.g.cs
-H:\Engineering\6th Semester\Academic\Software Project\Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.csprojAssemblyReference.cache
 H:\Engineering\6th Semester\Academic\Software Project\Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.MvcApplicationPartsAssemblyInfo.cache
+H:\Engineering\6th Semester\Academic\Software Project\Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.csprojAssemblyReference.cache

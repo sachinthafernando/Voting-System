@@ -65,7 +65,7 @@ export default class AdminList extends Component {
                                     <TableCell>Name</TableCell>
                                     <TableCell>Password</TableCell>
                                     <TableCell>Rank</TableCell>
-                                    <TableCell></TableCell>
+                                    <TableCell>Actions</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody style={{overflow:'auto'}}>
