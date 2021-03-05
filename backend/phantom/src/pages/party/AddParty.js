@@ -66,13 +66,13 @@ export default class AddParty extends Component {
         if(e.target.files && e.target.files[0]){
             let logoFile = e.target.files[0];
             let reader = new FileReader();
-debugger;
-            reader.onloadend =() => {debugger;
+
+            reader.onloadend =() => {
                     this.setState({
                         logoFile:logoFile,
                         logoSrc: reader.result
                     });
-            };debugger;
+            };
             reader.readAsDataURL(logoFile);
         }
 
@@ -104,9 +104,7 @@ debugger;
         await axios.post('http://localhost:5000/api/party/', formData)
         .then(json => {
             if (json.statusText == 'Created'){
-                debugger;
                 console.log(json.statusText);
-                debugger;
                 alert("Data Save Successfully");
             }
             else{

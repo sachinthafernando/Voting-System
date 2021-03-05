@@ -1,14 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header';
-import Candidate from './pages/candidate/Candidate';
-import Party from './pages/party/Party';
-import Home from './pages/home/Home';
-import HomeRank2 from './pages/rank2/HomeRank2';
-import AdminList from './pages/admin/AdminList';
-import AddAdmin from './pages/admin/AddAdmin';
-import AdminTable from './pages/admin/AdminTable';
-import EditAdmin from './pages/admin/EditAdmin';
 
 import React, {useState} from 'react';
 import Dropdown from './components/Dropdown';

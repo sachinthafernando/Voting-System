@@ -28,7 +28,18 @@ namespace VotingSystems.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Candidate>>> GetCandidates()
         {
-            return await _context.Candidates.ToListAsync();
+            return await _context.Candidates
+                .Select(x => new Candidate()
+                {
+                    CandidateID = x.CandidateID,
+                    CandidateNo = x.CandidateNo,
+                    CandidateName = x.CandidateName,
+                    CandidateVoteCount = x.CandidateVoteCount,
+                    Party_ID = x.Party_ID,
+                    Image = x.Image,
+                    ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.Image)
+                })
+                .ToListAsync();
         }
 
         // GET: api/Candidate/5
@@ -36,6 +47,8 @@ namespace VotingSystems.Controllers
         public async Task<ActionResult<Candidate>> GetCandidate(int id)
         {
             var candidate = await _context.Candidates.FindAsync(id);
+
+            candidate.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, candidate.Image);
 
             if (candidate == null)
             {
@@ -49,11 +62,17 @@ namespace VotingSystems.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCandidate(int id, Candidate candidate)
+        public async Task<IActionResult> PutCandidate(int id, [FromForm] Candidate candidate)
         {
             candidate.CandidateID = id;
 
             _context.Entry(candidate).State = EntityState.Modified;
+
+            if (candidate.ImageFile != null)
+            {
+                DeleteImage(candidate.Image);
+                candidate.Image = await SaveImage(candidate.ImageFile);
+            }
 
             try
             {
@@ -84,7 +103,8 @@ namespace VotingSystems.Controllers
             _context.Candidates.Add(candidate);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCandidate", new { id = candidate.CandidateID }, candidate);
+            //return CreatedAtAction("GetCandidate", new { id = candidate.CandidateID }, candidate);
+            return StatusCode(201);
         }
 
         // DELETE: api/Candidate/5
@@ -119,6 +139,16 @@ namespace VotingSystems.Controllers
                 await imageFile.CopyToAsync(fileStream);
             }
             return imageName;
+        }
+
+        [NonAction]
+        public void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
         }
     }
 }

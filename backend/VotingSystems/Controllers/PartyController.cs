@@ -28,7 +28,17 @@ namespace VotingSystems.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Party>>> GetParties()
         {
-            return await _context.Parties.ToListAsync();
+            return await _context.Parties
+                .Select(x => new Party()
+                {
+                    PartyID = x.PartyID,
+                    PartyName = x.PartyName,
+                    PartyVotecount = x.PartyVotecount,
+                    Color = x.Color,
+                    Logo = x.Logo,
+                    LogoSrc = String.Format("{0}://{1}{2}/Logos/{3}",Request.Scheme,Request.Host,Request.PathBase,x.Logo)
+                })
+                .ToListAsync();
         }
 
         // GET: api/Party/5
@@ -36,6 +46,8 @@ namespace VotingSystems.Controllers
         public async Task<ActionResult<Party>> GetParty(int id)
         {
             var party = await _context.Parties.FindAsync(id);
+
+            party.LogoSrc = String.Format("{0}://{1}{2}/Logos/{3}", Request.Scheme, Request.Host, Request.PathBase, party.Logo);
 
             if (party == null)
             {
@@ -49,11 +61,17 @@ namespace VotingSystems.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutParty(int id, Party party)
+        public async Task<IActionResult> PutParty(int id, [FromForm] Party party)
         {
             party.PartyID = id;
 
             _context.Entry(party).State = EntityState.Modified;
+
+            if(party.LogoFile != null)
+            {
+                DeleteLogo(party.Logo);
+                party.Logo = await SaveLogo(party.LogoFile);
+            }
 
             try
             {
@@ -120,6 +138,16 @@ namespace VotingSystems.Controllers
                 await logoFile.CopyToAsync(fileStream);
             }
             return logoName;
+        }
+
+        [NonAction]
+        public void DeleteLogo(string logoName)
+        {
+            var logoPath = Path.Combine(_hostEnvironment.ContentRootPath, "Logos", logoName);
+            if (System.IO.File.Exists(logoPath))
+            {
+                System.IO.File.Delete(logoPath);
+            }
         }
     }
 }

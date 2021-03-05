@@ -45,6 +45,7 @@ export default class AddCandidate extends Component {
         this.state = {
             CandidateNo:'',
             CandidateName:'',
+            CandidateVotecount:0,
             partyOptions: [],
             PartyID:'',
             image: '',
@@ -94,12 +95,12 @@ export default class AddCandidate extends Component {
         if(e.target.files && e.target.files[0]){
             let imageFile = e.target.files[0];
             let reader = new FileReader();
-debugger;
-            reader.onloadend =()=> {debugger;
+
+            reader.onloadend =()=> {
                 this.setState({
                     imageFile: imageFile,
                     imageSrc: reader.result
-                });debugger;
+                });
             };
             reader.readAsDataURL(imageFile);
         }
@@ -125,10 +126,12 @@ debugger;
         const formData = new FormData()
         formData.append('candidateNo',this.state.CandidateNo)
         formData.append('candidateName',this.state.CandidateName)
-        formData.append('partyID',parseInt(this.state.PartyID))
+        formData.append('candidateVoteCount',this.state.CandidateVotecount)
+        formData.append('party_ID',parseInt(this.state.PartyID))
         formData.append('image',this.state.image)
         formData.append('imageFile',this.state.imageFile)
 
+        debugger;
         await axios.post('http://localhost:5000/api/Candidate/', formData)
         .then(json => {
             if (json.statusText == 'Created'){

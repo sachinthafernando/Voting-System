@@ -24,6 +24,8 @@ namespace VotingSystems.Models
         public string Image { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
+        [NotMapped]
+        public string ImageSrc { get; set; }
 
         public int Party_ID { get; set; }
         [ForeignKey("Party_ID")]
