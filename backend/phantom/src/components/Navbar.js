@@ -1,22 +1,25 @@
 import React from 'react';
 import styled, {css} from 'styled-components/macro';
-import {Link, Route, BrowserRouter as Router} from 'react-router-dom';
-import { menuData } from '../data/MenuData';
-import { SubButton } from './SubButton';
+import {Link, useHistory, Route, BrowserRouter as Router} from 'react-router-dom';
+import { menuData } from '../data/MenuData.js';
+import { SubButton } from '../components/SubButton.js';
 import Drop from '../images/drop.svg';
 import Logo1 from '../images/logo1.png';
 import { FaToggleOff } from 'react-icons/fa';
 
+
+
+//import '*' as actions from '../components/Header.js'
 const Nav = styled.nav`
-height: 60px;
+height: 80px;
 display: flex;
 justify-content: space-between;
-padding: 1rem  2.5rem;
+padding: 2rem  2rem;
 z-index: 100;
-position: fixed;
+position: relative;//this line is changed to start the content from below to Navbar.otherwise below content and Navbar are overlayed
 width: 100%;
+//margin-top: -30px;
 background: #2EAAD6;
-top: 0;
 `;
 
 const NavLink =css`
@@ -93,33 +96,28 @@ margin-right:24px;
 `;
 
 
+
 const Navbar = ({toggle}) => {
     return (
-        
-            <Nav>
+        <>
+           <Nav>
                 
                 <AppLogo to = '/' src={Logo1} alt="logo" ></AppLogo>
                 <MenuBars onClick={toggle}/>
                 <NavMenu>
-                    {menuData.map((item , index) => (
-                        <Router>
-                            <Route>
-                            <NavMenuLinks to= {item.link} key={index}>
+                    {menuData.map((item , index) => (     
+                        <NavMenuLinks to= {item.link} key={index}>
                            {item.title} 
-                        </NavMenuLinks>
-                            </Route>
-                        </Router>
+                        </NavMenuLinks>  
                     ))}
                 </NavMenu> 
                 <NavBtn>
-                    <Router>
-                    <Route>
-                    <SubButton to='/contact' primary= 'true' >Contact us
-                    </SubButton>
-                    </Route>
-                    </Router>
+                    <SubButton to='/adminList' primary= 'true'  >Login</SubButton>
+                    
+                    
                     </NavBtn> 
         </Nav>
+         </>
     );
 };
 

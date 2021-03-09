@@ -2,7 +2,7 @@ import React from 'react'
 import styled  from 'styled-components';
 import { menuData } from '../data/MenuData';
 import { SubButton } from './SubButton';
-import {Link, BrowserRouter as Router, Route} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import{FaTimes} from 'react-icons/fa';
 
 const DropdownContainer = styled.div`
@@ -79,24 +79,16 @@ const Dropdown = ({isOpen , toggle}) => {
             <DropdownWrapper>
                 <DropdownMenu>
                     {menuData.map((item , index ) => (
-                        <Router>
-                            <Route>
-                            <DropdownLink to= {item.link} key={index}>
+                        <DropdownLink to= {item.link} key={index}>
                             {item.title}
                         </DropdownLink>
-                            </Route>
-                        </Router>
 
                     ))}
                 </DropdownMenu>
                 <BtnWrap>
-                    <Router>
-                        <Route>
-                        <SubButton primary = "true" round="true" to ="/contact">
+                    <SubButton primary = "true" round="true" to ="/contact">
                         Contact Us
                     </SubButton>
-                        </Route>
-                    </Router>
                 </BtnWrap>
             </DropdownWrapper>
         </DropdownContainer>

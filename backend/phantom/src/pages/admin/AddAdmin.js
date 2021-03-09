@@ -1,22 +1,32 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, makeStyles, Typography } from '@material-ui/core';
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
+
 
 const styles = {
     root: {
-          margin: "30px auto",
+        padding:"auto",
+          margin: "20px auto",
           minWidth: 230,
-    },
+          height: "800",
+          display:"flex",
+          
+         
+          
+    }, 
     formControl: {
-        margin: "10px auto",
+        margin: "30px auto",
         minWidth: 230,
+       
+    
+        
     },
     textField: {
-        margin: "10px auto",
+        margin: "30px auto",
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: "170px 10px 20px 40px",//changed
     }
 }
 export default class AddAdmin extends Component {
@@ -87,12 +97,18 @@ export default class AddAdmin extends Component {
     
     render() {
         return (
-            <Container maxWidth="sm">
-                <h4>Enter Admin Informations</h4>
+          
+            <Container maxWidth="sm" >
+                <Typography>
+                    <h2>Enter Admin Information</h2>
+                    </Typography>
+                {/* <h4>Enter Admin Informations</h4> */}
+                
                 <form onSubmit={this.addAdmin} autoComplete="off" noValidate style={styles.root}>
                     <Grid container>
+                    
                         <Grid item xs={6}>
-                            <TextField
+                            <TextField 
                                 name = "name"
                                 variant = "outlined"
                                 label = "Name"
@@ -100,7 +116,7 @@ export default class AddAdmin extends Component {
                                 onChange = {this.onChangeName}
                                 style= {styles.textField}
                             />
-                            <TextField
+                            <TextField 
                                 name = "password"
                                 variant = "outlined"
                                 label = "Password"
@@ -108,13 +124,15 @@ export default class AddAdmin extends Component {
                                 onChange = {this.onChangePassword}
                                 style= {styles.textField}
                             />
-                            {/* <TextField
+                            
+                            {/* <TextField 
                                 name = "rank"
                                 variant = "outlined"
                                 label = "Rank"
                                 value = {this.state.Rank}
                                 onChange = {this.onChangeRank}
                             /> */}
+
                             <FormControl variant="outlined" style={styles.formControl}>
                                 <InputLabel >Rank</InputLabel>
                                 <Select
@@ -157,6 +175,7 @@ export default class AddAdmin extends Component {
                 <button type="submit">Submit</button> */}
             </form>
             </Container>
+          
         )
     }
 }

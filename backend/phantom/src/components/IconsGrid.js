@@ -17,7 +17,7 @@ import InsertChartOutlinedIcon from '@material-ui/icons/InsertChartOutlined';
 const useStyles = makeStyles(theme => ({
   iconsGridContainer: {
     color: 'yellow',
-    background: 'black',
+    background: '#272C34',
     paddingTop: '20px',
   },
 

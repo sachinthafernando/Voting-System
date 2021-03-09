@@ -75,19 +75,6 @@ export default function CandidateTable(props) {
                     </ButtonGroup>
                 </TableCell>
             </TableRow>
-
-                // <GridListTile key={props.obj.image}>
-                //     <img src={props.obj.imageSrc} alt={props.obj.candidateName} />
-                //     <GridListTileBar
-                //         title={props.obj.candidateName}
-                //         subtitle={<span>by: {props.obj.party_ID}</span>}
-                //         actionIcon={
-                //             <IconButton aria-label={`info about ${props.obj.candidateName}`}>
-                //             <InfoIcon />
-                //             </IconButton>
-                //         }
-                //     />
-                // </GridListTile>
     )
 }
 

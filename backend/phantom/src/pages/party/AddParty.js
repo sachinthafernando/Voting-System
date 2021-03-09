@@ -1,5 +1,5 @@
 
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, InputAdornment } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react';
 
@@ -25,7 +25,7 @@ const styles = {
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: 8,
     },
     paper : {
         margin: "30px auto",
@@ -131,6 +131,7 @@ export default class AddParty extends Component {
                                     style= {styles.textField}
                                 />
                                 <TextField
+                                    type = "color"
                                     name = "color"
                                     variant = "outlined"
                                     label = "color"

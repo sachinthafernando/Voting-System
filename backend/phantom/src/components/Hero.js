@@ -1,13 +1,19 @@
 
 import React, {useEffect, useState, useRef} from 'react';
-import { SubButton } from './SubButton';
 import styled ,{css} from 'styled-components/macro';
 import{IoMdArrowRoundForward} from 'react-icons/io';
 import{IoArrowForward, IoArrowBack} from 'react-icons/io5';
 import { SliderData } from '../data/SliderData';
 import IconsGrid from '../components/IconsGrid'
 import MainContent from '../components/MainContent'
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import { SubButton } from './SubButton';
+import Fade from 'react-reveal/Fade';
+
+
+import { ThemeProvider, CssBaseline } from '@material-ui/core';
+import theme from './Theme';
 
 const HeroSection = styled.section`
 height : 100vh;
@@ -68,13 +74,6 @@ width: 100vw;
 height:100vh;
 object-fit: cover;
 
-/* background-attachment: fixed;
-display:flex;
-background-repeat: no-repeat;
-background-size:cover;
-align-items: center;
-flex-direction: center; */
-
 `;
 const HeroContent = styled.div`
 position: relative;
@@ -85,7 +84,6 @@ flex-direction: column;
 max-width: 600px;
 width: calc(100%-100px);
 color: #fff;
-//color: #f78;
 
 h1{
     font-size: clamp(3rem ,8vw, 3rem);
@@ -112,17 +110,36 @@ display: flex;
 z-index:10;
 `;
 
-const arrowButtons = css`
-width : 50px;
-height: 50px;
+const arrowButtonLeft = css`
+width : 100px;
+height: 100px;
 color: #fff;
 cursor: pointer;
-background: #000d1a;
+opacity:0.5;
+background: transparent;
+border-radius: 50px;
+padding:10px;
+margin-right: 75rem;
+user-select: none;
+transition:0.3s;
+
+&:hover{
+    background: #cd853f;
+    transform: scale(1.05);
+}
+`;
+const arrowButtonRight = css`
+width : 100px;
+height: 100px;
+color: #fff;
+opacity:0.5;
+cursor: pointer;
+background: transparent;
 border-radius: 50px;
 padding:10px;
 margin-right: 1rem;
 user-select: none;
-transition: 0.3s;
+transition:0.3s;
 
 &:hover{
     background: #cd853f;
@@ -131,11 +148,11 @@ transition: 0.3s;
 `;
 
 const PrevArrow = styled(IoArrowBack)`
-${arrowButtons}
+${arrowButtonLeft}
 `;
 
 const NextArrow = styled(IoArrowForward)`
-${arrowButtons}
+${arrowButtonRight}
 `;
 
 const Hero = ({slides}) => {
@@ -150,7 +167,7 @@ const Hero = ({slides}) => {
             const nextSlide =() => {
                 setCurrent(current => (current === length  -1  ?  0 : current +1));
             };
-            timeout.current = setTimeout(nextSlide , 6000);
+            timeout.current = setTimeout(nextSlide , 3000);
 
             return function(){
                 if (timeout.current){
@@ -183,17 +200,16 @@ const Hero = ({slides}) => {
             <HeroWrapper>
             {slides.map((slide , index ) => {
                 return(
-                    <HeroSlide key={index} >
+                    <HeroSlide key={index}>
                         {index === current && (
 
                     <HeroSlider>
                     <HeroImage src = {slide.image} alt={slide.alt}/>
                     <HeroContent>
+                    <Fade top>
                         <h1>{slide.title}</h1>
                         <p>{slide.price}</p>
-                        <Router>
-                            <Route>
-                            <SubButton to={slide.path}
+                        <SubButton to={slide.path}
                         primary ='true'
                         css={`
                             max-width: 160px;
@@ -203,8 +219,7 @@ const Hero = ({slides}) => {
                             {slide.label}
                             
                         </SubButton>
-                            </Route>
-                        </Router>
+                        </Fade>
                     </HeroContent>
                     </HeroSlider>
 
@@ -220,12 +235,13 @@ const Hero = ({slides}) => {
             </SliderButtons>
             </HeroWrapper>
         </HeroSection>
+        
         <IconsGrid/>
         <MainContent/>
-        
+       
         </>
     );
-    
 };
+
 
 export default Hero;

@@ -8,7 +8,7 @@ export const SliderData= [
     {
         title: 'Welcome for Election 2021',
         price:'No pen No Ballet paper',
-        path: '/home',
+        path: '/rank1Home',
         label:'Start Voting',
         image: Image1,
         alt: 'voting'
@@ -18,7 +18,7 @@ export const SliderData= [
     {
     title: 'Insert Details of Parties',
     price:'New Party data adding section',
-    path: '/voter',
+    path: '/adminList',
     label:'Add Party',
     image: Image2,
     alt: 'party'

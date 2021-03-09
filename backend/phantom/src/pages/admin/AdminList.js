@@ -1,4 +1,4 @@
-import { Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { Button, ButtonGroup, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
 import AddAdmin from './AddAdmin';
@@ -8,13 +8,20 @@ const styles = {
     root: {
         "& .MuiTableCellHead": {
             fontSize:"1.25px",
+
+            margin: "50px auto",
+            minWidth: 230,
+            height: "800",
+            display:"flex",
         }
     },
     paper : {
-        margin: "30px auto",
-        padding: 20,
+       // margin: "10px auto",  //removed for fixed NavBar on top
+        padding: 80,
     }
 }
+
+//const classes = styles();
 
 export default class AdminList extends Component {
 
@@ -51,32 +58,32 @@ export default class AdminList extends Component {
 
     render() {
         return (
-            <Container>
-                <Paper style={styles.paper} elevation={3} >
-                    <Grid container spacing={4}>
-                        <Grid item xs= {6}>
-                            {this.createAdmin()}
+            <Paper style={styles.paper} elevation={3} >
+                <Container >
+                <Grid container spacing={4}>
+                    <Grid item xs= {6}>
+                        {this.createAdmin()}
                         </Grid>
-                        <Grid item xs= {6}>
-                            <TableContainer>
+                    <Grid item xs= {6}>
+                        <TableContainer>
                             <Table>
                             <TableHead style={styles.root}>
                                 <TableRow>
                                     <TableCell>Name</TableCell>
                                     <TableCell>Password</TableCell>
                                     <TableCell>Rank</TableCell>
-                                    <TableCell>Actions</TableCell>
+                                    <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody style={{overflow:'auto'}}>
+                            <TableBody>
                                 {this.tabRow()}
                             </TableBody>
                             </Table>
-                            </TableContainer>
-                        </Grid>
+                        </TableContainer>
                     </Grid>
-                </Paper>
-            </Container>
+                </Grid>
+                </Container>
+            </Paper>
         );
     }
 }

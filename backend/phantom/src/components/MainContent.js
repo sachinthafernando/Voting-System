@@ -4,6 +4,7 @@ import { Grid, Button, makeStyles, Typography } from '@material-ui/core';
 import SLmap from '../images/SL-1.png';
 //import './MainContent.css';
 
+
 const useStyles = makeStyles(theme => ({
   content: {
     fontSize: '1.2rem',
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     margin: '10px',
     textAlign: 'center',
     '&:hover': {
-      background: 'black',
+      background: '#272C34',
     },
   },
   btn: {
@@ -51,18 +52,16 @@ const MainContent = () => {
   const classes = useStyles();
 
   return (
+    
     <>
-
       <Grid container justify='space-around' alignItems='center'>
-
-
         <Grid md={5} item>
           <div className={classes.mainview}>
             {/* <p className={classes.imgText}>Be safe and</p> */}
           </div>
         </Grid>
 
-
+      
         <Grid md={5} item>
           <div className={classes.container}>
             <Typography variant='h2'>Safe and Efficient way of Voting</Typography>
@@ -76,9 +75,8 @@ const MainContent = () => {
             </Button>
           </div>
         </Grid>
-
       </Grid>
-
+      
 
       {/* Container 2 */}
       <Grid container justify='space-around' alignItems='center'>
@@ -108,9 +106,11 @@ const MainContent = () => {
             />
           </div>
         </Grid>
-
+        
       </Grid>
+      
     </>
+    
   );
 };
 

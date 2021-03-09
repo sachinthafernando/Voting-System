@@ -1,118 +1,173 @@
-import React from 'react';
-import {
-  Avatar,
-  Grid,
-  ListItem,
-  List,
-  ListItemAvatar,
-  useTheme,
-  makeStyles,
-  Hidden,
-} from '@material-ui/core';
 
-import {
-  FcAutomotive,
-  FcPhone,
-  FcOnlineSupport,
-  FcVoicemail,
-} from 'react-icons/fc';
+  
+import { Grid, IconButton } from "@material-ui/core";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import React from "react";
+import "./Footer.css";
+import logo from '../images/logo1.png';
 
-import HelpOutlinedIcon from '@material-ui/icons/HelpOutlined';
-import BusinessOutlinedIcon from '@material-ui/icons/BusinessOutlined';
-import BusinessCenterOutlinedIcon from '@material-ui/icons/BusinessCenterOutlined';
-import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
-//import './Footer.css';
-import { GiBookAura } from 'react-icons/gi';
-
-const useStyles = makeStyles(theme => ({
-
-  footer:{
-        width: '100%',
-        padding: '50px 0',
-        backgroundColor: 'Black',
-        color: 'white',
-        textAlign: 'center',
-        position: 'relative'
-  },
-  footer_icons: {
-    fontSize: '2rem',
-  },
-  text: {
-    fontSize: '1.0rem',
-    textAlign:'justify',
-    marginRight:'30px',
-  },
-  logo: {
-    fontSize: '8rem',
-    color: 'yellow',
-  },
-}));
-
-const Footer = () => {
-  const classes = useStyles();
+function Footer() {
   return (
-    <div className={classes.footer}>
-      <Hidden smDown>
-        <Grid
-          container
-          direction='row'
-          justify='space-around'
-          alignItems='center'>
-          <Grid item sm={12} xs={12} md={4}>
-            <div className='childe1__container'>
-              <div>
-                <DeveloperModeIcon className={classes.logo} />
-              </div>
+    
+     
+        <Grid container className="footer__container">
+          <Grid container md={4} sm={12} alignItems="center" className="center">
+            <img src={logo} alt="logo" className="logo" />
+            <span className="logo__name">EASY.ONLINE.</span>
+            <div className="logo__description">
+            The Goal of eVote is to inspire the 
+            elections with the success story of 
+            Web solutions.unique solution that    
+            simply and conveniently helps to 
+            engage people in the governance process.
             </div>
+            <hr className="hr" />
           </Grid>
 
-          <Grid sm={12} xs={12} md={4}>
-            <div className='childe2__container'>
-              <div className='childe2__title'>
-                <List dense>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <HelpOutlinedIcon className={classes.footer_icons} />
-                    </ListItemAvatar>
-                    <ListItem className={classes.text}>System Support</ListItem>
-                  </ListItem>
-
-                  <ListItem>
-                    <ListItemAvatar>
-                      <BusinessOutlinedIcon className={classes.footer_icons} />
-                    </ListItemAvatar>
-                    <ListItem className={classes.text}>eVote SriLanka</ListItem>
-                  </ListItem>
-
-                  <ListItem>
-                    <ListItemAvatar>
-                      <BusinessCenterOutlinedIcon className={classes.footer_icons} />
-                    </ListItemAvatar>
-                    <ListItem className={classes.text}>
-                      Collabaration with Election Commission SL
-                    </ListItem>
-                  </ListItem>
-                </List>
+          <Grid container md sm={12}>
+            <Grid className="col" xs={12} sm md>
+              <div className="col__title">Products</div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Government Cloud
+                </a>
               </div>
-            </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Data embassy
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  e-cabinet
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  e-identity
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  smart-ID
+                </a>
+              </div>
+            </Grid>
+            <Grid className="col" xs={12} sm md>
+              <div className="col__title">Features</div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Overview
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Design
+                  
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Support
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Collaborate
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Security
+                </a>
+              </div>
+            </Grid>
           </Grid>
-
-          <Grid sm={12} xs={12} md={4}>
-            <div className='child3__container'>
-              <div className='child3__title'>
-                <h1>About Us</h1>
-                <p className={classes.text}>
-                  This text is just only for test of footer in eVote SriLanka.This text
-                   is just only for test of footer in eVote SriLanka.
-                  This text is just only for test of footer in eVote SriLanka.
-                </p>
+          <Grid container md sm={12}>
+            <Grid className="col" xs={12} sm md>
+              <div className="col__title">Get Started</div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Guides
+                </a>
               </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Resources
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  E-services
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Downloads
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Docs
+                </a>
+              </div>
+            </Grid>
+            <Grid className="col" xs={12} sm md>
+              <div className="col__title">About</div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Stories
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Vision
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Standards
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  Community
+                </a>
+              </div>
+              <div style={{ marginBottom: "0.4rem" }}>
+                <a href="www.google.com" className="col__links">
+                  FAQ
+                </a>
+              </div>
+            </Grid>
+          </Grid>
+          <Grid md={12} sm={12} className="social">
+            <hr className="social__hr" />
+            <div className="social__tags">
+              <IconButton>
+                <FacebookIcon className="social__tags__color" />
+              </IconButton>
+              <IconButton>
+                <LinkedInIcon className="social__tags__color" />
+              </IconButton>
+              <IconButton>
+                <TwitterIcon className="social__tags__color" />
+              </IconButton>
+              <IconButton>
+                <GitHubIcon className="social__tags__color" />
+              </IconButton>
+            </div>
+            <div className="social__copyrights">
+              © 2021 TEAM VOTING SYSTEM. All Rights Reserved.
             </div>
           </Grid>
         </Grid>
-      </Hidden>
-    </div>
+     
+    
   );
-};
+}
 
 export default Footer;
