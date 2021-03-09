@@ -1,0 +1,47 @@
+﻿@model IEnumerable<VotingSystems.Models.Person>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SerialNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GNDivision)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerialNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Voted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GNDivision.ID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.NIC">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.NIC">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.NIC">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
