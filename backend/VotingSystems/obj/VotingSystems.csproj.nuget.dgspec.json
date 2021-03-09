@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Project\\backend\\VotingSystems\\VotingSystems.csproj": {}
+    "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\VotingSystems-backend\\VotingSystems.csproj": {}
   },
   "projects": {
-    "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Project\\backend\\VotingSystems\\VotingSystems.csproj": {
+    "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\VotingSystems-backend\\VotingSystems.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Project\\backend\\VotingSystems\\VotingSystems.csproj",
+        "projectUniqueName": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\VotingSystems-backend\\VotingSystems.csproj",
         "projectName": "VotingSystems",
-        "projectPath": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Project\\backend\\VotingSystems\\VotingSystems.csproj",
+        "projectPath": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\VotingSystems-backend\\VotingSystems.csproj",
         "packagesPath": "C:\\Users\\K.S.T.FERNANDO\\.nuget\\packages\\",
-        "outputPath": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Project\\backend\\VotingSystems\\obj\\",
+        "outputPath": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\VotingSystems-backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -42,31 +42,57 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
             "Microsoft.AspNetCore.Cors": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.3, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.3, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.3, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.3, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[3.1.10, )"
+              "version": "[3.1.12, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.1, )"
+              "version": "[5.0.3, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.5, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.23, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.22.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.8.0, )"
             }
           },
           "imports": [

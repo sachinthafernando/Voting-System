@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
+import Hero from '../../components/Hero'
+import { SliderData } from '../../data/SliderData'
 
-export default function Home() {
-    return (
-        <div>
-            <h1>This is home page.</h1>
-        </div>
-    )
+export default class Home extends Component {
+    render() {
+        return (
+            <div>
+                <Hero slides = {SliderData}/>
+            </div>
+        )
+    }
 }

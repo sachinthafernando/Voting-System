@@ -23,6 +23,7 @@ namespace VotingSystems.Models
         public DbSet<District> Districts { get; set; }
         public DbSet<Division> Divisions { get; set; }
         public DbSet<GNDivision> GNDivisions { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
