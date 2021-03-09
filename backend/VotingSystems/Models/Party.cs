@@ -17,7 +17,12 @@ namespace VotingSystems.Models
         [Column(TypeName ="nvarchar(200)")]
         public string PartyName { get; set; }
         public int PartyVotecount { get; set; }
-        public byte[] Logo { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string Logo { get; set; }
+        [NotMapped]
+        public IFormFile LogoFile { get; set; }
+        [NotMapped]
+        public string LogoSrc { get; set; }
 
         [Column(TypeName = "varbinary(200)")]
         public string Color { get; set; }

@@ -9,8 +9,9 @@ namespace VotingSystems.Models
 {
     public class Person
     {
-        [Key]
+        [Key,Required,DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int NIC { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SerialNo { get; set; }
         public bool Voted { get; set; }
 

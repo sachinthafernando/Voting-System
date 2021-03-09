@@ -1,0 +1,30 @@
+﻿@model VotingSystems.Models.Vote
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Vote</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Party)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Party.PartyID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.VoteID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

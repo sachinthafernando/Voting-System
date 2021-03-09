@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +20,12 @@ namespace VotingSystems.Models
         public string CandidateName { get; set; }
 
         public int CandidateVoteCount { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string Image { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
+        [NotMapped]
+        public string ImageSrc { get; set; }
 
         public int Party_ID { get; set; }
         [ForeignKey("Party_ID")]
