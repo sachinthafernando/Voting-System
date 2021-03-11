@@ -53,6 +53,7 @@ import { Fragment } from "react";
 import store from "./store";
 import Login from "./components/auth/Login";
 import Alert from "./components/layout/Alert";
+import VoteCandidate from './pages/rank4/voteCandidate/VoteCandidate';
 import VoteParty from './pages/rank4/voteParty/VoteParty';
 
 
@@ -107,7 +108,7 @@ return (
           <Route path= "/addParty" component={AddParty}/>
 
           <Route path= "/voteParty" component={VoteParty}/>
-
+          <Route path= "/voteCandidate" component={VoteCandidate}/>
           
 
           <Route exact path="/login" component={Login} />

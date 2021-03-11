@@ -1,98 +1,104 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react'
 import axios from 'axios';
-import { Grid, Container, Paper,  Button } from '@material-ui/core';
+import { Grid, Container, Paper,  Button, Link } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+//   // function MouseOver(event) {debugger;
+//   //   //backColor = event.target.style.background;
+//   //   event.target.style.background = 'grey';
+//   // }
+//   // function MouseOut(event){debugger;
+//   //   event.target.style.background='blue';
+//   // }
+
+const styles = {
   root: {
-    // display: 'content',
-    // flexWrap: 'nowrap',
-    // flexDirection: 'row',
-    // justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
-  paper : {
-    margin: "30px auto",
-    padding: 20,
-  },
-  card: {
-    display: 'flex',
-    width: 1000,
-    // '&:hover': {
-    //   backgroundColor: 'blue',
-    // }
-  },
-  text: {
-    alignSelf: 'center',
-    paddingLeft: 30,
-  },
-  media: {
-    paddingLeft: 20,
-    padding: 10,
-  },
-  }));
+        overflow: 'hidden',
+      },
+      paper : {
+        margin: "30px auto",
+        padding: 20,
+      },
+      card: {
+        display: 'contents',
+      },
+      text: {
+        alignSelf: 'center',
+        paddingLeft: 30,
+      },
+      media: {
+        paddingLeft: 20,
+        padding: 10,
+      },
+}
 
-export default function VoteParty() {
+export default class VoteParty extends Component {
 
-  const classes = useStyles();
+  constructor(props) {
+    super(props);
 
-  const [ partyList, setPartyList] = useState([])
-
-  useEffect(() => {
-    refreshPartyList();
-}, [])
-debugger;
-  const partyAPI = (url = 'http://localhost:5000/api/party/') => {
-      return {
-          fetchAll: () => axios.get(url),
-          update: (id, updatedRecord) => axios.put(url + id, updatedRecord)
-      }
-  }
-debugger;
-  const refreshPartyList = () => {
-      partyAPI().fetchAll()
-      .then(res => setPartyList(res.data))
-      .catch(err => console.log(err))
-  }
-
-  // const selectParty=() => {debugger;
-  //   this.props.history.push("/homeRank2");
-  // }
-  //var backColor= null;
-
-  // function MouseOver(event) {debugger;
-  //   //backColor = event.target.style.background;
-  //   event.target.style.background = 'grey';
-  // }
-  // function MouseOut(event){debugger;
-  //   event.target.style.background='blue';
-  // }
+    this.state = {
+      business: []
+    };
+}
 
 
-  return (
-    <Container className={classes.root}>
-        <Paper className={classes.paper} elevation={3} >
+componentDidMount(){
+    debugger;
+    axios.get('http://localhost:5000/api/party/')
+    .then(response => {
+        this.setState({ 
+          business: response.data
+        });
+        debugger;
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+}
+
+selectParty(e) {
+  debugger;
+  const formData = new FormData()
+        formData.append('partyVotecount',++e.partyVotecount)
+        formData.append('partyName',e.partyName)
+        formData.append('logo',e.logo)
+        formData.append('logoFile',e.logoFile)
+        formData.append('color',e.color)
+  axios.put('http://localhost:5000/api/party/'+e.partyID, formData)
+  .then(res => {console.log(res.config.data);});
+  debugger;
+  // this.props.close();
+  this.props.history.push('/voteCandidate');
+  
+}
+
+  render() {
+    return (
+    <Container style={styles.root}>
+         <Paper style={styles.paper} elevation={3} >
             <Grid  spacing={4}>
-                {partyList.map((tile) => (
-                  <Button 
-                    variant="contained"
-                    // onClick={selectParty}
-                  // onMouseOver={MouseOver} 
-                  // onMouseOut={MouseOut}
-                  >
-                    <div className={classes.card} style={{backgroundColor:tile.color}} >
-                      <div className={classes.media}>
-                      <img src={tile.logoSrc} alt={tile.logo} />
+            {this.state.business.map((tile, i) => (
+                    <Button 
+                      key={i}
+                      onClick={() => this.selectParty(tile)}
+                      variant="contained"
+                      //style= {styles.card}
+                    // onMouseOver={MouseOver} 
+                    // onMouseOut={MouseOut}
+                    >
+                      <div style={{backgroundColor:tile.color, display :"flex", width: 1000}} >
+                        <div style={styles.media}>
+                        <img src={tile.logoSrc} alt={tile.logo} />
+                        </div>
+                        <div style={styles.text}>
+                        <h1>{tile.partyName}</h1>
+                        </div>
                       </div>
-                      <div className={classes.text}>
-                      <h1>{tile.partyName}</h1>
-                      </div>
-                    </div>
-                  </Button>
+                    </Button>
                 ))}
             </Grid>
         </Paper>
     </Container>
-  );
+    )
+  }
 }

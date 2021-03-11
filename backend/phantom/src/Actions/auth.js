@@ -11,7 +11,7 @@ export const login =  (name, password) => async dispatch => {
     const body = JSON.stringify({ name, password });
 
     try {
-        const res = await axois.post("https://localhost:5000/api/LogSignUp/login", body, config);
+        const res = await axois.post("http://localhost:5000/api/LogSignUp/login", body, config);
          
         dispatch(setAlert("Login Successfull", "success"));
         dispatch({
