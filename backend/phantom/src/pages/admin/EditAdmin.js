@@ -31,58 +31,106 @@ export default class EditAdmin extends Component {
 
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        this.onChangeRank = this.onChangeRank.bind(this);
+        this.onChangeCenter = this.onChangeCenter.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             Name: '',
             Password: '',
-            Rank: ''
+            PollingCenter: '',
+            disabled: true,
+            obj: {},
         }
     }
 
     componentDidMount() {debugger;
-        axios.get('http://localhost:5000/api/admin/'+this.props.user)
+        axios.get('http://localhost:5000/api/'+this.props.table+'/'+this.props.user)
         .then(response => {
             this.setState({
                 Name: response.data.name,
                 Password: response.data.password,
-                Rank: response.data.rank
+                PollingCenter: response.data.pollingCenter,
             });debugger;
         })
         .catch(function (error) {
             console.log(error);
-        })
+        });
+
+        if (this.props.table === 'Rank4Admin') {debugger;
+            this.setState({
+                disabled: false,
+            })
+        }
     }
 
     onChangeName(e) {
         this.setState({
-            Name: e.target.value
+            Name: e.target.value,
         });
+        debugger;
+        this.checkRank(e.target.value, this.state.Password, this.state.PollingCenter);
     }
 
     onChangePassword(e) {
         this.setState({
-            Password: e.target.value
+            Password: e.target.value,
         });
+        debugger;
+        this.checkRank(this.state.Name, e.target.value, this.state.PollingCenter);
     }
 
-    onChangeRank(e) {
+    onChangeCenter(e) {
         this.setState({
-            Rank: e.target.value
+            PollingCenter: e.target.value,
         });
+        debugger;
+        this.checkRank(this.state.Name, this.state.Password, e.target.value);
+    }
+
+    checkRank(name, password, center){
+        if (this.props.table === "Rank1Admin") {debugger
+            this.setState({
+                obj: {
+                    Rank1AdminID: this.props.user,
+                    Name: name,
+                    Password: password,
+                },
+            })
+        }
+        if (this.props.table === "Rank2Admin") {
+            this.setState({
+                obj: {
+                    Rank2AdminID: this.props.user,
+                    Name: name,
+                    Password: password,
+                },
+            })
+        }
+        if (this.props.table === "Rank3Admin") {
+            this.setState({
+                obj: {
+                    Rank3AdminID: this.props.user,
+                    Name: name,
+                    Password: password,
+                },
+            })
+        }
+        if (this.props.table === "Rank4Admin") {
+            this.setState({
+                obj: {
+                    Rank4AdminID: this.props.user,
+                    Name: name,
+                    Password: password,
+                    PollingCenter: center,
+                },
+            })
+        }
     }
 
     onSubmit(e) {
         debugger;
         e.preventDefault();
-        const obj = {
-            Id: this.state.adminID,
-            Name: this.state.Name,
-            Password: this.state.Password,
-            Rank: parseInt(this.state.Rank)
-        };
-        axios.put('http://localhost:5000/api/admin/'+this.props.user, obj)
+        axios.put('http://localhost:5000/api/'+this.props.table+'/'+this.props.user, this.state.obj)
         .then(res => {console.log(res.config.data);});
         debugger;
         this.props.close();
@@ -111,20 +159,18 @@ export default class EditAdmin extends Component {
                             onChange = {this.onChangePassword}
                             style= {styles.textField}
                         />
-                        <FormControl variant="outlined" style={styles.formControl}>
-                            <InputLabel >Rank</InputLabel>
-                            <Select
-                                name= "rank"
-                                value = {this.state.Rank}
-                                onChange= {this.onChangeRank}
-                            >
-                                <MenuItem value="">Select Rank</MenuItem>  
-                                <MenuItem value="1">Rank 1</MenuItem> 
-                                <MenuItem value="2">Rank 2</MenuItem> 
-                                <MenuItem value="3">Rank 3</MenuItem> 
-                                <MenuItem value="4">Rank 4</MenuItem> 
-                                </Select>
-                        </FormControl>
+                        {
+                        this.state.disabled? null :
+                            <TextField 
+                                name = "center"
+                                variant = "outlined"
+                                label = "Polling Center"
+                                value = {this.state.PollingCenter}
+                                onChange = {this.onChangeCenter}
+                                style= {styles.textField}
+                                disabled= {this.state.disabled}
+                            />
+                        }
                 </Grid>
                         <div>
                             <Button

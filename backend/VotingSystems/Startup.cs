@@ -63,8 +63,11 @@ namespace VotingSystems
 
             services.AddAuthorization(config =>
             {
-                config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
-                
+                config.AddPolicy(Policies.Rank1Admin, Policies.Rank1AdminPolicy());
+                config.AddPolicy(Policies.Rank2Admin, Policies.Rank2AdminPolicy());
+                config.AddPolicy(Policies.Rank3Admin, Policies.Rank3AdminPolicy());
+                config.AddPolicy(Policies.Rank4Admin, Policies.Rank4AdminPolicy());
+
             });
 
 

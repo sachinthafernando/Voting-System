@@ -55,12 +55,28 @@ import Login from "./components/auth/Login";
 import Alert from "./components/layout/Alert";
 import VoteCandidate from './pages/rank4/voteCandidate/VoteCandidate';
 import VoteParty from './pages/rank4/voteParty/VoteParty';
+import Scanner from './pages/barCode/Scanner';
+import AddDistricts from './pages/rank1/setting/AddDistricts';
+import PollingCenter from './pages/rank1/pollingCenter/PollingCenter';
+import barChart from './pages/rank1/result/barChart';
+
+import  PrivateRoute  from "./components/PrivateRoutes/PrivateRoutes";
+// import NotFound from './components/auth/NotFound';
+import Authtoken from './utilities/Authtoken';
+import { loadUser } from './Actions/auth';
+import{useEffect} from 'react';
+import test from './pages/rank1/result/test';
+
+if (localStorage.token){
+  Authtoken(localStorage.token);
+}
 
 
-
-
-
-function App() {
+const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+    
 
   const [isOpen ,setIsOpen] = useState(false);
   const toggle =() =>{
@@ -81,6 +97,8 @@ return (
         <Switch>
           
           <Route exact path = "/" component={Home} />
+          <Route exact path = "/home" component={Home} />
+          {/* <Route render={() => <Error404/> }/> */}
           <Route exact path = "/aboutUs" component={AboutUs} />
           
 
@@ -110,7 +128,13 @@ return (
           <Route path= "/voteParty" component={VoteParty}/>
           <Route path= "/voteCandidate" component={VoteCandidate}/>
           
+          <Route path= "/addDistricts" component={AddDistricts}/>
+          <Route path= "/polCenter" component={PollingCenter}/>
+          <Route path= "/barChart" component={barChart}/>
+          
+          <Route path= "/test" component={test}/>
 
+          <Route path= "/scanner" component={Scanner}/>
           <Route exact path="/login" component={Login} />
 
         </Switch>

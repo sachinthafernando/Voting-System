@@ -19,27 +19,6 @@ namespace VotingSystems.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("VotingSystems.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(22)");
-
-                    b.Property<int>("Rank")
-                        .HasColumnType("int");
-
-                    b.HasKey("AdminID");
-
-                    b.ToTable("Admins");
-                });
-
             modelBuilder.Entity("VotingSystems.Models.Candidate", b =>
                 {
                     b.Property<int>("CandidateID")
@@ -53,7 +32,7 @@ namespace VotingSystems.Migrations
                     b.Property<string>("CandidateNo")
                         .HasColumnType("nvarchar(5)");
 
-                    b.Property<int>("CandidateVoteCount")
+                    b.Property<int>("District_ID")
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
@@ -63,6 +42,8 @@ namespace VotingSystems.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CandidateID");
+
+                    b.HasIndex("District_ID");
 
                     b.HasIndex("Party_ID");
 
@@ -82,6 +63,21 @@ namespace VotingSystems.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Districts");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.District_Party", b =>
+                {
+                    b.Property<int>("District_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Party_ID")
+                        .HasColumnType("int");
+
+                    b.HasKey("District_ID", "Party_ID");
+
+                    b.HasIndex("Party_ID");
+
+                    b.ToTable("District_Parties");
                 });
 
             modelBuilder.Entity("VotingSystems.Models.Division", b =>
@@ -140,9 +136,6 @@ namespace VotingSystems.Migrations
                     b.Property<string>("PartyName")
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("PartyVotecount")
-                        .HasColumnType("int");
-
                     b.HasKey("PartyID");
 
                     b.ToTable("Parties");
@@ -169,6 +162,93 @@ namespace VotingSystems.Migrations
                     b.ToTable("People");
                 });
 
+            modelBuilder.Entity("VotingSystems.Models.Rank1Admin", b =>
+                {
+                    b.Property<int>("Rank1AdminID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(22)");
+
+                    b.HasKey("Rank1AdminID");
+
+                    b.ToTable("Rank1Admin");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.Rank2Admin", b =>
+                {
+                    b.Property<int>("Rank2AdminID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(22)");
+
+                    b.HasKey("Rank2AdminID");
+
+                    b.ToTable("Rank2Admin");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.Rank3Admin", b =>
+                {
+                    b.Property<int>("Rank3AdminID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(22)");
+
+                    b.HasKey("Rank3AdminID");
+
+                    b.ToTable("Rank3Admin");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.Rank4Admin", b =>
+                {
+                    b.Property<int>("Rank4AdminID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(22)");
+
+                    b.Property<int?>("PersonDist")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PersonDiv")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PollingCenter")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool?>("ScanScreen")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("VoteScreen")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Rank4AdminID");
+
+                    b.ToTable("Rank4Admin");
+                });
+
             modelBuilder.Entity("VotingSystems.Models.Vote", b =>
                 {
                     b.Property<int>("VoteID")
@@ -179,8 +259,14 @@ namespace VotingSystems.Migrations
                     b.Property<int>("Party_ID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Time")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("personDist")
+                        .HasColumnType("int");
+
+                    b.Property<int>("personDiv")
+                        .HasColumnType("int");
 
                     b.HasKey("VoteID");
 
@@ -199,28 +285,55 @@ namespace VotingSystems.Migrations
                     b.Property<int>("Candidate_ID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Time")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Vote_ID")
+                    b.Property<int>("personDist")
+                        .HasColumnType("int");
+
+                    b.Property<int>("personDiv")
                         .HasColumnType("int");
 
                     b.HasKey("VoteCanID");
 
                     b.HasIndex("Candidate_ID");
 
-                    b.HasIndex("Vote_ID");
-
                     b.ToTable("VoteCan");
                 });
 
             modelBuilder.Entity("VotingSystems.Models.Candidate", b =>
                 {
+                    b.HasOne("VotingSystems.Models.District", "District")
+                        .WithMany("Candidates")
+                        .HasForeignKey("District_ID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("VotingSystems.Models.Party", "Party")
                         .WithMany("Candidates")
                         .HasForeignKey("Party_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("District");
+
+                    b.Navigation("Party");
+                });
+
+            modelBuilder.Entity("VotingSystems.Models.District_Party", b =>
+                {
+                    b.HasOne("VotingSystems.Models.District", "District")
+                        .WithMany("District_Parties")
+                        .HasForeignKey("District_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VotingSystems.Models.Party", "Party")
+                        .WithMany("District_Parties")
+                        .HasForeignKey("Party_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("District");
 
                     b.Navigation("Party");
                 });
@@ -263,8 +376,7 @@ namespace VotingSystems.Migrations
                     b.HasOne("VotingSystems.Models.Party", "Party")
                         .WithMany("Votes")
                         .HasForeignKey("Party_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Party");
                 });
@@ -274,17 +386,9 @@ namespace VotingSystems.Migrations
                     b.HasOne("VotingSystems.Models.Candidate", "Candidate")
                         .WithMany("VoteCandidates")
                         .HasForeignKey("Candidate_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VotingSystems.Models.Vote", "Votes")
-                        .WithMany("VoteCandidates")
-                        .HasForeignKey("Vote_ID")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Candidate");
-
-                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("VotingSystems.Models.Candidate", b =>
@@ -294,6 +398,10 @@ namespace VotingSystems.Migrations
 
             modelBuilder.Entity("VotingSystems.Models.District", b =>
                 {
+                    b.Navigation("Candidates");
+
+                    b.Navigation("District_Parties");
+
                     b.Navigation("Divisions");
                 });
 
@@ -311,12 +419,9 @@ namespace VotingSystems.Migrations
                 {
                     b.Navigation("Candidates");
 
-                    b.Navigation("Votes");
-                });
+                    b.Navigation("District_Parties");
 
-            modelBuilder.Entity("VotingSystems.Models.Vote", b =>
-                {
-                    b.Navigation("VoteCandidates");
+                    b.Navigation("Votes");
                 });
 #pragma warning restore 612, 618
         }

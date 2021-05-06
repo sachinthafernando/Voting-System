@@ -15,5 +15,7 @@ namespace VotingSystems.Models
         public string Name { get; set; }
 
         public virtual ICollection<Division> Divisions { get; set; }
+        public virtual ICollection<Candidate> Candidates { get; set; }
+        public virtual ICollection<District_Party> District_Parties { get; set; }
     }
 }

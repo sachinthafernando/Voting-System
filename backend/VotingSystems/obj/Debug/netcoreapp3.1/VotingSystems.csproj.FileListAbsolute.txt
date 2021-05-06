@@ -1169,10 +1169,8 @@ H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\Voti
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
-H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.csprojAssemblyReference.cache
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\staticwebassets\VotingSystems.StaticWebAssets.Manifest.cache
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\staticwebassets\VotingSystems.StaticWebAssets.xml
-H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.MvcApplicationPartsAssemblyInfo.cache
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.RazorAssemblyInfo.cache
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.RazorAssemblyInfo.cs
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.AssemblyInfoInputs.cache
@@ -1180,11 +1178,6 @@ H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\Voti
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.TagHelpers.input.cache
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.TagHelpers.output.cache
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.RazorCoreGenerate.cache
-H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Create.cshtml.g.cs
-H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Delete.cshtml.g.cs
-H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Details.cshtml.g.cs
-H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Edit.cshtml.g.cs
-H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\Candidate\Create.cshtml.g.cs
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\Candidate\Delete.cshtml.g.cs
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\Razor\Views\Candidate\Details.cshtml.g.cs
@@ -1232,3 +1225,5 @@ H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\Voti
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.csproj.CopyComplete
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.dll
 H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.pdb
+H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.csprojAssemblyReference.cache
+H:\Engineering\6th Semester\Academic\Software Project\Final Project\backend\VotingSystems\obj\Debug\netcoreapp3.1\VotingSystems.MvcApplicationPartsAssemblyInfo.cache

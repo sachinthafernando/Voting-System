@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import jwt_decode from "jwt-decode"
 import { Grid, Container, Paper,  Button, Link } from '@material-ui/core';
 
 //   // function MouseOver(event) {debugger;
@@ -36,39 +37,77 @@ export default class VoteParty extends Component {
   constructor(props) {
     super(props);
 
+    var today = new Date(),
+
+    time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds() + ':' + today.getMilliseconds();
+
     this.state = {
-      business: []
+      business: [],
+      currentTime: time,
+      personDist: '',
+      personDiv: '',
     };
 }
 
 
 componentDidMount(){
     debugger;
-    axios.get('http://localhost:5000/api/party/')
-    .then(response => {
-        this.setState({ 
-          business: response.data
-        });
-        debugger;
-    })
-    .catch(function (error) {
-        console.log(error);
-    })
+    if(localStorage.token){
+      var decoded = jwt_decode(localStorage.token);
+      debugger;
+      axios.get('http://localhost:5000/api/Rank4Admin/'+ decoded.id)
+      .then(res => {
+          this.setState({ 
+            personDist: res.data.personDist,
+            personDiv: res.data.personDiv,
+          });
+          debugger;
+          const distId =  this.state.personDist;
+          axios.get('http://localhost:5000/api/party/district/' + distId)
+          .then(response => {
+              this.setState({ 
+                business: response.data
+              });
+              debugger;
+          })
+          .catch(function (error) {
+              console.log(error);
+          })
+      })
+      .catch(function (error) {
+          console.log(error);
+      })
+  }
+    
 }
 
 selectParty(e) {
   debugger;
-  const formData = new FormData()
-        formData.append('partyVotecount',++e.partyVotecount)
-        formData.append('partyName',e.partyName)
-        formData.append('logo',e.logo)
-        formData.append('logoFile',e.logoFile)
-        formData.append('color',e.color)
-  axios.put('http://localhost:5000/api/party/'+e.partyID, formData)
-  .then(res => {console.log(res.config.data);});
+
+  const obj = {
+    // VoteID: '',
+    Time: this.state.currentTime,
+    Party_ID: parseInt(e.partyID),  
+    personDist: parseInt(this.state.personDist),
+    personDiv: parseInt(this.state.personDiv),
+  };
   debugger;
+  axios.post('http://localhost:5000/api/vote/', obj)
+  .then(json => {
+      if (json.statusText == 'Created'){
+          debugger;
+          console.log(json.statusText);
+          debugger;
+          alert("vote Saved Successfully");
+      }
+      else{
+          debugger;
+          alert('Data not Saved');
+      }
+  });
+debugger;
   // this.props.close();
-  this.props.history.push('/voteCandidate');
+  this.props.history.push('/voteCandidate', {party: e.partyID });
   
 }
 

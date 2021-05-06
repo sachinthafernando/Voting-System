@@ -16,7 +16,7 @@ namespace VotingSystems.Models
 
         [Column(TypeName ="nvarchar(200)")]
         public string PartyName { get; set; }
-        public int PartyVotecount { get; set; }
+
         [Column(TypeName = "nvarchar(100)")]
         public string Logo { get; set; }
         [NotMapped]
@@ -30,5 +30,6 @@ namespace VotingSystems.Models
         public virtual ICollection<Candidate> Candidates { get; set; }
 
         public virtual ICollection<Vote> Votes { get; set; }
+        public virtual ICollection<District_Party> District_Parties { get; set; }
     }
 }

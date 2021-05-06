@@ -45,7 +45,6 @@ export default class AddParty extends Component {
 
         this.state = {
             partyName:'',
-            partyVotecount:0,
             logo: '',
             logoSrc: defaultPartyImg,
             logoFile: null,
@@ -85,7 +84,7 @@ export default class AddParty extends Component {
 
     }
     onChangeColor(e) {
-     //   debugger;
+       debugger;
         this.setState({
             color: e.target.value
         });
@@ -96,7 +95,6 @@ export default class AddParty extends Component {
         debugger;
         const formData = new FormData()
         formData.append('partyName',this.state.partyName)
-        formData.append('partyVotecount',this.state.partyVotecount)
         formData.append('logo',this.state.logo)
         formData.append('logoFile',this.state.logoFile)
         formData.append('color',this.state.color)

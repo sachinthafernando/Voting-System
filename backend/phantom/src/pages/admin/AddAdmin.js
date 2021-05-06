@@ -15,18 +15,18 @@ const styles = {
           
     }, 
     formControl: {
-        margin: "30px auto",
+        margin: "10px auto",
         minWidth: 230,
        
     
         
     },
     textField: {
-        margin: "30px auto",
+        margin: "10px auto",
         width: 230,
       },
     sMargin:{
-        margin: "170px 10px 20px 40px",//changed
+        margin: "10px",//changed
     }
 }
 export default class AddAdmin extends Component {
@@ -37,20 +37,19 @@ export default class AddAdmin extends Component {
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangeRank = this.onChangeRank.bind(this);
+        this.onChangeCenter = this.onChangeCenter.bind(this);
         this.addAdmin = this.addAdmin.bind(this);
 
         this.state = {
             Name:'',
             Password:'',
-            Rank:''
+            Rank:'',
+            PollingCenter: '',
+            disabled: true,
+            obj: {}
         }
     }
 
-    // handleChange= (e) => {
-    //     this.setState({
-    //         [e.target.name]:e.target.value
-    //     })
-    // }
     onChangeName(e) {
         this.setState({
             Name: e.target.value
@@ -66,18 +65,37 @@ export default class AddAdmin extends Component {
         this.setState({
             Rank: e.target.value
         });
+
+        if (e.target.value === 'Rank4Admin') {
+            this.setState({disabled: false})
+        }
+        else{
+            this.setState({
+                disabled: true,
+                obj: {
+                    Name: this.state.Name,
+                    Password: this.state.Password,
+                },
+            });
+        }
+        debugger;
+    }
+    onChangeCenter(e) {
+        this.setState({
+            PollingCenter: e.target.value,
+            obj: {
+                Name: this.state.Name,
+                Password: this.state.Password,
+                PollingCenter: e.target.value,
+            },
+        });
+        debugger;
     }
 
 
     addAdmin=()=>{
         debugger;
-        //e.preventDefault();
-        const obj = {
-            Name: this.state.Name,
-            Password: this.state.Password,
-            Rank: parseInt(this.state.Rank)
-        };
-        axios.post('http://localhost:5000/api/admin/', obj)
+        axios.post('http://localhost:5000/api/'+this.state.Rank, this.state.obj)
         .then(json => {
             if (json.statusText == 'Created'){
                 debugger;
@@ -91,7 +109,7 @@ export default class AddAdmin extends Component {
             }
         });
         debugger;
-        this.props.history.push('/adminList')
+        //this.props.history.push('/adminList')
     }
 
     
@@ -107,7 +125,7 @@ export default class AddAdmin extends Component {
                 <form onSubmit={this.addAdmin} autoComplete="off" noValidate style={styles.root}>
                     <Grid container>
                     
-                        <Grid item xs={6}>
+                        <Grid >
                             <TextField 
                                 name = "name"
                                 variant = "outlined"
@@ -124,14 +142,6 @@ export default class AddAdmin extends Component {
                                 onChange = {this.onChangePassword}
                                 style= {styles.textField}
                             />
-                            
-                            {/* <TextField 
-                                name = "rank"
-                                variant = "outlined"
-                                label = "Rank"
-                                value = {this.state.Rank}
-                                onChange = {this.onChangeRank}
-                            /> */}
 
                             <FormControl variant="outlined" style={styles.formControl}>
                                 <InputLabel >Rank</InputLabel>
@@ -141,14 +151,25 @@ export default class AddAdmin extends Component {
                                     onChange= {this.onChangeRank}
                                 >
                                     <MenuItem value="">Select Rank</MenuItem>  
-                                    <MenuItem value="1">Rank 1</MenuItem> 
-                                    <MenuItem value="2">Rank 2</MenuItem> 
-                                    <MenuItem value="3">Rank 3</MenuItem> 
-                                    <MenuItem value="4">Rank 4</MenuItem> 
+                                    <MenuItem value="Rank1Admin">Rank 1</MenuItem> 
+                                    <MenuItem value="Rank2Admin">Rank 2</MenuItem> 
+                                    <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
+                                    <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
                                     </Select>
                             </FormControl>
-                        </Grid>
-                        <Grid item xs={6}>
+                            
+                            {
+                            this.state.disabled? null :
+                            <TextField 
+                                name = "center"
+                                variant = "outlined"
+                                label = "Polling Center"
+                                value = {this.state.PollingCenter}
+                                onChange = {this.onChangeCenter}
+                                style= {styles.textField}
+                                disabled= {this.state.disabled}
+                            />
+                            }
                             <div>
                                 <Button
                                     variant = "contained"
