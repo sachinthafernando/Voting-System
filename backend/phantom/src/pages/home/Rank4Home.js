@@ -12,7 +12,7 @@ export const images = [
     url: 'https://d3n8a8pro7vhmx.cloudfront.net/broadbent/pages/4770/attachments/original/1449673980/Reform_Webpage_Header.jpg?1449673980',
     title: 'Visit Polling Center',
     width: '100%',
-    path:'/adminList'
+    path:'/voteParty'
     
   },
   

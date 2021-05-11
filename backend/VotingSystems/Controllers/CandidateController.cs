@@ -34,7 +34,7 @@ namespace VotingSystems.Controllers
                     CandidateID = x.CandidateID,
                     CandidateNo = x.CandidateNo,
                     CandidateName = x.CandidateName,
-                    CandidateVoteCount = x.CandidateVoteCount,
+                    District_ID = x.District_ID,
                     Party_ID = x.Party_ID,
                     Image = x.Image,
                     ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.Image)
@@ -56,6 +56,27 @@ namespace VotingSystems.Controllers
             }
 
             return candidate;
+        }
+
+        //GET: api/Candidate/GetByParty/5
+        [HttpGet("GetByParty/{party}/{district}")]
+        public async Task<ActionResult<IEnumerable<Candidate>>> GetByParty(int party, int district)
+        {
+            //return Ok();
+
+            return await _context.Candidates
+                .Where(x => (x.Party_ID == party) && (x.District_ID == district))
+                .Select(x => new Candidate()
+                {
+                    CandidateID = x.CandidateID,
+                    CandidateNo = x.CandidateNo,
+                    CandidateName = x.CandidateName,
+                    District_ID = x.District_ID,
+                    Party_ID = x.Party_ID,
+                    Image = x.Image,
+                    ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.Image)
+                })
+                .ToListAsync();
         }
 
         // PUT: api/Candidate/5

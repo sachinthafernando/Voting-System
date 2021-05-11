@@ -17,7 +17,7 @@ namespace VotingSystems.Services.JWTService
 
         private readonly IConfiguration _config;
         private readonly VotingDBContext _db;
-        public JWTService(IConfiguration config, VotingDBContext db) 
+        public JWTService(IConfiguration config, VotingDBContext db)
         {
             _config = config;
             _db = db;
@@ -28,30 +28,45 @@ namespace VotingSystems.Services.JWTService
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            // Find User role
-            
-            var isAdmin = _db.Admins.FirstOrDefault(m => m.Name.ToLower() == user.Name.ToLower());
+            // Find User rank
 
-            var currentUserRole = new object();
-            var currentUserId = new object();
-/*
-            if (isSeller != null)
+            var isRank1Admin = _db.Rank1Admins.FirstOrDefault(m => m.Name.ToLower() == user.Name.ToLower());
+            var isRank2Admin = _db.Rank2Admins.FirstOrDefault(m => m.Name.ToLower() == user.Name.ToLower());
+            var isRank3Admin = _db.Rank3Admins.FirstOrDefault(m => m.Name.ToLower() == user.Name.ToLower());
+            var isRank4Admin = _db.Rank4Admins.FirstOrDefault(m => m.Name.ToLower() == user.Name.ToLower());
+
+            var currentRole = new object();
+            var currentId = new object();
+
+            if (isRank1Admin != null)
             {
-                currentUserRole = isSeller.UserRole;
-                currentUserId = isSeller.SellerId;
+                currentRole = isRank1Admin.Role;
+                currentId = isRank1Admin.Rank1AdminID;
+            }
+            else if (isRank2Admin != null)
+            {
+                currentRole = isRank2Admin.Role;
+                currentId = isRank2Admin.Rank2AdminID;
+            }
+            else if (isRank3Admin != null)
+            {
+                currentRole = isRank3Admin.Role;
+                currentId = isRank3Admin.Rank3AdminID;
             }
             else
             {
-                currentUserRole = isCustomer.UserRole;
-                currentUserId = isCustomer.CustomerId;
+                currentRole = isRank4Admin.Role;
+                currentId = isRank4Admin.Rank4AdminID;
             }
-*/
+
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Name),
-                new Claim("id", currentUserId.ToString()),
-                new Claim("role", currentUserRole.ToString()),
+                new Claim("id", currentId.ToString()),
+                new Claim("role", currentRole.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+
+
             };
 
             var token = new JwtSecurityToken(

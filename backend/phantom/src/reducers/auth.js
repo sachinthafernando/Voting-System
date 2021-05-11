@@ -42,6 +42,7 @@ export default function(state = initialState, action) {
         case LOGIN_FAILED:
         case LOGOUT:
             localStorage.removeItem("token");
+            // debugger;
             return {
                 ...state,
                 token: null,
