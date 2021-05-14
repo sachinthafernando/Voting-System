@@ -32,8 +32,6 @@ export default class AddPerson extends Component {
         this.onChangeNIC = this.onChangeNIC.bind(this);
         this.onChangeSerialNo = this.onChangeSerialNo.bind(this);
         this.onChangeVoted = this.onChangeVoted.bind(this);
-        this.onChangeDistrict = this.onChangeDistrict.bind(this);
-        this.onChangeDivision = this.onChangeDivision.bind(this);
         this.onChangeGND = this.onChangeGND.bind(this);
         this.AddPerson = this.addPerson.bind(this);
 
@@ -41,30 +39,30 @@ export default class AddPerson extends Component {
             NIC:'',
             SerialNo:'',
             Voted:'false',
-            disctOptions: [{ value: '', display:'Select District'}],
-            District: "",
-            divOptions: [{ value: '', display:'Select Division'}],
-            Division: "",
-            gndOptions: [{ value: '', display:'Select GND'}],
+            gndOptions: [],
             GND: ""
         }
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/api/District/')
+        axios.get('http://localhost:5000/api/GNDivision/')
+        // .then(response => {
+        //     debugger;
+        //     return response;
+        // })
         .then(response => {
             debugger;
-            let DisctfromApi = response.data.map(disctOption =>{
-                return { value: disctOption.id, display: disctOption.name}
+            let GNDfromApi = response.data.map(gndOption =>{
+                debugger;
+                return { value: gndOption.id, display: gndOption.name}
             });
             this.setState({
-                disctOptions: [{ value: '', display:'Select District'}].concat(DisctfromApi)
+                gndOptions: [{ value: '', display:'Select GND'}].concat(GNDfromApi)
             });
         })
         .catch(function (error) {
             console.log(error);
-        });
-        
+        })
     }
 
     onChangeNIC(e) {
@@ -84,49 +82,6 @@ export default class AddPerson extends Component {
         });
     }
 
-    onChangeDistrict(e) {
-        debugger;
-        this.setState({
-            District: e.target.value
-        });
-        debugger;
-        axios.get('http://localhost:5000/api/Division/GetByDistrict/' + e.target.value)
-        .then(response => {
-            debugger;
-            let DivfromApi = response.data.map(divOption =>{
-                return { value: divOption.id, display: divOption.name}
-            });
-            this.setState({
-                divOptions: [{ value: '', display:'Select Division'}].concat(DivfromApi)
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-    }
-
-    onChangeDivision(e) {
-        debugger;
-        this.setState({
-            Division: e.target.value
-        });
-
-        axios.get('http://localhost:5000/api/GNDivision/GetByDivision/' + e.target.value)
-        .then(response => {
-            debugger;
-            let GNDfromApi = response.data.map(gndOption =>{
-                return { value: gndOption.id, display: gndOption.name}
-            });
-            this.setState({
-                gndOptions: [{ value: '', display:'Select GND'}].concat(GNDfromApi)
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
-
     onChangeGND(e) {
         debugger;
         this.setState({
@@ -140,12 +95,11 @@ export default class AddPerson extends Component {
         const obj = {
             NIC: parseInt(this.state.NIC),
             SerialNo: parseInt(this.state.SerialNo),
-            Voted: Boolean(false),
+            Voted: Boolean(this.state.Voted),
             GND: parseInt(this.state.GND)
         };
-        debugger;
         axios.post('http://localhost:5000/api/person/', obj)
-        .then(json => {debugger;
+        .then(json => {
             if (json.statusText == 'Created'){
                 debugger;
                 console.log(json.statusText);
@@ -189,37 +143,13 @@ export default class AddPerson extends Component {
                                 name = "voted"
                                 variant = "outlined"
                                 label = "Voted"
-                                value = {false}
+                                value = {this.state.Voted}
                                 onChange = {this.onChangeVoted}
                                 style= {styles.textField}
                                 disabled= "true"
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >District</InputLabel>
-                                <Select
-                                    //name= "gND"
-                                    value = {this.state.District}
-                                    onChange= {this.onChangeDistrict}
-                                >
-                                    {this.state.disctOptions.map((disctOption) => 
-                                        <MenuItem key={disctOption.value} value={disctOption.value}>{disctOption.display}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
-                            <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >Division</InputLabel>
-                                <Select
-                                    //name= "gND"
-                                    value = {this.state.Division}
-                                    onChange= {this.onChangeDivision}
-                                >
-                                    {this.state.divOptions.map((divOption) => 
-                                        <MenuItem key={divOption.value} value={divOption.value}>{divOption.display}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
                             <FormControl variant="outlined" style={styles.formControl}>
                                 <InputLabel >GND</InputLabel>
                                 <Select

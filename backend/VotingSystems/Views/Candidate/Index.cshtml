@@ -19,6 +19,9 @@
                 @Html.DisplayNameFor(model => model.CandidateName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.CandidateVoteCount)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Party)
             </th>
             <th></th>
@@ -32,6 +35,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CandidateName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CandidateVoteCount)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Party.PartyID)

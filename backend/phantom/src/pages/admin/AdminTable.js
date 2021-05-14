@@ -13,7 +13,6 @@ export default function AdminTable(props) {
     const [open, setOpen] = React.useState(false);debugger;
 
     const handleClickOpen = () => {
-        debugger;
         setOpen(true);
     };
     
@@ -22,45 +21,19 @@ export default function AdminTable(props) {
     };
 
     const DeleteAdmin = () =>{
-        debugger;
-        if (props.obj.rank1AdminID) {debugger;
-            axios.delete('http://localhost:5000/api/rank1Admin/'+props.obj.rank1AdminID)
-            .then(json => {
-                if(json.statusText=='OK'){
-                    alert('Record deleted successfully!!');
-                }
-            })
-        } 
-        if (props.obj.rank2AdminID) {debugger;
-            axios.delete('http://localhost:5000/api/rank2Admin/'+props.obj.rank2AdminID)
-            .then(json => {
-                if(json.statusText=='OK'){
-                    alert('Record deleted successfully!!');
-                }
-            })
-        }
-        if (props.obj.rank3AdminID) {debugger;
-            axios.delete('http://localhost:5000/api/rank3Admin/'+props.obj.rank3AdminID)
-            .then(json => {
-                if(json.statusText=='OK'){
-                    alert('Record deleted successfully!!');
-                }
-            })
-        }
-        if (props.obj.rank4AdminID) {debugger;
-            axios.delete('http://localhost:5000/api/rank4Admin/'+props.obj.rank4AdminID)
-            .then(json => {
-                if(json.statusText=='OK'){
-                    alert('Record deleted successfully!!');
-                }
-            })
-        }
+        axios.delete('http://localhost:5000/api/admin/'+props.obj.adminID)
+        .then(json => {
+            if(json.statusText=='OK'){
+                alert('Record deleted successfully!!');
+            }
+        })
     }
 
     return (
         <TableRow>
                 <TableCell>{props.obj.name}</TableCell>
                 <TableCell>{props.obj.password}</TableCell>
+                <TableCell>{props.obj.rank}</TableCell>
                 <TableCell>
                     <ButtonGroup variant="text">
                         <Button>
@@ -75,11 +48,7 @@ export default function AdminTable(props) {
                             </DialogTitle>
                             <DialogContent>
                             <EditAdmin 
-                                table = {props.rank}
-                                user = {props.obj.rank1AdminID?props.obj.rank1AdminID
-                                    :props.obj.rank2AdminID?props.obj.rank2AdminID
-                                    :props.obj.rank3AdminID?props.obj.rank3AdminID
-                                    :props.obj.rank4AdminID?props.obj.rank4AdminID:null}
+                                user = {props.obj.adminID}
                                 close = {handleClose}
                             />
                             </DialogContent>
