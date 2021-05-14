@@ -11,14 +11,13 @@ namespace VotingSystems.Models
     {
         [Key]
         public int VoteID { get; set; }
-        public String Time { get; set; }
-        public int personDist { get; set; }
-        public int personDiv { get; set; }
+        public DateTime Time { get; set; }
 
         public int Party_ID { get; set; }
         [ForeignKey("Party_ID")]
         public virtual Party Party { get; set; }
 
+        public virtual ICollection<VoteCan> VoteCandidates { get; set; }
 
     }
 }

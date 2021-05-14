@@ -1,7 +1,11 @@
 import React from 'react';
 import {  makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Fade from 'react-reveal/Fade';
+import { BrowserRouter as Router, Route, Switch,NavLink, Link, Redirect } from 'react-router-dom';
 import { ButtonBase } from '@material-ui/core';
+import Flip from 'react-reveal/Flip';
 export const images = [
   {
     //url: '/static/images/grid-list/breakfast.jpg',

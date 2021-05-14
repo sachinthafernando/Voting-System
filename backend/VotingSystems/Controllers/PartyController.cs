@@ -33,30 +33,10 @@ namespace VotingSystems.Controllers
                 {
                     PartyID = x.PartyID,
                     PartyName = x.PartyName,
+                    PartyVotecount = x.PartyVotecount,
                     Color = x.Color,
                     Logo = x.Logo,
                     LogoSrc = String.Format("{0}://{1}{2}/Logos/{3}",Request.Scheme,Request.Host,Request.PathBase,x.Logo)
-                })
-                .ToListAsync();
-        }
-
-        // GET: api/Party/ByDistrict/5
-        [HttpGet("District/{id}")]
-        public async Task<ActionResult<IEnumerable<Party>>> GetPartybyDistrict(int id)
-        {
-            var partyList = new District_PartyController(_context)
-                .GetDistrict_Party(id).Result.Value
-                .Select(p => p.Party_ID).ToArray();
-
-            return await _context.Parties
-                .Where(p => partyList.Contains(p.PartyID))
-                .Select(x => new Party()
-                {
-                    PartyID = x.PartyID,
-                    PartyName = x.PartyName,
-                    Color = x.Color,
-                    Logo = x.Logo,
-                    LogoSrc = String.Format("{0}://{1}{2}/Logos/{3}", Request.Scheme, Request.Host, Request.PathBase, x.Logo)
                 })
                 .ToListAsync();
         }

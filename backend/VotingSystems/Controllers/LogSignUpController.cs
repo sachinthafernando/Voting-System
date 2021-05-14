@@ -17,8 +17,8 @@ namespace VotingSystems.Controllers
 
         private readonly IConfiguration _config; // To read from the config file
         private IJWTService _jwtService;
-
-
+       
+       
 
 
         public LogSignUpController(IConfiguration config, IJWTService jwtservice, VotingDBContext db)
@@ -26,8 +26,14 @@ namespace VotingSystems.Controllers
             _config = config;
             _jwtService = jwtservice;
             _db = db;
+          
 
+        }
 
+        [HttpGet]
+        public List<Admin> getall()
+        {
+            return _db.Admins.ToList();
         }
 
 
@@ -36,27 +42,18 @@ namespace VotingSystems.Controllers
         // POST api/<LogSignUpController>
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult>Login(Login login)
+        public async Task<IActionResult> Login(Login login)
         {
             try
             {            // VotingDB.Add(newadmin);
-                var CheckNameRank1Admin = _db.Rank1Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
-                var CheckPasswerdRank1Admin = _db.Rank1Admins.FirstOrDefault(m => m.Password == login.Password);
+                var CheckNameAdmin = _db.Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower()); //check N already exit or not
+                var CheckPasswerdAdmin = _db.Admins.FirstOrDefault(m => m.Password == login.Password);
 
-                var CheckNameRank2Admin = _db.Rank2Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
-                var CheckPasswerdRank2Admin = _db.Rank2Admins.FirstOrDefault(m => m.Password == login.Password);
-
-                var CheckNameRank3Admin = _db.Rank3Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
-                var CheckPasswerdRank3Admin = _db.Rank3Admins.FirstOrDefault(m => m.Password == login.Password);
-
-                var CheckNameRank4Admin = _db.Rank4Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
-                var CheckPasswerdRank4Admin = _db.Rank4Admins.FirstOrDefault(m => m.Password == login.Password);
+                
 
 
 
-
-
-                if ((CheckNameRank1Admin == null || CheckPasswerdRank1Admin == null) && (CheckNameRank2Admin == null || CheckPasswerdRank2Admin == null) && (CheckNameRank3Admin == null || CheckPasswerdRank3Admin == null) && (CheckNameRank4Admin == null || CheckPasswerdRank4Admin == null))
+                if (CheckNameAdmin == null || CheckPasswerdAdmin == null)
                 {
                     return BadRequest(); //New page
                 }
@@ -72,7 +69,7 @@ namespace VotingSystems.Controllers
                     {
                         token = tokenString
                     });
-                    /// return Ok();
+                   /// return Ok();
                 }
 
 

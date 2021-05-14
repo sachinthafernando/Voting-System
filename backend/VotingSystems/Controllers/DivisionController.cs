@@ -41,23 +41,6 @@ namespace VotingSystems.Controllers
             return division;
         }
 
-        //GET: api/Division/GetByDistrict/5
-        [HttpGet("GetByDistrict/{district}")]
-        public async Task<ActionResult<IEnumerable<Division>>> GetByDistrict(int district)
-        {
-            //return Ok();
-
-            return await _context.Divisions
-                .Where(x => x.ED_ID == district)
-                .Select(x => new Division()
-                {
-                    ID = x.ID,
-                    Name = x.Name,
-                    ED_ID = x.ED_ID,
-                })
-                .ToListAsync();
-        }
-
         // PUT: api/Division/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
