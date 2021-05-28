@@ -1,10 +1,10 @@
 import React from 'react';
 import {  makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { BrowserRouter as Router, Route, Switch,NavLink, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ButtonBase } from '@material-ui/core';
 import Flip from 'react-reveal/Flip';
+import SideNavbar from '../../components/sidebar/SideNavbar';
 export const images = [
   {
     //url: '/static/images/grid-list/breakfast.jpg',
@@ -18,19 +18,19 @@ export const images = [
     url: 'https://www.equatex.com/wp-content/uploads/PeerTracker_Banner_OPT.png',
     title: 'View Results',
     width: '40%',
-    path:'/adminList'
+    path:'/barChart'
   },
   {
     url: 'https://cdn2.iconfinder.com/data/icons/metro-ui-dock/512/Administrative_Tools.png',
     title: 'Settings',
     width: '30%',
-    path:'/adminList'
+    path:'/setting'
   },
 ];
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: 'block',
     flexWrap: 'wrap',
     minWidth: 300,
     maxHeight:'800',
@@ -110,7 +110,8 @@ export default function ButtonBases() {
   const classes = useStyles();
 
   return (
-    
+    <>
+    <SideNavbar/>
     <div className={classes.root}>
       {images.map((image) => (
         <ButtonBase to={image.path}
@@ -149,5 +150,6 @@ export default function ButtonBases() {
         </ButtonBase>
       ))}
     </div>
+    </>
   );
 }

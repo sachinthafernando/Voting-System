@@ -20,9 +20,9 @@ export default function PartyTable(props) {
         const DeleteParty = () =>{
             if(window.confirm('Are you sure to delete this record?'))
             {
-                axios.delete('http://localhost:5000/api/party/'+props.obj.partyID)
+                axios.delete('https://localhost:5001/api/party/'+props.obj.partyID)
             .then(json => {
-                if(json.statusText=='OK'){
+                if(json.statusText ==='OK'){
                     alert('Record deleted successfully!!');
                 }
             })

@@ -2,12 +2,19 @@ import React, { Component } from 'react'
 import axios from 'axios';
 //import './Result.css'
 
+<<<<<<< Updated upstream
 import { Container, Paper, Grid, Card, CardHeader, CardContent, Typography, Button, ButtonGroup } from '@material-ui/core';
 import { Doughnut } from 'react-chartjs-2';
 import { Col, Overlay, Row } from 'react-bootstrap';
 import { FaBullseye } from 'react-icons/fa';
 import Map from './dashboard/Map';
 import HeaderBar from './dashboard/HeaderBar';
+=======
+import { Paper, Grid } from '@material-ui/core';
+import Map from './dashboard/Map';
+import HeaderBar from './dashboard/HeaderBar';
+import CanResult from './dashboard/CanResult';
+>>>>>>> Stashed changes
 
 
 export default class barChart extends Component {
@@ -21,9 +28,15 @@ export default class barChart extends Component {
             divisionPartyCount: [],
             partyCount: [],
 
+<<<<<<< Updated upstream
             // districtCanCount: [],
             // divisionCanCount: [],
             // candidateCount: [],
+=======
+            districtCanCount: [],
+            divisionCanCount: [],
+            candidateCount: [],
+>>>>>>> Stashed changes
 
                 // use these data to access vote counts
             partyData: [],
@@ -31,16 +44,35 @@ export default class barChart extends Component {
             divisionPartyData: [],
             partyTotal: '',
 
+<<<<<<< Updated upstream
             // candidateData: [],
             // districtCanData: [],
             // divisionCanData: [],
+=======
+            candidateData: [],
+            districtCanData: [],
+            divisionCanData: [],
+>>>>>>> Stashed changes
             
         }
     } 
 
     componentDidMount(){
+<<<<<<< Updated upstream
         //debugger;
         axios.get('http://localhost:5000/api/vote/')
+=======
+        debugger;
+        this.partyClass();
+        this.candidateClass();
+    }
+
+    partyClass(){
+
+        //////////////////data load for vote party///////////////////////////////////
+
+        axios.get('https://localhost:5001/api/vote/')
+>>>>>>> Stashed changes
         .then(response => {
             // debugger;
             //all the vote objects
@@ -109,9 +141,15 @@ export default class barChart extends Component {
             // debugger;
         })
         .then(
+<<<<<<< Updated upstream
             axios.get('http://localhost:5000/api/party/')
             .then(res => {
                 debugger;
+=======
+            axios.get('https://localhost:5001/api/party/')
+            .then(res => {
+                // debugger;
+>>>>>>> Stashed changes
                 //defining arrays
                 const partyRec = res.data;
                 const partyVote = this.state.partyCount;
@@ -137,12 +175,30 @@ export default class barChart extends Component {
                     partyListDist.push({...partyVoteDist[j]});
                     partyListDist[j].Party = [];
                     // debugger;
+<<<<<<< Updated upstream
                     for (let i = 0; i < count.length; i++) {
                         // debugger;
                         partyListDist[j].Party.push({
                             ...partyRec[i],
                             ...(count.find(item => item.partyID === partyRec[i].partyID))
                         })
+=======
+                    // for (let i = 0; i < count.length; i++) {
+                    //     debugger;
+                    //     partyListDist[j].Party.push({
+                    //         ...partyRec[i],
+                    //         ...(count.find(item => item.partyID === partyRec[i].partyID))
+                    //     })
+                    //     debugger;
+                    // }
+                    for (let i = 0; i < count.length; i++) {
+                        // debugger;
+                        partyListDist[j].Party.push({
+                            ...count[i],
+                            ...(partyRec.find(item => item.partyID === count[i].partyID))
+                        })
+                        // debugger;
+>>>>>>> Stashed changes
                     }
                 }
                 // debugger;
@@ -155,8 +211,13 @@ export default class barChart extends Component {
                     for (let i = 0; i < count.length; i++) {
                         // debugger;
                         partyListDiv[j].Party.push({
+<<<<<<< Updated upstream
                             ...partyRec[i],
                             ...(count.find(item => item.partyID === partyRec[i].partyID))
+=======
+                            ...count[i],
+                            ...(partyRec.find(item => item.partyID === count[i].partyID))
+>>>>>>> Stashed changes
                         })
                     }
                 }
@@ -167,7 +228,11 @@ export default class barChart extends Component {
                     districtPartyData: partyListDist,
                     divisionPartyData: partyListDiv,
                 })
+<<<<<<< Updated upstream
                 debugger;
+=======
+                // debugger;
+>>>>>>> Stashed changes
             })
             .catch(function (error) {
                 console.log(error);
@@ -177,6 +242,7 @@ export default class barChart extends Component {
             console.log(error);
         });
 
+<<<<<<< Updated upstream
         
 
         //////////////////data load for vote candidate///////////////////////////////////
@@ -321,6 +387,152 @@ export default class barChart extends Component {
         //     console.log(error);
         // });
 
+=======
+    }
+
+    candidateClass(){
+
+        //////////////////data load for vote candidate///////////////////////////////////
+
+        debugger;
+        axios.get('https://localhost:5001/api/voteCan/')
+        .then(response => {
+            // debugger;
+            const total = response.data;
+
+            const Districts = total
+            .map(disItem => disItem.personDist)
+            .filter((district,index,array) => array.indexOf(district) === index );
+
+            // debugger;
+
+            const DistCanCounts = Districts
+            .map(district => ({
+                districtID: district,
+                districtCount: total.filter(item => item.personDist === district).length,
+                Candidate: total.filter(item => item.personDist === district)
+                    .map(canItem => canItem.candidate_ID)
+                    .filter((candidate,index,array) => array.indexOf(candidate) === index )
+                    .map(CanItem => ({
+                        candidateID: CanItem,
+                        candidateCount: total.filter(item => item.personDist === district)
+                            .filter(item => item.candidate_ID === CanItem).length
+                    })),
+            }));
+
+            // debugger;
+
+            const Divisions = total
+            .map(divItem => divItem.personDiv)
+            .filter((division,index,array) => array.indexOf(division) === index );
+
+            const DivCanCounts = Divisions
+                .map(DivItem => ({
+                    divisionID: DivItem,
+                    divisionCount: total
+                        .filter(item => item.personDiv === DivItem).length,
+                    Candidate: total
+                        .map(canItem => canItem.candidate_ID)
+                        .filter((candidate,index,array) => array.indexOf(candidate) === index )
+                        .map(CanItem => ({
+                            candidateID: CanItem,
+                            candidateCount: total
+                                .filter(item => item.personDiv === DivItem)
+                                .filter(item => item.candidate_ID === CanItem).length,
+                        }))
+                }))
+
+            const Candidates = total
+             .map(dataItem => dataItem.candidate_ID)
+             .filter((candidate,index,array) => array.indexOf(candidate) === index);
+
+             const CandidateCounts = Candidates
+             .map(Candidate => ({
+                 candidateID: Candidate,
+                 candidatecount: total.filter(item => item.candidate_ID === Candidate).length
+             }));
+
+            this.setState({ 
+                districtCanCount: DistCanCounts,
+                divisionCanCount: DivCanCounts,
+                candidateCount: CandidateCounts
+            });
+            // debugger;
+        })
+        .then(
+            axios.get('https://localhost:5001/api/candidate/')
+            .then(resCan => {
+                debugger;
+                const candidateRec = resCan.data;
+                const candidateVote = this.state.candidateCount;
+                const canVoteDist = this.state.districtCanCount;
+                const canVoteDiv = this.state.divisionCanCount;
+
+                const candidateList = [];
+                const candidateListDist = [];
+                const candidateListDiv = [];
+
+                for (let i = 0; i < candidateRec.length; i++) {
+                    candidateList.push({
+                        ...candidateRec[i],
+                        ...(candidateVote.find(item => item.candidateID === candidateRec[i].candidateID))
+                    })
+                        
+                }
+                // debugger;
+                for (let j = 0; j < canVoteDist.length; j++) {
+                    const count = canVoteDist.map(item => item.Candidate)[j];
+                    candidateListDist.push({...canVoteDist[j]});
+                    candidateListDist[j].Candidate = [];
+                    // debugger;
+                    for (let i = 0; i < count.length; i++) {
+                        // debugger;
+                        candidateListDist[j].Candidate.push({
+                            ...count[i],
+                            ...(candidateRec.find(item => item.candidateID === count[i].candidateID))
+                        })
+                    }
+                }
+                // debugger;
+                for (let j = 0; j < canVoteDiv.length; j++) {
+                    const count = canVoteDiv.map(item => item.Candidate)[j];
+                    candidateListDiv.push({...canVoteDiv[j]});
+                    candidateListDiv[j].Candidate = [];
+                    // debugger;
+                    for (let i = 0; i < count.length; i++) {
+                        // debugger;
+                        candidateListDiv[j].Candidate.push({
+                            ...count[i],
+                            ...(candidateRec.find(item => item.candidateID === count[i].candidateID))
+                        })
+                    }
+                }
+
+                // debugger;
+
+                this.setState({
+                    candidateData: candidateList,
+                    districtCanData: candidateListDist,
+                    divisionCanData: candidateListDiv,
+
+                    distictPartyCount: [],
+                    divisionPartyCount: [],
+                    partyCount: [],
+
+                    districtCanCount: [],
+                    divisionCanCount: [],
+                    candidateCount: [],
+                })
+                debugger;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        )
+        .catch(function (error) {
+            console.log(error);
+        });
+>>>>>>> Stashed changes
     }
 
     openHeader(){
@@ -331,6 +543,13 @@ export default class barChart extends Component {
         //debugger;
         return <Map obj={this.state}/>;
     }
+<<<<<<< Updated upstream
+=======
+    openCandidate(){
+        //debugger;
+        return <CanResult objct={this.state}/>;
+    }
+>>>>>>> Stashed changes
 
     render() {    
         return (
@@ -341,6 +560,14 @@ export default class barChart extends Component {
                         {this.openMap()}
                     </Grid>
                 </Paper>
+<<<<<<< Updated upstream
+=======
+                <Paper>
+                    <Grid>
+                        {this.openCandidate()}
+                    </Grid>
+                </Paper>
+>>>>>>> Stashed changes
             </div>
         )
     }

@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, InputAdornment } from '@material-ui/core';
+=======
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper  } from '@material-ui/core';
+>>>>>>> Stashed changes
 import axios from 'axios';
 import React, { Component } from 'react'
 
@@ -18,10 +22,16 @@ const styles = {
     sMargin:{
         margin: 8,
     },
+<<<<<<< Updated upstream
     paper : {
         margin: "30px auto",
         padding: 20,
     } 
+=======
+    tab : {
+        display: "flex"
+    }
+>>>>>>> Stashed changes
 }
 
 export default class AddDistricts extends Component {
@@ -47,7 +57,11 @@ export default class AddDistricts extends Component {
     } 
 
     componentDidMount(){
+<<<<<<< Updated upstream
         axios.get('http://localhost:5000/api/District/')
+=======
+        axios.get('https://localhost:5001/api/District/')
+>>>>>>> Stashed changes
         .then(response => {
             debugger;
             let DisctfromApi = response.data.map(disctOption =>{
@@ -73,7 +87,11 @@ export default class AddDistricts extends Component {
             district: e.target.value
         });
         debugger;
+<<<<<<< Updated upstream
         axios.get('http://localhost:5000/api/Division/GetByDistrict/' + e.target.value)
+=======
+        axios.get('https://localhost:5001/api/Division/GetByDistrict/' + e.target.value)
+>>>>>>> Stashed changes
             .then(response => {
                 debugger;
                 let DivfromApi = response.data.map(divOption =>{
@@ -104,7 +122,11 @@ export default class AddDistricts extends Component {
             Name: this.state.district,
         };
         debugger;
+<<<<<<< Updated upstream
         axios.post('http://localhost:5000/api/district/', obj)
+=======
+        axios.post('https://localhost:5001/api/district/', obj)
+>>>>>>> Stashed changes
         .then(json => {debugger;
             if (json.statusText == 'Created'){
                 debugger;
@@ -129,7 +151,11 @@ export default class AddDistricts extends Component {
             ED_ID: parseInt(this.state.district)
         };
         debugger;
+<<<<<<< Updated upstream
         axios.post('http://localhost:5000/api/division/', obj)
+=======
+        axios.post('https://localhost:5001/api/division/', obj)
+>>>>>>> Stashed changes
         .then(json => {debugger;
             if (json.statusText == 'Created'){
                 debugger;
@@ -154,7 +180,11 @@ export default class AddDistricts extends Component {
             PD_ID: parseInt(this.state.division)
         };
         debugger;
+<<<<<<< Updated upstream
         axios.post('http://localhost:5000/api/gNDivision/', obj)
+=======
+        axios.post('https://localhost:5001/api/gNDivision/', obj)
+>>>>>>> Stashed changes
         .then(json => {debugger;
             if (json.statusText == 'Created'){
                 debugger;
@@ -175,12 +205,20 @@ export default class AddDistricts extends Component {
 
     render() {
         return (
+<<<<<<< Updated upstream
             <Container maxWidth="xl">
                 <Paper style={styles.paper} elevation={3}>
                     <h4>Settings</h4>
                     <form autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
                             <Grid item lg={2}>
+=======
+            <Container maxWidth="lg">
+                    <form autoComplete="off" noValidate style={styles.root}>
+                        {this.props.index === 0 ? 
+                        <Grid style={styles.tab}>
+                            <Grid item xs={4}>
+>>>>>>> Stashed changes
                             <h4>Add Districts</h4>
                                 <TextField
                                     name = "districtname"
@@ -201,8 +239,19 @@ export default class AddDistricts extends Component {
                                     </Button>
                                 </div>
                             </Grid>
+<<<<<<< Updated upstream
 
                             <Grid item lg={2}>
+=======
+                            <Grid item xs={8}>
+                                <h4>This is for display and update values</h4>
+                                </Grid>
+                        </Grid> : null}
+                            
+                        {this.props.index === 1 ? 
+                        <Grid style={styles.tab}>
+                            <Grid item xs={4}>
+>>>>>>> Stashed changes
                             <h4>Add Divisions</h4>
                                 <FormControl variant="outlined" style={styles.formControl}>
                                     <InputLabel >District</InputLabel>
@@ -235,7 +284,18 @@ export default class AddDistricts extends Component {
                                     </Button>
                                 </div>
                             </Grid>
+<<<<<<< Updated upstream
                             <Grid item lg={2}>
+=======
+                            <Grid item xs={8}>
+                            <h4>This is for display and update values</h4>
+                            </Grid>
+                        </Grid> : null}
+                        
+                        {this.props.index === 2 ? 
+                        <Grid style={styles.tab}>
+                            <Grid item xs={4}>
+>>>>>>> Stashed changes
                             <h4>Add Grama Niladhari Divisions</h4>
                                 <FormControl variant="outlined" style={styles.formControl}>
                                     <InputLabel >District</InputLabel>
@@ -280,12 +340,20 @@ export default class AddDistricts extends Component {
                                     </Button>
                                 </div>
                             </Grid>
+<<<<<<< Updated upstream
                             <Grid item xs={6}>
                             <h4>This is for display and update values</h4>
                             </Grid>
                         </Grid>
                     </form>
                 </Paper>
+=======
+                            <Grid item xs={8}>
+                            <h4>This is for display and update values</h4>
+                            </Grid>
+                        </Grid> : null}
+                    </form>
+>>>>>>> Stashed changes
             </Container>
         )
     }

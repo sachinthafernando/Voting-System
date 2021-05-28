@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Dialog, DialogTitle, DialogContent, DialogContentText } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
 
@@ -51,7 +51,7 @@ export default class EditCandidate extends Component {
     }
 
     componentDidMount() {debugger;
-        axios.get('http://localhost:5000/api/candidate/'+this.props.user)
+        axios.get('https://localhost:5001/api/candidate/'+this.props.user)
         .then(response => {
             this.setState({
                 CandidateNo: response.data.candidateNo,
@@ -66,7 +66,7 @@ export default class EditCandidate extends Component {
             console.log(error);
         })
 
-        axios.get('http://localhost:5000/api/party/')
+        axios.get('https://localhost:5001/api/party/')
         .then(response => {
             debugger;
             let PartyfromApi = response.data.map(partyOption =>{
@@ -139,7 +139,7 @@ export default class EditCandidate extends Component {
         formData.append('party_ID',parseInt(this.state.PartyID))
         formData.append('image',this.state.image)
         formData.append('imageFile',this.state.imageFile)
-        await axios.put('http://localhost:5000/api/candidate/'+this.props.user, formData)
+        await axios.put('https://localhost:5001/api/candidate/'+this.props.user, formData)
         .then(res => {console.log(res.config.data);});
         debugger;
         this.props.close();

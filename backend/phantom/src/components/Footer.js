@@ -1,5 +1,3 @@
-
-  
 import { Grid, IconButton } from "@material-ui/core";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import GitHubIcon from "@material-ui/icons/GitHub";
@@ -11,8 +9,7 @@ import logo from '../images/logo1.png';
 
 function Footer() {
   return (
-    
-     
+     <>
         <Grid container className="footer__container">
           <Grid container item md={4} sm={12} alignItems="center" className="center">
             <img src={logo} alt="logo" className="logo" />
@@ -165,7 +162,7 @@ function Footer() {
             </div>
           </Grid>
         </Grid>
-     
+     </>
     
   );
 }

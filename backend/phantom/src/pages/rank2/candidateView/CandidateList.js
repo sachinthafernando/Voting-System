@@ -30,7 +30,7 @@ export default class CandidateList extends Component {
 
     componentDidMount(){
         debugger;
-        axios.get('http://localhost:5000/api/candidate/')
+        axios.get('https://localhost:5001/api/candidate/')
         .then(response => {
             this.setState({ business: response.data});
             debugger;

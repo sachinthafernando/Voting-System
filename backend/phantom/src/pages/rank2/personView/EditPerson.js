@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Dialog, DialogTitle, DialogContent, DialogContentText } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
 
@@ -55,7 +55,11 @@ export default class EditPerson extends Component {
     
 
     componentDidMount() {
+<<<<<<< Updated upstream
         axios.get('http://localhost:5000/api/District/')
+=======
+        axios.get('https://localhost:5001/api/person/'+this.props.user)
+>>>>>>> Stashed changes
         .then(response => {
             debugger;
             let DisctfromApi = response.data.map(disctOption =>{
@@ -78,10 +82,15 @@ export default class EditPerson extends Component {
                 divOptions: [{ value: '', display:'Select Division'}].concat(DivfromApi)
             });
         })
+<<<<<<< Updated upstream
         .catch(function (error) {
             console.log(error);
         });
         axios.get('http://localhost:5000/api/GNDivision/')
+=======
+
+        axios.get('https://localhost:5001/api/GNDivision/')
+>>>>>>> Stashed changes
         .then(response => {
             debugger;
             let GNDfromApi = response.data.map(gndOption =>{
@@ -205,7 +214,7 @@ export default class EditPerson extends Component {
             SerialNo: parseInt(this.state.SerialNo),
             GND: parseInt(this.state.GND)
         };
-        axios.put('http://localhost:5000/api/person/'+this.props.user, obj)
+        axios.put('https://localhost:5001/api/person/'+this.props.user, obj)
         .then(res => {console.log(res.config.data);});
         debugger;
         this.props.close();

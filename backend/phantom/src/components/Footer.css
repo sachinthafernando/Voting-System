@@ -7,8 +7,8 @@
   font-family: 'Montserrat', sans-serif;
   
 } */
-
-/* .container{
+/* 
+.footer_container{
     margin-top: 10rem;
   min-height: 100vh;
   position: relative;
@@ -20,10 +20,20 @@
 
 .footer__container{
   position: relative;
-  bottom: 0;
+   bottom: 0; 
   padding: 1rem;
   background-color: #272C34;
 }
+
+/* .footer_container{
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color:#272C34;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+} */
 
 .logo{
   width: 5rem;
@@ -148,11 +158,11 @@
     justify-content: center;
   }
 
-  .footer__container{
+  /* .footer__container{
     position: absolute;
     bottom: 1;
     margin-bottom: -40rem;
     padding: 1rem;
     background-color: #272C34;
-  }
+  } */
 }

@@ -1,7 +1,13 @@
+<<<<<<< Updated upstream
 import "../Result.css";
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 
+=======
+//import "../Result.css";
+import { Progress } from 'react-sweet-progress';
+import "react-sweet-progress/lib/style.css";
+>>>>>>> Stashed changes
 import React, { Component } from 'react'
 import axios from 'axios';
 
@@ -16,7 +22,11 @@ export default class HeaderBar extends Component {
     }
     componentDidMount(){
 
+<<<<<<< Updated upstream
         axios.get('http://localhost:5000/api/person/')
+=======
+        axios.get('https://localhost:5001/api/person/')
+>>>>>>> Stashed changes
         .then(response=> {
             //debugger;
             this.setState({
@@ -64,11 +74,19 @@ export default class HeaderBar extends Component {
                     </div>
                     <div>
                         <Progress
+<<<<<<< Updated upstream
                             percent={(this.props.obj1.partyTotal/this.state.electors)*1}
                             status="error"
                             theme={{
                                 error: {
                                 symbol: (this.props.obj1.partyTotal/this.state.electors)*100 + '%',
+=======
+                            percent={(this.props.obj1.partyTotal/this.state.electors)*100}
+                            status="error"
+                            theme={{
+                                error: {
+                                symbol: ((this.props.obj1.partyTotal/this.state.electors)*100).toFixed(2) + '%',
+>>>>>>> Stashed changes
                                 color: '#fbc630'
                                 }
                             }}
@@ -102,11 +120,19 @@ export default class HeaderBar extends Component {
                     </div>
                     <div>
                         <Progress
+<<<<<<< Updated upstream
                             percent={(this.props.obj1.partyTotal/this.state.electors)*1}
                             status="error"
                             theme={{
                                 error: {
                                 symbol:(this.props.obj1.partyTotal/this.state.electors)*100 + '%',
+=======
+                            percent={(this.props.obj1.partyTotal/this.state.electors)*100}
+                            status="error"
+                            theme={{
+                                error: {
+                                symbol:((this.props.obj1.partyTotal/this.state.electors)*100).toFixed(2) + '%',
+>>>>>>> Stashed changes
                                 color: '#fbc630'
                                 }
                             }}

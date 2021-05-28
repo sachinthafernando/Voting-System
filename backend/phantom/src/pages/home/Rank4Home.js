@@ -1,18 +1,31 @@
 import React from 'react';
 import {  makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Fade from 'react-reveal/Fade';
-import { BrowserRouter as Router, Route, Switch,NavLink, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ButtonBase } from '@material-ui/core';
 import Flip from 'react-reveal/Flip';
 export const images = [
   {
     //url: '/static/images/grid-list/breakfast.jpg',
     url: 'https://d3n8a8pro7vhmx.cloudfront.net/broadbent/pages/4770/attachments/original/1449673980/Reform_Webpage_Header.jpg?1449673980',
+<<<<<<< Updated upstream
     title: 'Visit Polling Center',
     width: '100%',
     path:'/voteParty'
+=======
+    title: 'NIC verify',
+    width: '50%',
+    path:'/scanner'
+    
+  },
+  {
+    //url: '/static/images/grid-list/breakfast.jpg',
+    url: 'https://d3n8a8pro7vhmx.cloudfront.net/broadbent/pages/4770/attachments/original/1449673980/Reform_Webpage_Header.jpg?1449673980',
+    title: 'Start Voting',
+    width: '50%',
+    path:'/freezeScreen'
+>>>>>>> Stashed changes
     
   },
   

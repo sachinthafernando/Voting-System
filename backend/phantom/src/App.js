@@ -1,3 +1,5 @@
+
+import{useEffect} from 'react';
 import { BrowserRouter as Router, Route, Switch,NavLink, Link, Redirect } from 'react-router-dom';
 //import './App.css';
 //import Candidate from './pages/candidate/Candidate';
@@ -5,38 +7,19 @@ import { BrowserRouter as Router, Route, Switch,NavLink, Link, Redirect } from '
 import Home from './pages/home/Home';
 //import HomeRank2 from './pages/rank2/HomeRank2';
 
-import AdminList from './pages/admin/AdminList';
-import AddAdmin from './pages/admin/AddAdmin';
-import AdminTable from './pages/admin/AdminTable';
-import EditAdmin from './pages/admin/EditAdmin';
+import AdminList from './pages/rank1/admin/AdminList';
 
-import AddCandidate from './pages/candidate/AddCandidate';
-import CandidateList from './pages/rank2/candidateView/CandidateList';
-import CandidateTable from './pages/rank2/candidateView/CandidateTable';
-import EditCandidate from './pages/rank2/candidateView/EditCandidate';
+import AddCandidate from './pages/rank2/candidate/AddCandidate';
 
-import AddPerson from './pages/person/AddPerson';
-import PersonTable from './pages/rank2/personView/PersonTable';
-import EditPerson from './pages/rank2/personView/EditPerson';
-import PersonList from './pages/rank2/personView/PersonList';
+import AddPerson from './pages/rank3/person/AddPerson';
 
-import AddParty from './pages/party/AddParty';
-import PartyList from './pages/rank2/partyView/PartyList';
-import PartyTable from './pages/rank2/partyView/PartyTable';
-import EditParty from './pages/rank2/partyView/EditParty';
+import AddParty from './pages/rank2/party/AddParty';
 
 import React, {useState} from 'react';
-import Dropdown from './components/Dropdown';
-import Footer from './components/Footer';
-import Hero from './components/Hero';
+// import Dropdown from './components/Dropdown';
+import GlobalStyle from './components/GlobalStyles';
 
-import { SliderData } from './data/SliderData';
-import GlobalStyle from './components/globalStyles';
-
-import { ThemeProvider, CssBaseline } from '@material-ui/core';
-import theme from './components/Theme';
-import HomePolling from './pages/homePolling/HomePolling';
-import Navbar from './components/Navbar';
+import { CssBaseline } from '@material-ui/core';
 import Rank1Home from './pages/home/Rank1Home';
 import Rank2Home from './pages/home/Rank2Home';
 import Rank3Home from './pages/home/Rank3Home';
@@ -47,12 +30,11 @@ import DataEntryMenu from './pages/rank2/DataEntryMenu';
 
 import AboutUs from './components/AboutUs';
 
-
 import { Provider } from "react-redux";
-import { Fragment } from "react";
 import store from "./store";
 import Login from "./components/auth/Login";
 import Alert from "./components/layout/Alert";
+<<<<<<< Updated upstream
 import VoteCandidate from './pages/rank4/voteCandidate/VoteCandidate';
 import VoteParty from './pages/rank4/voteParty/VoteParty';
 import Scanner from './pages/barCode/Scanner';
@@ -77,56 +59,119 @@ const App = () => {
     store.dispatch(loadUser());
   }, []);
     
+=======
 
-  const [isOpen ,setIsOpen] = useState(false);
+
+// import { PublicRoute, PrivateRoute } from "react-private-public-route";
+import  PrivateRoute  from "./components/PrivateRoutes/PrivateRoute";
+import Authtoken from './utilities/Authtoken';
+import { loadUser } from './Actions/auth';
+import { LOGOUT } from './Actions/types';
+import DynamicLayout from './components/layout/DynamicLayout';
+import ScrollTop from './components/layout/ScrollTop';
+
+import Scanner from './pages/rank4/barCode/Scanner';
+import VoteCandidate from './pages/rank4/voting/voteCandidate/VoteCandidate';
+import VoteParty from './pages/rank4/voting/voteParty/VoteParty';
+import AddDistricts from './pages/rank1/setting/AddDistricts';
+import Settings from './pages/rank1/setting/Settings';
+import barChart from './pages/rank1/result/barChart';
+import FreezeScreen from './pages/rank4/barCode/FreezeScreen';
+
+
+if (localStorage.token){
+  Authtoken(localStorage.token);
+}
+
+const App = () => {
+      useEffect(() => {
+        store.dispatch(loadUser());
+    
+      
+
+
+//make the admin completely loggedout
+window.addEventListener("storage", () => {
+  if (!localStorage.token) store.dispatch({ type: LOGOUT });
+});
+},
+ []);
+
+>>>>>>> Stashed changes
+
+ //define toggle function
+ const [isOpen ,setIsOpen] = useState(false);
   const toggle =() =>{
     setIsOpen(!isOpen);
   };
 
-
 return (
   <Provider store={store}>
-  <Router>
+  <Router >
     <>
-    <div>
+    <div >
     <GlobalStyle />
-    <Navbar toggle = {toggle} />
-    <Dropdown  isOpen = {isOpen} toggle={toggle}/>
-    {/* <ThemeProvider theme={theme}> */}
-    
+    {/* <Navbar toggle = {toggle} /> */}
+      <Alert />
         <Switch>
           
+<<<<<<< Updated upstream
           <Route exact path = "/" component={Home} />
           <Route exact path = "/home" component={Home} />
           {/* <Route render={() => <Error404/> }/> */}
           <Route exact path = "/aboutUs" component={AboutUs} />
-          
-
-
-          <Route path = "/adminList" component={AdminList} />
-          {/* <Route path = "/editAdmin/:id" component={EditAdmin} /> */}
-          {/* <Route path = "/homeRank2" component={HomeRank2} /> */}
-      
-          
-          <Route path = "/addCandidate" component={AddCandidate} />
-          {/* <Route path = "/candidateList" component={CandidateList} />
-          <Route path = "/editCandidate/:id" component={EditCandidate} /> */}
+=======
+          {/* <Route exact path = "/home" component={Home} /> */}
+          {/* <Route exact path = "/" component={Home} /> */}
+          <Route path="/login" component={Login} />
+          {/* make private below */}
           <Route path = "/rank1Home" component={Rank1Home} />
-          <Route path = "/rank2Home" component={Rank2Home} />
-          <Route path = "/rank3Home" component={Rank3Home} />
-          <Route path = "/rank4Home" component={Rank4Home} />
-          <Route path = "/adminList" component={AdminList} />
-         
-          <Route path= "/dataEntry" component={DataEntryMenu}/>
+          <PrivateRoute path = "/rank2Home" component={Rank2Home} />
+          <PrivateRoute path = "/rank3Home" component={Rank3Home} />
+          <PrivateRoute path = "/rank4Home" component={Rank4Home} />
+          {/* <Route path = "/aboutUs" component={AboutUs} /> */}
+>>>>>>> Stashed changes
+          
+          <DynamicLayout
+              exact  
+              path="/aboutUs" 
+              component={AboutUs} 
+              layout="MAIN_NAV" 
+          />
+            <DynamicLayout 
+              exact 
+              path="/" 
+              component={Home} 
+              layout="MAIN_NAV"//no need of this line bcz default case
+          />
+            <DynamicLayout 
+              exact 
+              path="/home" 
+              component={Home} 
+          />
+            <DynamicLayout 
+              exact 
+              path="/adminList" 
+              component={AdminList}
+              layout="SUB_NAV" 
+          />
 
-          <Route path = "/databaseView" component={DatabaseView} />
-          <Route path = "/homePolling" component={HomePolling} />
-          <Route path= "/addPerson" component={AddPerson}/>
-          {/* <Route path = "/editPerson/:id" component={EditPerson} /> */}
-          <Route path= "/addParty" component={AddParty}/>
+
+          <Route path = "/adminList" component={AdminList} />
+          <Route path = "/addCandidate" component={AddCandidate} />
+          <Route path = "/adminList" component={AdminList} />
+          
+
+
+          <Route path= "/scanner" component={Scanner}/>
+          <Route path= "/addDistricts" component={AddDistricts}/>
+          <Route path= "/setting" component={Settings}/>
+          <Route path= "/barChart" component={barChart}/>
+
 
           <Route path= "/voteParty" component={VoteParty}/>
           <Route path= "/voteCandidate" component={VoteCandidate}/>
+<<<<<<< Updated upstream
           
           <Route path= "/addDistricts" component={AddDistricts}/>
           <Route path= "/polCenter" component={PollingCenter}/>
@@ -136,17 +181,37 @@ return (
 
           <Route path= "/scanner" component={Scanner}/>
           <Route exact path="/login" component={Login} />
+=======
+          <Route path= "/freezeScreen" component={FreezeScreen}/>
 
-        </Switch>
-       
-    <Footer/>
+
+>>>>>>> Stashed changes
+
+          <Route path= "/dataEntry" component={DataEntryMenu}/>
+          <Route path = "/databaseView" component={DatabaseView} />
+          <Route path= "/addPerson" component={AddPerson}/>
+          <Route path= "/addParty" component={AddParty}/>
+          {/* below 404 should be at the bottom of rote paths */}
+          <Route exact path="*" render={() => {window.location.href="404.html"}} />
+        </Switch>    
     
     <CssBaseline />
-    {/* </ThemeProvider> */}
     </div>
+    <div>
+    {/* <Footer/> */}
+    </div>
+    <ScrollTop/>
     </> 
     </Router>
     </Provider>
   );
-}
+};
 export default App;
+
+
+
+
+
+{/* <Route path = "/editPerson/:id" component={EditPerson} /> */}
+{/* <Route path = "/candidateList" component={CandidateList} />
+          <Route path = "/editCandidate/:id" component={EditCandidate} /> */}

@@ -1,6 +1,12 @@
+<<<<<<< Updated upstream
 import React, { useState, Fragment,componentDidMount } from 'react';
 import styled, {css} from 'styled-components/macro';
 import { useHistory, Route,Link, BrowserRouter as Router} from 'react-router-dom';
+=======
+import React, { Fragment } from 'react';
+import styled, {css} from 'styled-components/macro';
+import { Link} from 'react-router-dom';
+>>>>>>> Stashed changes
 // import { menuData } from '../data/MenuData.js';
 import { SubButton } from '../components/SubButton.js';
 import Drop from '../images/drop.svg';
@@ -9,11 +15,16 @@ import Logo1 from '../images/logo1.png';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import  {logout}  from '../Actions/auth';
+<<<<<<< Updated upstream
 import jwt_decode from "jwt-decode";
 import Authtoken from '../utilities/Authtoken.js';
+=======
+
+import { withRouter } from 'react-router-dom';
+
+>>>>>>> Stashed changes
 
 
-//import '*' as actions from '../components/Header.js'
 const Nav = styled.nav`
 height: 80px;
 display: flex;
@@ -48,15 +59,6 @@ const AppLogo = styled.img`
   `;
   
 
-// const Logo =styled(Link)`
-// ${NavLink}
-// font-style: italic;
-
-//`;
-
-// const myLogo = styled.i`
-// background-image: url(${Logo1});
-// `;
 
 
 const MenuBars = styled.i`
@@ -103,7 +105,79 @@ margin-right:24px;
 }
 `;
 
+//this is the back button
+// const GoBackButton = withRouter(
+//   ({ history }) => (
+//     <SubButton onClick={history.goBack} >BACK</SubButton>
+//   )
+// );
 
+
+const Navbar = ({auth: { isAuthenticated, loading }, logout, toggle}) => {
+
+    const authLinks = (
+        <Fragment>
+             <AppLogo to = '/' src={Logo1} alt="logo" ></AppLogo>
+          <MenuBars onClick={toggle} />
+          <NavMenu>
+          <NavMenuLinks to='/home' >
+            Home
+          </NavMenuLinks>
+          <NavMenuLinks to='/dashboard' >
+              Dashboard
+            </NavMenuLinks>
+            {/* <NavMenuLinks to='/rank1Home' >
+              Rank1
+            </NavMenuLinks>
+            <NavMenuLinks to='/rank2Home' >
+              Rank2
+            </NavMenuLinks>
+            <NavMenuLinks to='/rank3Home'>
+              Rank3
+            </NavMenuLinks>
+            <NavMenuLinks to='/rank4Home' >
+              Rank4
+            </NavMenuLinks> */}
+            <NavMenuLinks to='/aboutUs' >
+              AboutUs
+            </NavMenuLinks>
+            <NavMenuLinks to='/notFound' >
+              ContactUs
+            </NavMenuLinks>
+          </NavMenu>
+         
+          <NavBtn>
+          <SubButton onClick={logout} to='/login' primary= 'true'  >Logout</SubButton>
+          </NavBtn>
+        </Fragment>
+      )
+    
+      const guestLinks = (
+        <Fragment>
+          <AppLogo to = '/' src={Logo1} alt="logo" ></AppLogo>
+          <MenuBars onClick={toggle} />
+          <NavMenu>
+          {/* <GoBackButton/>  */}
+            <NavMenuLinks to='/home' >
+              Home
+            </NavMenuLinks>
+            <NavMenuLinks to='/dashboard' >
+              Dashboard
+            </NavMenuLinks>
+            <NavMenuLinks to='/aboutUs' >
+              AboutUs
+            </NavMenuLinks>
+            <NavMenuLinks to='/notFound' >
+              ContactUs
+            </NavMenuLinks>
+          </NavMenu>
+          <NavBtn>
+          <SubButton to='/login' primary= 'true'  >Login</SubButton>
+          </NavBtn>
+        </Fragment>
+      );
+
+<<<<<<< Updated upstream
 
 const Navbar = ({auth: { isAuthenticated, loading }, logout, toggle}) => {
     // debugger;
@@ -186,10 +260,18 @@ const Navbar = ({auth: { isAuthenticated, loading }, logout, toggle}) => {
       <Nav>
           <Fragment>
             {isAuthenticated && !loading ?  authLinks : guestLinks}
+=======
+    return (
+      <>
+      <Nav id="Navbar"> 
+          <Fragment>
+            {isAuthenticated && !loading ?  authLinks : guestLinks} 
+>>>>>>> Stashed changes
           </Fragment>
       </Nav>
       </>
   );
+<<<<<<< Updated upstream
 };
 
 Navbar.propTypes = {
@@ -202,11 +284,26 @@ Navbar.propTypes = {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   //user: state.auth.user,
+=======
+};
+
+Navbar.propTypes = {
+  auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+};
+
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  user: state.auth.user,
+>>>>>>> Stashed changes
 });
 
 
 export default connect(mapStateToProps, { logout })(Navbar);
 
+<<<<<<< Updated upstream
 //         <>
 //            <Nav>  
 //                 <AppLogo to = '/' src={Logo1} alt="logo" ></AppLogo>
@@ -227,3 +324,5 @@ export default connect(mapStateToProps, { logout })(Navbar);
 // };
 
 // export default Navbar;
+=======
+>>>>>>> Stashed changes

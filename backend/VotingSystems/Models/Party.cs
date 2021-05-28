@@ -31,6 +31,9 @@ namespace VotingSystems.Models
 
         public virtual ICollection<Vote> Votes { get; set; }
         public virtual ICollection<District_Party> District_Parties { get; set; }
+<<<<<<< Updated upstream
         //
+=======
+>>>>>>> Stashed changes
     }
 }

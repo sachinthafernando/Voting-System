@@ -24,7 +24,7 @@ export default class PartyList extends Component {
 
     componentDidMount(){
         debugger;
-        axios.get('http://localhost:5000/api/party/')
+        axios.get('https://localhost:5001/api/party/')
         .then(response => {
             this.setState({ business: response.data});
             debugger;
