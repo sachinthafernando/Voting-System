@@ -56,13 +56,7 @@ html,body{
   padding: 0 3rem;
   
 }
-<<<<<<< Updated upstream
-/*-------------------------------------------------------------*/
-/*login page*/
-.container {
-=======
 /* .container {
->>>>>>> Stashed changes
   position: relative;
   max-width: 1000px;
   margin: auto;
@@ -70,13 +64,9 @@ html,body{
   padding: 0 2rem;
   margin-top: 6rem;
   margin-bottom: 2rem;
-<<<<<<< Updated upstream
-}
-=======
 } */
 
 
->>>>>>> Stashed changes
 /*text styles login*/ 
 .large {
   font-size: 3rem;
@@ -84,11 +74,7 @@ html,body{
   margin-bottom: 1rem;
 }
 .lead {
-<<<<<<< Updated upstream
-  font-size: 1.5rem;
-=======
   font-size: 1.8rem;
->>>>>>> Stashed changes
   margin-bottom: 1rem;
 }
 
@@ -96,11 +82,7 @@ html,body{
   color: var(#263238);
 }
 .p {
-<<<<<<< Updated upstream
-  padding: 0.5rem;
-=======
   padding: 0.2rem;
->>>>>>> Stashed changes
 }
 /*alert for login*/ 
 .alert {
@@ -125,20 +107,12 @@ html,body{
     margin: 10px 0px;
     cursor: pointer;
     /* margin-left: 40rem; */
-<<<<<<< Updated upstream
-    margin-left: 25rem;
-    margin-bottom:10rem;
-  };
-.form .form-group {
-  margin: 1.2rem 10rem;
-=======
     margin-left: 38rem;
     margin-bottom:10rem;
   };
 .form .form-group {
   margin: 0.4rem 30rem;
 
->>>>>>> Stashed changes
   
   
 }
@@ -146,14 +120,9 @@ html,body{
 .form .form-text {
   display: block;
   margin-top: 0.3rem;
-<<<<<<< Updated upstream
-  color: #888;
- 
-=======
   color: #000;
   font-size:1.2rem;
   
->>>>>>> Stashed changes
 }
 
 .form input[type="text"],
@@ -163,10 +132,6 @@ html,body{
   display: block;
   width: 100%;
   padding: 0.4rem;
-<<<<<<< Updated upstream
-  font-size: 1rem;
-  border: 2px solid #ccc;
-=======
   font-size: 0.8rem;
   border: none; /* Remove the default border */
     box-shadow: 
@@ -179,7 +144,6 @@ html,body{
 
   
   
->>>>>>> Stashed changes
   
 }
 
@@ -187,12 +151,6 @@ html,body{
 button {
   font: inherit;
 }
-<<<<<<< Updated upstream
-
-/*-----------------------------------------------------------*/
-
-
-=======
 .particles{
     position:fixed !important;
     left:0;
@@ -772,7 +730,6 @@ p{
     align-items: right;
   }
 //------------------------
->>>>>>> Stashed changes
 `;
 
 export  default GlobalStyle;

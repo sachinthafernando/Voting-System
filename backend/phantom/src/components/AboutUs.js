@@ -1,16 +1,3 @@
-<<<<<<< Updated upstream
-import React from 'react';
-import {  makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { ButtonBase } from '@material-ui/core';
-export const images = [
-  {
-    //url: '/static/images/grid-list/breakfast.jpg',
-    url: 'https://ak.picdn.net/shutterstock/videos/3769277/thumb/1.jpg',
-    title: 'ABOUT US',
-    body:'',
-    width: '100%',
-=======
 import React, { useEffect } from "react";
 // IMPORTING SINGLE CONTAINER CHILDREN COMPONENT
 import AboutDetailBox from "./AboutDetailBox";
@@ -285,7 +272,6 @@ export default AboutUs;
 // //     title: 'ABOUT US',
 // //     body:'',
 // //     width: '100%',
->>>>>>> Stashed changes
    
     
 // //   },

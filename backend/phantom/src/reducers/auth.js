@@ -44,12 +44,7 @@ export default function(state = initialState, action) {
             break;
             //logout
         case LOGOUT:
-<<<<<<< Updated upstream
-            localStorage.removeItem("token");
-            // debugger;
-=======
             localStorage.removeItem('token');
->>>>>>> Stashed changes
             return {
                 ...state,
                 token: null,

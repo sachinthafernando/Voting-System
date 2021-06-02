@@ -39,20 +39,13 @@ export default class AddCandidate extends Component {
         this.onChangeCandidateNo = this.onChangeCandidateNo.bind(this);
         this.onChangeCandidateName = this.onChangeCandidateName.bind(this);
         this.onChangePartyID= this.onChangePartyID.bind(this);
-        this.onChangeDistrictID= this.onChangeDistrictID.bind(this);
         this.onChangeImage= this.onChangeImage.bind(this);
         this.AddCandidate = this.addCandidate.bind(this);
 
         this.state = {
             CandidateNo:'',
             CandidateName:'',
-<<<<<<< Updated upstream:backend/phantom/src/pages/candidate/AddCandidate.js
-            districtOptions: [{ value: '', display:'Select District'}],
-            District_ID: '',
-            partyOptions: [{ value: '', display:'Select Party'}],
-=======
             partyOptions: [],
->>>>>>> Stashed changes:backend/phantom/src/pages/rank2/candidate/AddCandidate.js
             PartyID:'',
             image: '',
             imageSrc: defaultCandidateImg,
@@ -70,21 +63,6 @@ export default class AddCandidate extends Component {
             });
             this.setState({
                 partyOptions: [{ value: '', display:'Select Party'}].concat(PartyfromApi)
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-
-        axios.get('http://localhost:5000/api/district/')
-        .then(response => {
-            debugger;
-            let DistrictfromApi = response.data.map(districtOption =>{
-                debugger;
-                return { value: districtOption.id, display: districtOption.name}
-            });
-            this.setState({
-                districtOptions: [{ value: '', display:'Select District'}].concat(DistrictfromApi)
             });
         })
         .catch(function (error) {
@@ -108,12 +86,6 @@ export default class AddCandidate extends Component {
         debugger;
         this.setState({
             PartyID: e.target.value
-        });
-    }
-    onChangeDistrictID(e) {
-        debugger;
-        this.setState({
-            District_ID: e.target.value
         });
     }
     onChangeImage(e) {
@@ -153,12 +125,7 @@ debugger;
         const formData = new FormData()
         formData.append('candidateNo',this.state.CandidateNo)
         formData.append('candidateName',this.state.CandidateName)
-<<<<<<< Updated upstream:backend/phantom/src/pages/candidate/AddCandidate.js
-        formData.append('district_ID',this.state.District_ID)
-        formData.append('party_ID',parseInt(this.state.PartyID))
-=======
         formData.append('partyID',parseInt(this.state.PartyID))
->>>>>>> Stashed changes:backend/phantom/src/pages/rank2/candidate/AddCandidate.js
         formData.append('image',this.state.image)
         formData.append('imageFile',this.state.imageFile)
 
@@ -181,12 +148,12 @@ debugger;
     render() {
         return (
             
-            <Container maxWidth="md">
+            <Container maxWidth="sm">
                 <Paper style={styles.paper} elevation={3}>
                     <h4>Enter Candidate Informations</h4>
                     <form onSubmit={this.addCandidate} autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
-                            <Grid item md={6} >
+                            <Grid item xs={6}>
                             <FormControl variant="outlined" style={styles.formControl}>
                                 <InputLabel >Party</InputLabel>
                                 <Select
@@ -195,17 +162,6 @@ debugger;
                                 >
                                     {this.state.partyOptions.map((partyOption) => 
                                         <MenuItem key={partyOption.value} value={partyOption.value}>{partyOption.display}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
-                            <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >District</InputLabel>
-                                <Select
-                                    value = {this.state.District_ID}
-                                    onChange= {this.onChangeDistrictID}
-                                >
-                                    {this.state.districtOptions.map((districtOption) => 
-                                        <MenuItem key={districtOption.value} value={districtOption.value}>{districtOption.display}</MenuItem>
                                     )}
                                 </Select>
                             </FormControl>
@@ -227,7 +183,7 @@ debugger;
                                 />
                                 
                             </Grid>
-                            <Grid item md={6}>
+                            <Grid item xs={6}>
 
                             <Card className="root" >
                                     <CardActionArea>

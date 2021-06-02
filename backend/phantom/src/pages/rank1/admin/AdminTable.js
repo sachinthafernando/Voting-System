@@ -23,57 +23,33 @@ export default function AdminTable(props) {
     const DeleteAdmin = () =>{
         debugger;
         if (props.obj.rank1AdminID) {debugger;
-<<<<<<< Updated upstream:backend/phantom/src/pages/admin/AdminTable.js
-            axios.delete('http://localhost:5000/api/rank1Admin/'+props.obj.rank1AdminID)
-            .then(json => {
-                if(json.statusText=='OK'){
-=======
             axios.delete('https://localhost:5001/api/rank1Admin/'+props.obj.rank1AdminID)
             .then(json => {
                 if(json.statusText ==='OK'){
->>>>>>> Stashed changes:backend/phantom/src/pages/rank1/admin/AdminTable.js
                     alert('Record deleted successfully!!');
                 }
             })
         } 
         if (props.obj.rank2AdminID) {debugger;
-<<<<<<< Updated upstream:backend/phantom/src/pages/admin/AdminTable.js
-            axios.delete('http://localhost:5000/api/rank2Admin/'+props.obj.rank2AdminID)
-            .then(json => {
-                if(json.statusText=='OK'){
-=======
             axios.delete('https://localhost:5001/api/rank2Admin/'+props.obj.rank2AdminID)
             .then(json => {
                 if(json.statusText ==='OK'){
->>>>>>> Stashed changes:backend/phantom/src/pages/rank1/admin/AdminTable.js
                     alert('Record deleted successfully!!');
                 }
             })
         }
         if (props.obj.rank3AdminID) {debugger;
-<<<<<<< Updated upstream:backend/phantom/src/pages/admin/AdminTable.js
-            axios.delete('http://localhost:5000/api/rank3Admin/'+props.obj.rank3AdminID)
-            .then(json => {
-                if(json.statusText=='OK'){
-=======
             axios.delete('https://localhost:5001/api/rank3Admin/'+props.obj.rank3AdminID)
             .then(json => {
                 if(json.statusText ==='OK'){
->>>>>>> Stashed changes:backend/phantom/src/pages/rank1/admin/AdminTable.js
                     alert('Record deleted successfully!!');
                 }
             })
         }
         if (props.obj.rank4AdminID) {debugger;
-<<<<<<< Updated upstream:backend/phantom/src/pages/admin/AdminTable.js
-            axios.delete('http://localhost:5000/api/rank4Admin/'+props.obj.rank4AdminID)
-            .then(json => {
-                if(json.statusText=='OK'){
-=======
             axios.delete('https://localhost:5001/api/rank4Admin/'+props.obj.rank4AdminID)
             .then(json => {
                 if(json.statusText ==='OK'){
->>>>>>> Stashed changes:backend/phantom/src/pages/rank1/admin/AdminTable.js
                     alert('Record deleted successfully!!');
                 }
             })

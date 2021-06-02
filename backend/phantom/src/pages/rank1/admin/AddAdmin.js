@@ -1,4 +1,5 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Typography } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Typography, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import React, { Component } from 'react';
 
@@ -37,6 +38,8 @@ export default class AddAdmin extends Component {
         this.onChangeRank = this.onChangeRank.bind(this);
         this.onChangeCenter = this.onChangeCenter.bind(this);
         this.addAdmin = this.addAdmin.bind(this);
+        this.formReset = this.formReset.bind(this);
+        this.closeMessage = this.closeMessage.bind(this);
 
         this.state = {
             Name:'',
@@ -44,8 +47,17 @@ export default class AddAdmin extends Component {
             Rank:'',
             PollingCenter: '',
             disabled: true,
-            obj: {}
+            obj: {},
+            message: '',
+            setMessage: false,
         }
+    }
+
+    closeMessage(){
+        this.setState({
+            setMessage: false,
+            message: '',
+        });
     }
 
     onChangeName(e) {
@@ -93,28 +105,35 @@ export default class AddAdmin extends Component {
 
     addAdmin=()=>{
         debugger;
-<<<<<<< Updated upstream:backend/phantom/src/pages/admin/AddAdmin.js
-        axios.post('http://localhost:5000/api/'+this.state.Rank, this.state.obj)
-=======
         axios.post('https://localhost:5001/api/'+this.state.Rank, this.state.obj)
->>>>>>> Stashed changes:backend/phantom/src/pages/rank1/admin/AddAdmin.js
         .then(json => {
             if (json.statusText === 'Created'){
                 debugger;
                 console.log(json.statusText);
                 debugger;
                 alert("Data Save Successfully");
+                this.setState({
+                    setMessage: true,
+                    message: 'Data Save Successfully',
+                });
             }
             else{
                 debugger;
                 alert('Data not Saved');
+                this.setState({
+                    setMessage: true,
+                    message: 'Data not Saved',
+                });
             }
         });
         debugger;
-<<<<<<< Updated upstream:backend/phantom/src/pages/admin/AddAdmin.js
-        //this.props.history.push('/adminList')
-=======
->>>>>>> Stashed changes:backend/phantom/src/pages/rank1/admin/AddAdmin.js
+    }
+
+    formReset(){
+        this.setState({
+            setMessage: true,
+            message: 'Reset button clicked.',
+        });
     }
 
     
@@ -122,11 +141,13 @@ export default class AddAdmin extends Component {
         return (
           
             <Container maxWidth="sm" >
-                <Typography>
                     <h2>Enter Admin Information</h2>
-                    </Typography>
                 {/* <h4>Enter Admin Informations</h4> */}
-                
+                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                    <Alert severity="success">
+                        {this.state.message}
+                    </Alert>
+                </Snackbar>
                 <form onSubmit={this.addAdmin} autoComplete="off" noValidate style={styles.root}>
                     <Grid container>
                     
@@ -152,22 +173,10 @@ export default class AddAdmin extends Component {
                                 <InputLabel >Rank</InputLabel>
                                 {this.props.userRank === "1" ?
                                 <Select
-<<<<<<< Updated upstream:backend/phantom/src/pages/admin/AddAdmin.js
-                                    name= "rank"
-                                    value = {this.state.Rank}
-                                    onChange= {this.onChangeRank}
-                                >
-                                    <MenuItem value="">Select Rank</MenuItem>  
-                                    <MenuItem value="Rank1Admin">Rank 1</MenuItem> 
-                                    <MenuItem value="Rank2Admin">Rank 2</MenuItem> 
-                                    <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
-                                    <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
-                                    </Select>
-=======
                                 name= "rank"
                                 value = {this.state.Rank}
                                 onChange= {this.onChangeRank}
-                            >
+                                >
                                 <MenuItem value="">Select Rank</MenuItem>  
                                 <MenuItem value="Rank1Admin">Rank 1</MenuItem> 
                                 <MenuItem value="Rank2Admin">Rank 2</MenuItem> 
@@ -178,13 +187,12 @@ export default class AddAdmin extends Component {
                                 name= "rank"
                                 value = {this.state.Rank}
                                 onChange= {this.onChangeRank}
-                            >
+                                >
                                 <MenuItem value="">Select Rank</MenuItem>
                                 <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
                                 <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
                                 </Select>
                                 }
->>>>>>> Stashed changes:backend/phantom/src/pages/rank1/admin/AddAdmin.js
                             </FormControl>
                             
                             {
@@ -210,6 +218,7 @@ export default class AddAdmin extends Component {
                                 </Button>
                                 <Button
                                     variant = "contained"
+                                    onClick = {this.formReset}
                                     style= {styles.sMargin}
                                 >
                                     Reset

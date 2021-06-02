@@ -34,107 +34,40 @@ export default class EditPerson extends Component {
 
         this.onChangeNIC = this.onChangeNIC.bind(this);
         this.onChangeSerialNo = this.onChangeSerialNo.bind(this);
-        this.onChangeDistrict = this.onChangeDistrict.bind(this);
-        this.onChangeDivision = this.onChangeDivision.bind(this);
         this.onChangeGND = this.onChangeGND.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             NIC:'',
             SerialNo:'',
-            disctOptions: [],
-            District: "",
-            divOptions: [{ value: '', display:'Select Division'}],
-            Division: "",
-            gndOptions: [{ value: '', display:'Select GND'}],
-            GND: "",
-            
+            gndOptions: [],
+            GND: ""
         }
     }
 
-    
-
     componentDidMount() {
-<<<<<<< Updated upstream
-        axios.get('http://localhost:5000/api/District/')
-=======
         axios.get('https://localhost:5001/api/person/'+this.props.user)
->>>>>>> Stashed changes
         .then(response => {
-            debugger;
-            let DisctfromApi = response.data.map(disctOption =>{
-                return { value: disctOption.id, display: disctOption.name}
-            });
             this.setState({
-                disctOptions: [{ value: '', display:'Select District'}].concat(DisctfromApi)
+                NIC: response.data.nic,
+                SerialNo: response.data.serialNo,
+                GND: response.data.gnd
             });
         })
         .catch(function (error) {
             console.log(error);
-        });
-        axios.get('http://localhost:5000/api/Division/')
-        .then(response => {
-            debugger;
-            let DivfromApi = response.data.map(divOption =>{
-                return { value: divOption.id, display: divOption.name}
-            });
-            this.setState({
-                divOptions: [{ value: '', display:'Select Division'}].concat(DivfromApi)
-            });
         })
-<<<<<<< Updated upstream
-        .catch(function (error) {
-            console.log(error);
-        });
-        axios.get('http://localhost:5000/api/GNDivision/')
-=======
 
         axios.get('https://localhost:5001/api/GNDivision/')
->>>>>>> Stashed changes
         .then(response => {
             debugger;
             let GNDfromApi = response.data.map(gndOption =>{
+                debugger;
                 return { value: gndOption.id, display: gndOption.name}
             });
             this.setState({
                 gndOptions: [{ value: '', display:'Select GND'}].concat(GNDfromApi)
             });
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-        axios.get('http://localhost:5000/api/person/'+this.props.user)
-        .then(response => {
-            this.setState({
-                NIC: response.data.nic,
-                SerialNo: response.data.serialNo,
-                GND: response.data.gnd,
-            });
-            debugger;
-            const gndId = response.data.gnd;
-            axios.get('http://localhost:5000/api/GNDivision/'+gndId)
-            .then(resp => {debugger;
-                this.setState({
-                    
-                    Division: resp.data.pD_ID,
-                });
-                debugger;
-                const divId = response.data.pD_ID;
-                axios.get('http://localhost:5000/api/Division/'+ divId)
-                .then(res => {debugger;
-                    this.setState({
-                        
-                        District: res.data.eD_ID,
-                    });
-                    debugger;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
         })
         .catch(function (error) {
             console.log(error);
@@ -149,53 +82,6 @@ export default class EditPerson extends Component {
     onChangeSerialNo(e) {
         this.setState({
             SerialNo: e.target.value
-        });
-    }
-
-    onChangeDistrict(e) {
-        debugger;
-        this.setState({
-            District: e.target.value,
-            Division: ''
-        });
-        debugger;
-        axios.get('http://localhost:5000/api/Division/GetByDistrict/' + e.target.value)
-        .then(response => {
-            debugger;
-            let DivfromApi = response.data.map(divOption =>{
-                debugger;
-                return { value: divOption.id, display: divOption.name}
-            });
-            this.setState({
-                divOptions: [{ value: '', display:'Select Division'}].concat(DivfromApi)
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-    }
-
-    onChangeDivision(e) {
-        debugger;
-        this.setState({
-            Division: e.target.value,
-            GND: ''
-        });
-
-        axios.get('http://localhost:5000/api/GNDivision/GetByDivision/' + e.target.value)
-        .then(response => {
-            debugger;
-            let GNDfromApi = response.data.map(gndOption =>{
-                debugger;
-                return { value: gndOption.id, display: gndOption.name}
-            });
-            this.setState({
-                gndOptions: [{ value: '', display:'Select GND'}].concat(GNDfromApi)
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
         });
     }
 
@@ -244,30 +130,6 @@ export default class EditPerson extends Component {
                                 onChange = {this.onChangeSerialNo}
                                 style= {styles.textField}
                             />
-                            <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >District</InputLabel>
-                                <Select
-                                    //name= "gND"
-                                    value = {this.state.District}
-                                    onChange= {this.onChangeDistrict}
-                                >
-                                    {this.state.disctOptions.map((disctOption) => 
-                                        <MenuItem key={disctOption.value} value={disctOption.value}>{disctOption.display}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
-                            <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >Division</InputLabel>
-                                <Select
-                                    //name= "gND"
-                                    value = {this.state.Division}
-                                    onChange= {this.onChangeDivision}
-                                >
-                                    {this.state.divOptions.map((divOption) => 
-                                        <MenuItem key={divOption.value} value={divOption.value}>{divOption.display}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
                             <FormControl variant="outlined" style={styles.formControl}>
                                 <InputLabel >GND</InputLabel>
                                 <Select

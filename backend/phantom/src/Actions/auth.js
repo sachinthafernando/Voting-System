@@ -1,40 +1,9 @@
-import React from 'react';
 import axois from 'axios';
-<<<<<<< Updated upstream
-import {  USER_LOADED, AUTH_ERROR, LOGIN_FAILED, LOGIN_SUCCESS,GET_USER, LOGOUT } from './types';
-=======
 import {  USER_LOADED, AUTH_ERROR, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT } from './types';
->>>>>>> Stashed changes
 import { setAlert } from './alert';
-import Authtoken from '../utilities/Authtoken';
-import jwt_decode from "jwt-decode"
 
 
-<<<<<<< Updated upstream
-//load user 
-export const loadUser = () => async (dispatch) => {
-    if (localStorage.token) {
-        Authtoken(localStorage.token);
-        var data = localStorage.token;
-        
-        try {
-            dispatch({
-                type: USER_LOADED,
-                payload: data,
-            });
-            } catch (err) {
-            dispatch({
-                type: AUTH_ERROR,
-            });
-        }
-      
-    }
-};
-  
-=======
 
-
->>>>>>> Stashed changes
 //login
 export const login =  (name, password) => async dispatch => {
   const config = {
@@ -43,12 +12,6 @@ export const login =  (name, password) => async dispatch => {
 
   const body = JSON.stringify({ name, password });
 
-<<<<<<< Updated upstream
-    try {
-        const res = await axois.post("http://localhost:5000/api/LogSignUp/login", body, config);
-         
-        dispatch(setAlert("Login Successfull", "success")); debugger;
-=======
   try {
       const res = await axois.post("https://localhost:5001/api/LogSignUp/login", body, config);
        
@@ -76,17 +39,10 @@ export const loadUser = () => async (dispatch) => {
         const res = await axois.get(
           `https://localhost:5001/api/rank1Admin/${user.id}`
         );
->>>>>>> Stashed changes
         dispatch({
           type: USER_LOADED,
           payload: res.data,
         });
-<<<<<<< Updated upstream
-        // dispatch(loadUser())
-         
-    } catch (error) {
-        dispatch(setAlert("Invalid name or password", "danger"));
-=======
       } catch (error) {
         console.error(error);
         dispatch({ type: AUTH_ERROR });
@@ -98,7 +54,6 @@ export const loadUser = () => async (dispatch) => {
         const res = await axois.get(
           `https://localhost:5001/api/rank2Admin/${user.id}`
         );
->>>>>>> Stashed changes
         dispatch({
           type: USER_LOADED,
           payload: res.data,
@@ -108,8 +63,6 @@ export const loadUser = () => async (dispatch) => {
         dispatch({ type: AUTH_ERROR });
       }
     }
-<<<<<<< Updated upstream
-=======
 
     else if (user.role === "Rank3Admin") {
       try {
@@ -145,13 +98,7 @@ export const loadUser = () => async (dispatch) => {
   else {
     dispatch({ type: AUTH_ERROR })
   }
->>>>>>> Stashed changes
 };
-//logout
-export const logout = () => (dispatch) => {
-    dispatch({ type: LOGOUT });
-  };
-  
 
 //logout
 export const logout = () => (dispatch) => {
