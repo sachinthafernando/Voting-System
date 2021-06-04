@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 
 export default function PersonTable(props) {
 
-    const [open, setOpen] = React.useState(false);debugger;
+    const [open, setOpen] = React.useState(false);
 
     // function PaperComponent(props) {
     //     return (

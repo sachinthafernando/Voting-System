@@ -68,7 +68,7 @@ export default function TabView() {
   };
 
   return (
-    <Container>
+    <Container maxWidth="xl ">
         <Paper elevation={3} className={classes.paper}>
             <div className={classes.root}>
                 <AppBar position="static">

@@ -16,7 +16,7 @@ const styles = {
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: "10px",
     },
     paper : {
         margin: "30px auto",
@@ -114,6 +114,7 @@ export default class EditPerson extends Component {
                 {/* <Paper style={styles.paper} elevation={3}> */}
                 <form onSubmit={this.onSubmit} autoComplete="off" noValidate style={styles.root}>
                     <Grid container>
+                        <Grid item xs={6}>
                             <TextField
                                 name = "nic"
                                 variant = "outlined"
@@ -130,6 +131,8 @@ export default class EditPerson extends Component {
                                 onChange = {this.onChangeSerialNo}
                                 style= {styles.textField}
                             />
+                        </Grid>
+                        <Grid item xs={6}>
                             <FormControl variant="outlined" style={styles.formControl}>
                                 <InputLabel >GND</InputLabel>
                                 <Select
@@ -141,6 +144,7 @@ export default class EditPerson extends Component {
                                     )}
                                 </Select>
                             </FormControl>
+                        </Grid>
                     </Grid>
                     <div>
                         <Button

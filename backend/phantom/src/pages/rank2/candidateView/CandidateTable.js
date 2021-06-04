@@ -40,7 +40,6 @@ export default function CandidateTable(props) {
                 <TableCell>{props.obj.candidateNo}</TableCell>
                 <TableCell>{props.obj.candidateName}</TableCell>
                 <TableCell>{props.obj.party_ID}</TableCell>
-                <TableCell>{props.obj.image}</TableCell>
                 <TableCell>
                     <img src={props.obj.imageSrc} />
                 </TableCell>

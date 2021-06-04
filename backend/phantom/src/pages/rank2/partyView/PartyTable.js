@@ -4,6 +4,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import axios from 'axios';
 import React from 'react'
 import EditParty from './EditParty';
+import { FiberManualRecordRounded } from '@material-ui/icons';
 
 export default function PartyTable(props) {
 
@@ -33,8 +34,7 @@ export default function PartyTable(props) {
         <TableRow>
                 <TableCell>{props.obj.partyID}</TableCell>
                 <TableCell>{props.obj.partyName}</TableCell>
-                <TableCell>{props.obj.color}</TableCell>
-                <TableCell>{props.obj.logo}</TableCell>
+                <TableCell><FiberManualRecordRounded style={{color: props.obj.color, fontSize: 'xxx-large'}}/></TableCell>
                 <TableCell>
                     <img src={props.obj.logoSrc} />
                 </TableCell>

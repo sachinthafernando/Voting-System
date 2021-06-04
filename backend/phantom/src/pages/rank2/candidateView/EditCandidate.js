@@ -21,7 +21,7 @@ const styles = {
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: "10px",
     },
     paper : {
         margin: "30px auto",
@@ -150,7 +150,7 @@ export default class EditCandidate extends Component {
 
     render() {
         return (
-            <Container maxWidth="sm">
+            <Container maxWidth="700px">
                     <h4>Enter Candidate Informations</h4>
                     <form onSubmit={this.onSubmit} autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
@@ -183,23 +183,6 @@ export default class EditCandidate extends Component {
                                     style= {styles.textField}
                                 />
                                 
-                            </Grid>
-                            <Grid item xs={6}>
-
-                            <Card className="root" >
-                                    <CardActionArea>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Choose The Candidate Image
-                                        </Typography>
-
-                                        {this.state.imageSrc ? (
-                                            <img alt={this.state.imageSrc} src={this.state.imageSrc} />
-                                            ) : null}
-                                        <CardContent>
-                                        <input  type="file" accept="image/*"  onChange = {this.onChangeImage} />
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
                                 <div>
                                     <Button
                                         variant = "contained"
@@ -217,6 +200,23 @@ export default class EditCandidate extends Component {
                                         Cancel
                                     </Button>
                                 </div>
+                            </Grid>
+                            <Grid item xs={6}>
+
+                            <Card className="root" >
+                                    <CardActionArea>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            Choose The Candidate Image
+                                        </Typography>
+
+                                        {this.state.imageSrc ? (
+                                            <img alt={this.state.imageSrc} src={this.state.imageSrc} />
+                                            ) : null}
+                                        <CardContent>
+                                        <input  type="file" accept="image/*"  onChange = {this.onChangeImage} />
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
                             </Grid>
                         </Grid>
                 </form>

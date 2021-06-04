@@ -1,4 +1,4 @@
-import { Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
 import PartyTable from './PartyTable';
@@ -10,8 +10,8 @@ const styles = {
         }
     },
     paper : {
-        margin: "30px auto",
-        padding: 20,
+        margin: "10px 10px 0px 10px",
+        padding: "20px 20px 0px 20px",
     }
 }
 
@@ -19,7 +19,15 @@ export default class PartyList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {business: []};
+        
+        this.handleChangePage = this.handleChangePage.bind(this);
+        this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
+
+        this.state = {
+            business: [],
+            page: 0,
+            rowsPerPage: 10,
+        };
     }
 
     componentDidMount(){
@@ -34,8 +42,21 @@ export default class PartyList extends Component {
         })
     }
 
+    handleChangePage(e, newpage){
+        debugger;
+        this.setState({
+            page: newpage,
+        })
+    }
+    handleChangeRowsPerPage(e){
+        this.setState({
+            rowsPerPage: e.target.value,
+        })
+    }
+
     tabRow(){
-        return this.state.business.map(function (object, i) {
+        return this.state.business.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage)
+        .map(function (object, i) {
             return <PartyTable obj={object} key={i} /> ;
         })
     }
@@ -46,16 +67,15 @@ export default class PartyList extends Component {
                 <Paper style={styles.paper} elevation={3} >
                     <Grid container spacing={4}>
                         <Grid item xs= {12}>
-                            <TableContainer>
-                            <Table>
+                            <TableContainer style={{maxHeight: '500px'}}>
+                            <Table stickyHeader aria-label="sticky table">
                             <TableHead style={styles.root}>
                                 <TableRow>
-                                    <TableCell>Party ID</TableCell>
-                                    <TableCell>Party Name</TableCell>
-                                    <TableCell>Color</TableCell>
-                                    <TableCell>Logo</TableCell>
-                                    <TableCell>Logo View</TableCell>
-                                    <TableCell>Actions</TableCell>
+                                    <TableCell><h4>Party ID</h4></TableCell>
+                                    <TableCell><h4>Party Name</h4></TableCell>
+                                    <TableCell><h4>Color</h4></TableCell>
+                                    <TableCell><h4>Logo</h4></TableCell>
+                                    <TableCell><h4>Actions</h4></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody style={{overflow:'auto'}}>
@@ -63,6 +83,15 @@ export default class PartyList extends Component {
                             </TableBody>
                             </Table>
                             </TableContainer>
+                            <TablePagination
+                                rowsPerPageOptions={[10, 25, 100]}
+                                component="div"
+                                count={this.state.business.length}
+                                rowsPerPage={this.state.rowsPerPage}
+                                page={this.state.page}
+                                onChangePage={this.handleChangePage}
+                                onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                            />
                         </Grid>
                     </Grid>
                 </Paper>

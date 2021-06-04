@@ -21,7 +21,7 @@ const styles = {
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: "10px",
     },
     paper : {
         margin: "30px auto",

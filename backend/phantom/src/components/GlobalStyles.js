@@ -98,7 +98,7 @@ html,body{
   margin: 5px;
 }
 .searchButton {
-    padding: 10;
+    padding: 1;
 }
 
 
