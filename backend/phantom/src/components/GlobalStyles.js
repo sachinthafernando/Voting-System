@@ -42,6 +42,64 @@ html,body{
 }
 
 
+//----------- Form Validate Error Message ---------------//
+.validate{
+  font-size: smaller;
+  color: red;
+  font-weight: 100;
+  width: 235px;
+}
+.helpicon{
+  color: grey;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  top: 12px;
+  color: grey;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 150px;
+  font-size: 0.8rem;
+  font-stretch: condensed;
+  background-color: #5db2ea8f;
+  color: #04273d;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5px;
+  position: absolute;
+  z-index: 1;
+  left: 90%;
+  /* top: 5%; */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  right: 100%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #5db2ea8f transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+//...................PersonList Search Bar....................//
+
+.searchBar {
+  margin: 5px;
+}
+.searchButton {
+    padding: 10;
+}
 
 
 

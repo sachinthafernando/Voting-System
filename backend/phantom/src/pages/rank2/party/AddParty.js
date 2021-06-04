@@ -1,5 +1,6 @@
 
-import { Button, Container, Grid, TextField, Paper } from '@material-ui/core';
+import { Button, Container, Grid, TextField, Paper, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import React, { Component } from 'react';
 
@@ -25,7 +26,7 @@ const styles = {
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: "10px",
     },
     paper : {
         margin: "30px auto",
@@ -42,19 +43,56 @@ export default class AddParty extends Component {
         this.onChangeLogo = this.onChangeLogo.bind(this);
         this.onChangeColor = this.onChangeColor.bind(this);
         this.AddParty = this.addParty.bind(this);
+        this.closeMessage = this.closeMessage.bind(this);
+        this.formReset = this.formReset.bind(this);
 
         this.state = {
             partyName:'',
-            partyVotecount:0,
             logo: '',
             logoSrc: defaultPartyImg,
             logoFile: null,
-            color:''
+            color:'',
+            message: '',
+            setMessage: false,
+            validateError: {PartyName: true, Color: true, Logo: true},
+            error: {PartyName: '', Color: '', Logo: ''},
+        
         }
     } 
 
+    closeMessage(){
+        this.setState({
+            setMessage: false,
+            message: '',
+        });
+    }
     
     onChangePartyName(e) {
+        let party = e.target.value;
+
+        if (!party){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, PartyName: true},
+                error : {...prevState.error, PartyName : 'Cannot be empty'}
+            })) 
+        }
+        if(party !== ''){
+            if (!party.match(/^[a-zA-Z]+$/)){
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, PartyName: true},
+                    error : {...prevState.error, PartyName : 'Input a proper party name'}
+                }))
+            }
+            else{
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, PartyName: false},
+                    error : {...prevState.error, PartyName : ''}
+                }))
+            }
+        }
+
         this.setState({
             partyName: e.target.value
         });
@@ -68,24 +106,47 @@ export default class AddParty extends Component {
             let reader = new FileReader();
 debugger;
             reader.onloadend =() => {debugger;
-                    this.setState({
+                    this.setState(prevState => ({
                         logoFile:logoFile,
-                        logoSrc: reader.result
-                    });
+                        logoSrc: reader.result,
+                        validateError: {...prevState.validateError, Logo: false},
+                        error : {...prevState.error, Logo : ''}
+                        
+                    }));
             };debugger;
             reader.readAsDataURL(logoFile);
         }
 
-        else{
-            this.setState({
+        else{debugger;
+            this.setState(prevState => ({
                 logoFile:null,
-                logoSrc: defaultPartyImg
-            });
+                logoSrc: defaultPartyImg,
+                validateError: {...prevState.validateError, Logo: true},
+                error : {...prevState.error, Logo : 'Add a logo'}
+                
+            }));
+            debugger;
         }
 
     }
     onChangeColor(e) {
      //   debugger;
+     let color = e.target.value;
+
+        if (!color){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, Color: true},
+                error : {...prevState.error, Color : 'Cannot be empty'}
+            })) 
+        }
+        else{
+            debugger;
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, Color: false},
+                error : {...prevState.error, Color : ''}
+            }))
+        }
+
         this.setState({
             color: e.target.value
         });
@@ -96,7 +157,6 @@ debugger;
         debugger;
         const formData = new FormData()
         formData.append('partyName',this.state.partyName)
-        formData.append('partyVotecount',this.state.partyVotecount)
         formData.append('logo',this.state.logo)
         formData.append('logoFile',this.state.logoFile)
         formData.append('color',this.state.color)
@@ -107,13 +167,28 @@ debugger;
                 debugger;
                 console.log(json.statusText);
                 debugger;
-                alert("Data Save Successfully");
+                this.setState({
+                    setMessage: true,
+                    message: 'Party Save Successfully',
+                });
             }
             else{
                 debugger;
-                alert('Data not Saved');
+                alert('Party not Saved');
             }
         });
+    }
+    formReset(){
+        this.setState({
+            partyName:'',
+            logo: '',
+            logoSrc: defaultPartyImg,
+            logoFile: null,
+            color:'',
+            validateError: {PartyName: true, Color: true, Logo: true},
+            error: {PartyName: '', Color: '', Logo: ''},
+
+        })
     }
 
     render() {
@@ -121,6 +196,11 @@ debugger;
             <Container maxWidth="sm">
                 <Paper style={styles.paper} elevation={3}>
                 <Typography variant='h4' align='center'>Enter Party Informations </Typography>
+                    <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                        <Alert severity="success">
+                            {this.state.message}
+                        </Alert>
+                    </Snackbar>
                     <form onSubmit={this.addParty} autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
                             <Grid item xs={6}>
@@ -132,7 +212,13 @@ debugger;
                                     onChange = {this.onChangePartyName}
                                     style= {styles.textField}
                                 />
+                                {this.state.validateError.PartyName? 
+                                <div>
+                                    <h4 className= 'validate'>{this.state.error.PartyName}</h4> 
+                                </div>
+                                : null}
                                 <TextField
+                                    type = "color"
                                     name = "color"
                                     variant = "outlined"
                                     label = "color"
@@ -140,17 +226,26 @@ debugger;
                                     onChange = {this.onChangeColor}
                                     style= {styles.textField}
                                 />
+                                {this.state.validateError.Color? 
+                                <div>
+                                    <h4 className= 'validate'>{this.state.error.Color}</h4> 
+                                </div>
+                                : null}
                                 <div>
                                     <Button
                                         variant = "contained"
                                         color = "primary"
                                         type = "submit"
                                         style= {styles.sMargin}
+                                        disabled= {this.state.validateError.PartyName
+                                        || this.state.validateError.Color
+                                        || this.state.validateError.Logo}
                                     >
                                     Submit
                                     </Button>
                                     <Button
                                         variant = "contained"
+                                        onClick = {this.formReset}
                                         style= {styles.sMargin}
                                     >
                                         Reset
@@ -173,6 +268,11 @@ debugger;
                                         </CardContent>
                                     </CardActionArea>
                                 </Card>
+                                {this.state.validateError.Logo? 
+                                <div>
+                                    <h4 className= 'validate'>{this.state.error.Logo}</h4> 
+                                </div>
+                                : null}
                             </Grid>
                         </Grid>
                     </form>

@@ -44,6 +44,7 @@ export default class AdminList extends Component {
         if(localStorage.token){
             var decoded = jwt_decode(localStorage.token);
             this.setState({userRank: decoded.id})
+            debugger;
         }
         debugger;
         axios.get('https://localhost:5001/api/Rank4Admin/')

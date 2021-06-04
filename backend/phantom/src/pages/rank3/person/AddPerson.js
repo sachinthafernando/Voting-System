@@ -1,4 +1,5 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import React, { Component } from 'react'
 
@@ -16,7 +17,7 @@ const styles = {
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: "10px",
     },
     paper : {
         margin: "30px auto",
@@ -34,22 +35,31 @@ export default class AddPerson extends Component {
         this.onChangeVoted = this.onChangeVoted.bind(this);
         this.onChangeGND = this.onChangeGND.bind(this);
         this.AddPerson = this.addPerson.bind(this);
+        this.closeMessage = this.closeMessage.bind(this);
+        this.formReset = this.formReset.bind(this);
 
         this.state = {
             NIC:'',
             SerialNo:'',
             Voted:'false',
             gndOptions: [],
-            GND: ""
+            GND: "",
+            message: '',
+            setMessage: false,
+            validateError: {NIC: true, SerialNo: true, GND: true},
+            error: {NIC: '', SerialNo: '', GND: ''},
         }
+    }
+
+    closeMessage(){
+        this.setState({
+            setMessage: false,
+            message: '',
+        });
     }
 
     componentDidMount(){
         axios.get('https://localhost:5001/api/GNDivision/')
-        // .then(response => {
-        //     debugger;
-        //     return response;
-        // })
         .then(response => {
             debugger;
             let GNDfromApi = response.data.map(gndOption =>{
@@ -66,11 +76,61 @@ export default class AddPerson extends Component {
     }
 
     onChangeNIC(e) {
+        let nic = e.target.value;
+
+        if (!nic){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, NIC: true},
+                error : {...prevState.error, NIC : 'Cannot be empty'}
+            })) 
+        }
+        if(nic !== ''){
+            if (!nic.match(/^(([0-9]{9})(V))|(((19)|(20))([0-9]{10}))$/gm)){
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, NIC: true},
+                    error : {...prevState.error, NIC : 'eg.: 962235432V or 199602235432'}
+                }))
+            }
+            else{
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, NIC: false},
+                    error : {...prevState.error, NIC : ''}
+                }))
+            }
+        }
+
         this.setState({
             NIC: e.target.value
         });
     }
     onChangeSerialNo(e) {
+        let serial = e.target.value;
+
+        if (!serial){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, SerialNo: true},
+                error : {...prevState.error, SerialNo : 'Cannot be empty'}
+            })) 
+        }
+        if(serial !== ''){
+            if (!serial.match(/^[0-9]*$/gm)){
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, SerialNo: true},
+                    error : {...prevState.error, SerialNo : 'eg.: 856'}
+                }))
+            }
+            else{
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, SerialNo: false},
+                    error : {...prevState.error, SerialNo : ''}
+                }))
+            }
+        }
+
         this.setState({
             SerialNo: e.target.value
         });
@@ -83,6 +143,20 @@ export default class AddPerson extends Component {
     }
 
     onChangeGND(e) {
+        let gnd = e.target.value;
+
+        if(!gnd){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError,  GND: true},
+                error: {...prevState.error,  GND: 'Select a GN Division'}
+            }))
+        }
+        else{
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError,  GND: false},
+                error: {...prevState.error,  GND: ''}
+            }))
+        }
         debugger;
         this.setState({
             GND: e.target.value
@@ -104,15 +178,31 @@ export default class AddPerson extends Component {
                 debugger;
                 console.log(json.statusText);
                 debugger;
-                alert("Data Save Successfully");
+                this.setState({
+                    setMessage: true,
+                    message: 'Person Save Successfully',
+                });
             }
             else{
                 debugger;
-                alert('Data not Saved');
+                this.setState({
+                    setMessage: true,
+                    message: 'Person not Saved',
+                });
             }
         });
         debugger;
         //this.props.history.push('/personList')
+    }
+    formReset(){
+        this.setState({
+            NIC:'',
+            SerialNo:'',
+            GND: "",
+            validateError: {NIC: true, SerialNo: true, GND: true},
+            error: {NIC: '', SerialNo: '', GND: ''},
+
+        })
     }
 
     render() {
@@ -120,6 +210,11 @@ export default class AddPerson extends Component {
             <Container maxWidth="sm">
                 <Paper style={styles.paper} elevation={3}>
                 <h4>Enter Person Informations</h4>
+                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                    <Alert severity="success">
+                        {this.state.message}
+                    </Alert>
+                </Snackbar>
                 <form onSubmit={this.addPerson} autoComplete="off" noValidate style={styles.root}>
                     <Grid container>
                         <Grid item xs={6}>
@@ -131,6 +226,11 @@ export default class AddPerson extends Component {
                                 onChange = {this.onChangeNIC}
                                 style= {styles.textField}
                             />
+                            {this.state.validateError.NIC? 
+                            <div>
+                                <h4 className= 'validate'>{this.state.error.NIC}</h4> 
+                            </div>
+                            : null}
                             <TextField
                                 name = "serialNo"
                                 variant = "outlined"
@@ -139,6 +239,11 @@ export default class AddPerson extends Component {
                                 onChange = {this.onChangeSerialNo}
                                 style= {styles.textField}
                             />
+                            {this.state.validateError.SerialNo? 
+                            <div>
+                                <h4 className= 'validate'>{this.state.error.SerialNo}</h4> 
+                            </div>
+                            : null}
                             <TextField
                                 name = "voted"
                                 variant = "outlined"
@@ -162,6 +267,11 @@ export default class AddPerson extends Component {
                                     )}
                                 </Select>
                             </FormControl>
+                            {this.state.validateError.GND? 
+                            <div>
+                                <h4 className= 'validate'>{this.state.error.GND}</h4> 
+                            </div>
+                            : null}
                         </Grid>
                     </Grid>
                     <div>
@@ -170,22 +280,20 @@ export default class AddPerson extends Component {
                             color = "primary"
                             type = "submit"
                             style= {styles.sMargin}
+                            disabled= {this.state.validateError.NIC
+                            || this.state.validateError.SerialNo
+                            || this.state.validateError.GND}
                         >
                         Submit
                         </Button>
                         <Button
                             variant = "contained"
+                            onClick = {this.formReset}
                             style= {styles.sMargin}
                         >
                             Reset
                         </Button>
                     </div>        
-                
-                
-                {/* <input name="name" placeholder="Name" onChange={this.onChangeName} value={this.state.Name} /> <br />
-                <input name="password" placeholder="Password" onChange={this.onChangePassword} value={this.state.Password} /> <br />
-                <input name="rank" placeholder="Rank" onChange={this.onChangeRank} value={this.state.Rank} /> <br />
-                <button type="submit">Submit</button> */}
             </form>
                 </Paper>
             </Container>

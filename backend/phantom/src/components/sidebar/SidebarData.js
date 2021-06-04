@@ -14,6 +14,12 @@ export const SidebarData = [
     icon: <AiIcons.AiFillHome />,
     cName: "sidenav-text",
   },
+  {
+    title: "My Home",
+    path: "/",
+    icon: <AiIcons.AiFillHome />,
+    cName: "sidenav-text",
+  },
 
   {
     title: "Profile",

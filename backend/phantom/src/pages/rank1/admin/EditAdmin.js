@@ -32,6 +32,7 @@ export default class EditAdmin extends Component {
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.cancel = this.cancel.bind(this);
 
         this.state = {
             Name: '',
@@ -77,8 +78,10 @@ export default class EditAdmin extends Component {
         .then(res => {console.log(res.config.data);});
         debugger;
         this.props.close();
-        // this.props.history.push('/adminList');
-        // debugger;
+    }
+
+    cancel(){
+        this.props.close();
     }
 
     render() {
@@ -114,6 +117,7 @@ export default class EditAdmin extends Component {
                             </Button>
                             <Button
                                 variant = "contained"
+                                onClick = {this.cancel}
                                 style= {styles.sMargin}
                             >
                                 Cancel

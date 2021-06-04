@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -23,7 +24,7 @@ const styles = {
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: "10px",
     },
     paper : {
         margin: "30px auto",
@@ -41,6 +42,8 @@ export default class AddCandidate extends Component {
         this.onChangePartyID= this.onChangePartyID.bind(this);
         this.onChangeImage= this.onChangeImage.bind(this);
         this.AddCandidate = this.addCandidate.bind(this);
+        this.closeMessage = this.closeMessage.bind(this);
+        this.formReset = this.formReset.bind(this);
 
         this.state = {
             CandidateNo:'',
@@ -49,8 +52,20 @@ export default class AddCandidate extends Component {
             PartyID:'',
             image: '',
             imageSrc: defaultCandidateImg,
-            imageFile: null
+            imageFile: null,
+            message: '',
+            setMessage: false,
+            validateError: {CandidateNo: true, CandidateName: true, Party: true, Image: true},
+            error: {CandidateNo: '', CandidateName: '', Party: '', Image: ''},
+        
         }
+    }
+
+    closeMessage(){
+        this.setState({
+            setMessage: false,
+            message: '',
+        });
     }
 
     componentDidMount(){
@@ -71,18 +86,82 @@ export default class AddCandidate extends Component {
     }
 
     onChangeCandidateNo(e) {
+        let num = e.target.value;
+
+        if (!num){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, CandidateNo: true},
+                error : {...prevState.error, CandidateNo : 'Cannot be empty'}
+            })) 
+        }
+        if(num !== ''){
+            if (!num.match(/^[0-9]*$/gm)){
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, CandidateNo: true},
+                    error : {...prevState.error, CandidateNo : 'eg.: 23'}
+                }))
+            }
+            else{
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, CandidateNo: false},
+                    error : {...prevState.error, CandidateNo : ''}
+                }))
+            }
+        }
+
         this.setState({
             CandidateNo: e.target.value
         });
     }
 
     onChangeCandidateName(e) {
+        let name = e.target.value;
+
+        if (!name){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, CandidateName: true},
+                error : {...prevState.error, CandidateName : 'Cannot be empty'}
+            })) 
+        }
+        if(name !== ''){
+            if (!name.match(/^[a-zA-Z]+$/)){
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, CandidateName: true},
+                    error : {...prevState.error, CandidateName : 'Numbers and special characters not accepted'}
+                }))
+            }
+            else{
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, CandidateName: false},
+                    error : {...prevState.error, CandidateName : ''}
+                }))
+            }
+        }
+        
         this.setState({
             CandidateName: e.target.value
         });
     }
 
     onChangePartyID(e) {
+        let party = e.target.value;
+
+        if(!party){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError,  Party: true},
+                error: {...prevState.error,  Party: 'Select a party'}
+            }))
+        }
+        else{
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError,  Party: false},
+                error: {...prevState.error,  Party: ''}
+            }))
+        }
         debugger;
         this.setState({
             PartyID: e.target.value
@@ -96,32 +175,29 @@ export default class AddCandidate extends Component {
             let reader = new FileReader();
 debugger;
             reader.onloadend =()=> {debugger;
-                this.setState({
+                this.setState(prevState => ({
                     imageFile: imageFile,
-                    imageSrc: reader.result
-                });debugger;
+                    imageSrc: reader.result,
+                    validateError: {...prevState.validateError, Image: false},
+                    error : {...prevState.error, Image : ''}
+                }));debugger;
             };
             reader.readAsDataURL(imageFile);
         }
 
         else{
-            this.setState({
+            this.setState(prevState => ({
                 imageFile:null,
-                imageSrc: defaultCandidateImg
-            });
+                imageSrc: defaultCandidateImg,
+                validateError: {...prevState.validateError, Image: true},
+                error : {...prevState.error, Image : 'Add an image'}
+            }));
         }
 
     }
 
     addCandidate =async (e)=>{
         debugger;
-        //e.preventDefault();
-        // const obj = {
-        //     CandidateNo: this.state.CandidateNo,
-        //     CandidateName: this.state.CandidateName, 
-        //     PartyID: parseInt(this.state.PartyID)
-        // };
-
         const formData = new FormData()
         formData.append('candidateNo',this.state.CandidateNo)
         formData.append('candidateName',this.state.CandidateName)
@@ -135,14 +211,35 @@ debugger;
                 debugger;
                 console.log(json.statusText);
                 debugger;
-                alert("Data Save Successfully");
+                this.setState({
+                    setMessage: true,
+                    message: 'Candidate Save Successfully',
+                });
             }
             else{
                 debugger;
                 alert('Data not Saved');
+                this.setState({
+                    setMessage: true,
+                    message: 'Candidate not Saved',
+                });
             }
         });
         debugger;
+    }
+    formReset(){
+        this.setState({
+            CandidateNo:'',
+            CandidateName:'',
+            PartyID:'',
+            image: '',
+            imageSrc: defaultCandidateImg,
+            imageFile: null,
+            validateError: {CandidateNo: true, CandidateName: true, Party: true, Image: true},
+            error: {CandidateNo: '', CandidateName: '', Party: '', Image: ''},
+        
+
+        })
     }
 
     render() {
@@ -150,6 +247,11 @@ debugger;
             
             <Container maxWidth="sm">
                 <Paper style={styles.paper} elevation={3}>
+                    <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                        <Alert severity="success">
+                            {this.state.message}
+                        </Alert>
+                    </Snackbar>
                     <h4>Enter Candidate Informations</h4>
                     <form onSubmit={this.addCandidate} autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
@@ -165,6 +267,11 @@ debugger;
                                     )}
                                 </Select>
                             </FormControl>
+                                {this.state.validateError.Party? 
+                                <div>
+                                    <h4 className= 'validate'>{this.state.error.Party}</h4> 
+                                </div>
+                                : null}
                                 <TextField
                                     name = "candidateNo"
                                     variant = "outlined"
@@ -173,6 +280,11 @@ debugger;
                                     onChange = {this.onChangeCandidateNo}
                                     style= {styles.textField}
                                 />
+                                {this.state.validateError.CandidateNo? 
+                                <div>
+                                    <h4 className= 'validate'>{this.state.error.CandidateNo}</h4> 
+                                </div>
+                                : null}
                                 <TextField
                                     name = "candidateName"
                                     variant = "outlined"
@@ -181,7 +293,33 @@ debugger;
                                     onChange = {this.onChangeCandidateName}
                                     style= {styles.textField}
                                 />
+                                {this.state.validateError.CandidateName? 
+                                <div>
+                                    <h4 className= 'validate'>{this.state.error.CandidateName}</h4> 
+                                </div>
+                                : null}
                                 
+                                <div>
+                                    <Button
+                                        variant = "contained"
+                                        color = "primary"
+                                        type = "submit"
+                                        style= {styles.sMargin}
+                                        disabled= {this.state.validateError.CandidateNo
+                                            || this.state.validateError.CandidateName
+                                            || this.state.validateError.Party
+                                            || this.state.validateError.Image}
+                                    >
+                                        Submit
+                                    </Button>
+                                    <Button
+                                        variant = "contained"
+                                        onClick = {this.formReset}
+                                        style= {styles.sMargin}
+                                    >
+                                        Reset
+                                    </Button>
+                                </div>
                             </Grid>
                             <Grid item xs={6}>
 
@@ -199,22 +337,11 @@ debugger;
                                         </CardContent>
                                     </CardActionArea>
                                 </Card>
+                                {this.state.validateError.Image? 
                                 <div>
-                                    <Button
-                                        variant = "contained"
-                                        color = "primary"
-                                        type = "submit"
-                                        style= {styles.sMargin}
-                                    >
-                                        Submit
-                                    </Button>
-                                    <Button
-                                        variant = "contained"
-                                        style= {styles.sMargin}
-                                    >
-                                        Reset
-                                    </Button>
+                                    <h4 className= 'validate'>{this.state.error.Image}</h4> 
                                 </div>
+                                : null}
                             </Grid>
                         </Grid>
                 </form>

@@ -1,4 +1,5 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper  } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper , Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import React, { Component } from 'react'
 
@@ -35,6 +36,7 @@ export default class AddDistricts extends Component {
         this.AddDistrict = this.AddDistrict.bind(this);
         this.AddDivision = this.AddDivision.bind(this);
         this.AddGNDivision = this.AddGNDivision.bind(this);
+        this.closeMessage = this.closeMessage.bind(this);
 
         this.state = {
             district:'',
@@ -42,8 +44,17 @@ export default class AddDistricts extends Component {
             division: '',
             divOptions: [{ value: '', display:'Select Division'}],
             gndivision:'',
+            message: '',
+            setMessage: false,
         }
     } 
+
+    closeMessage(){
+        this.setState({
+            setMessage: false,
+            message: '',
+        });
+    }
 
     componentDidMount(){
         axios.get('https://localhost:5001/api/District/')
@@ -112,11 +123,17 @@ export default class AddDistricts extends Component {
                 this.setState({
                     district: ''
                 });
-                alert("Data Save Successfully");
+                this.setState({
+                    setMessage: true,
+                    message: 'District Save Successfully',
+                });
             }
             else{
                 debugger;
-                alert('Data not Saved');
+                this.setState({
+                    setMessage: true,
+                    message: 'District not Saved',
+                });
             }
         });
         debugger;
@@ -137,11 +154,17 @@ export default class AddDistricts extends Component {
                 this.setState({
                     division: ''
                 });
-                alert("Data Save Successfully");
+                this.setState({
+                    setMessage: true,
+                    message: 'Division Save Successfully',
+                });
             }
             else{
                 debugger;
-                alert('Data not Saved');
+                this.setState({
+                    setMessage: true,
+                    message: 'Division not Saved',
+                });
             }
         });
         debugger;
@@ -162,11 +185,17 @@ export default class AddDistricts extends Component {
                 this.setState({
                     gndivision: ''
                 });
-                alert("Data Save Successfully");
+                this.setState({
+                    setMessage: true,
+                    message: 'GNDivision Save Successfully',
+                });
             }
             else{
                 debugger;
-                alert('Data not Saved');
+                this.setState({
+                    setMessage: true,
+                    message: 'GNDivision not Saved',
+                });
             }
         });
         debugger;
@@ -175,6 +204,11 @@ export default class AddDistricts extends Component {
     render() {
         return (
             <Container maxWidth="lg">
+                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                    <Alert severity="success">
+                        {this.state.message}
+                    </Alert>
+                </Snackbar>
                     <form autoComplete="off" noValidate style={styles.root}>
                         {this.props.index === 0 ? 
                         <Grid style={styles.tab}>

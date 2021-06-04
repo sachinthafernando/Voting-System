@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import jwt_decode from "jwt-decode"
-import { Grid, Container, Paper,  Button } from '@material-ui/core';
+import { Grid, Container, Paper,  Button, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 
 const styles = {
@@ -30,6 +31,9 @@ export default class VoteParty extends Component {
   constructor(props) {
     super(props);
 
+    
+    this.closeMessage = this.closeMessage.bind(this);
+
     var today = new Date(),
 
     time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds() + ':' + today.getMilliseconds();
@@ -39,7 +43,16 @@ export default class VoteParty extends Component {
       currentTime: time,
       personDist: '',
       personDiv: '',
+      message: '',
+      setMessage: false,
     };
+}
+
+closeMessage(){
+  this.setState({
+      setMessage: false,
+      message: '',
+  });
 }
 
 
@@ -91,11 +104,17 @@ selectParty(e) {
           debugger;
           console.log(json.statusText);
           debugger;
-          alert("vote Saved Successfully");
+          this.setState({
+            setMessage: true,
+            message: 'Vote Save Successfully',
+          });
       }
       else{
           debugger;
-          alert('Data not Saved');
+          this.setState({
+            setMessage: true,
+            message: 'Vote not Saved',
+          });
       }
   });
 debugger;
@@ -109,6 +128,11 @@ debugger;
       <Container style={styles.root}>
             <Paper style={styles.paper} elevation={3} >
               {/* <Grid  spacing={4}> */}
+              <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                    <Alert severity="success">
+                        {this.state.message}
+                    </Alert>
+              </Snackbar>
               <Grid>
               {this.state.business.map((tile, i) => (
                       <Button 

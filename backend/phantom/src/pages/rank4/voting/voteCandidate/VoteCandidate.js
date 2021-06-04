@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Grid, Container, Paper,  Button } from '@material-ui/core';
+import { Grid, Container, Paper,  Button, Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import jwt_decode from "jwt-decode"
 
 const styles = {
@@ -37,6 +38,7 @@ export default class VoteCandidate extends Component {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
+        this.closeMessage = this.closeMessage.bind(this);
 
         var today = new Date(),
 
@@ -49,10 +51,18 @@ export default class VoteCandidate extends Component {
           personDist: 1,
           personDiv: 1,
           PollingCenter: '',
+          message: '',
+          setMessage: false,
           // onScreen: true,
         };
     }
-    
+  
+    closeMessage(){
+      this.setState({
+          setMessage: false,
+          message: '',
+      });
+    }
     
     componentDidMount(){
       debugger;
@@ -90,7 +100,10 @@ export default class VoteCandidate extends Component {
       this.setState(( {count}) => ({
         count : count + 1
       }));
-      window.alert(2-this.state.count +" votes left")
+      this.setState({
+        setMessage: true,
+        message: 2-this.state.count +" votes left",
+      });
       if (this.state.count < 3) {
         debugger;
         this.selectCandidate(e);
@@ -113,14 +126,20 @@ export default class VoteCandidate extends Component {
       axios.post('https://localhost:5001/api/voteCan/', obj)
       .then(json => {
           if (json.statusText === 'Created'){
-              debugger;
-              console.log(json.statusText);
-              debugger;
-              alert("vote Saved Successfully");
+            debugger;
+            console.log(json.statusText);
+            debugger;
+            this.setState({
+              setMessage: true,
+              message: 'vote Saved Successfully',
+            });
           }
           else{
               debugger;
-              alert('Data not Saved');
+              this.setState({
+                setMessage: true,
+                message: 'vote not Saved',
+              });
           }
       });
     }
@@ -151,6 +170,11 @@ export default class VoteCandidate extends Component {
         return (
         <Container style={styles.root} >
              <Paper style={styles.paper} elevation={3} >
+                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                    <Alert severity="success">
+                        {this.state.message}
+                    </Alert>
+                </Snackbar>
                 <Grid  spacing={4} >
                 {this.state.business.map((tile, i) => (
                         <Button 

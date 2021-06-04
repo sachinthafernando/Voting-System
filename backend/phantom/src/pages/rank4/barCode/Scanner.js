@@ -1,4 +1,5 @@
-import { Button, Container, Grid, TextField, Paper} from '@material-ui/core';
+import { Button, Container, Grid, TextField, Paper, Snackbar} from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import React, { Component } from 'react'
 import jwt_decode from "jwt-decode"
@@ -18,7 +19,7 @@ const styles = {
         width: 230,
     },
     sMargin:{
-        maxWidth:345,
+        margin: "10px",
     },
     paper : {
         margin: "30px auto",
@@ -41,6 +42,8 @@ export default class Scanner extends Component {
          // this.findDistrict = this.findDistrict.bind(this);
         this.allowVote = this.allowVote.bind(this);
         this.screen = this.screen.bind(this);
+        this.closeMessage = this.closeMessage.bind(this);
+        this.formReset = this.formReset.bind(this);
 
         this.state = {
             barcode:'',
@@ -52,8 +55,18 @@ export default class Scanner extends Component {
             District: '',
             PollingCenter: '',
             onScreen: '',
+            message: '',
+            setMessage: false,
         }
     }
+    
+    closeMessage(){
+        this.setState({
+            setMessage: false,
+            message: '',
+        });
+    }
+
     componentDidMount(){
        
         debugger;
@@ -115,9 +128,15 @@ export default class Scanner extends Component {
             console.log(response.data);
 
             if (this.state.Voted === false) {
-                window.alert(this.state.NIC + ' is eligible to vote.')
+                this.setState({
+                    setMessage: true,
+                    message: this.state.NIC + ' is eligible to vote',
+                });
             } else {
-                window.alert('Already Voted.')
+                this.setState({
+                    setMessage: true,
+                    message: 'Already Voted',
+                });
             }
             
             axios.get('https://localhost:5001/api/GNDivision/'+response.data.gnd)
@@ -146,7 +165,11 @@ export default class Scanner extends Component {
         .catch(function (error) {
             debugger;
             console.log(error);
-            window.alert('Not eligible to vote.');
+            // this.setState({
+            //     setMessage: true,
+            //     message: 'Not eligible to vote',
+            // });
+            alert('Not eligible to vote');
         });
         debugger;
         // this.findDistrict();
@@ -156,7 +179,11 @@ export default class Scanner extends Component {
         debugger;
         e.preventDefault();
         
-        window.alert('allowed');
+        // window.alert('allowed');
+        this.setState({
+                setMessage: true,
+                message: this.state.NIC + 'allowed to vote',
+            });
         const obj = {
             PersonDist: parseInt(this.state.District),
             PersonDiv: parseInt(this.state.Division),
@@ -196,6 +223,12 @@ export default class Scanner extends Component {
         debugger;
     }
 
+    formReset(){
+        this.setState({
+            barcode: ''
+        })
+    }
+
     render() {
         return (
             <div>
@@ -203,6 +236,11 @@ export default class Scanner extends Component {
                 <Container maxWidth="sm">
                 <Paper style={styles.paper} elevation={3}>
                 <h4>Scan barcode to verify person</h4>
+                <Snackbar open={this.state.setMessage} autoHideDuration={6000} onClose={this.closeMessage} >
+                    <Alert severity="success" style={{ background: '#4ff398', color: '#060b26' }}>
+                        {this.state.message}
+                    </Alert>
+                </Snackbar>
                 <form onSubmit={this.checkPerson} autoComplete="off" noValidate style={styles.root}>
                     <Grid container>
                         <Grid item xs={6}>
@@ -226,6 +264,7 @@ export default class Scanner extends Component {
                                 </Button>
                                 <Button
                                     variant = "contained"
+                                    onClick = {this.formReset}
                                     style= {styles.sMargin}
                                 >
                                     Reset

@@ -96,6 +96,7 @@ export const loadUser = () => async (dispatch) => {
 
   }
   else {
+    debugger;
     dispatch({ type: AUTH_ERROR })
   }
 };

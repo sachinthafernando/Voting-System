@@ -1,4 +1,5 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Typography, Snackbar } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Snackbar, Icon, IconButton } from '@material-ui/core';
+import { HelpOutlineRounded } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import React, { Component } from 'react';
@@ -46,10 +47,12 @@ export default class AddAdmin extends Component {
             Password:'',
             Rank:'',
             PollingCenter: '',
-            disabled: true,
+            disable: true,
             obj: {},
             message: '',
             setMessage: false,
+            validateError: {Name: true, Password: true, Rank: true, PollingCenter: true},
+            error: {Name: '', Password: '', Rank: '', PollingCenter: ''},
         }
     }
 
@@ -61,27 +64,98 @@ export default class AddAdmin extends Component {
     }
 
     onChangeName(e) {
+        let name = e.target.value;
+
+        if (!name){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, Name: true},
+                error : {...prevState.error, Name : 'Cannot be empty'}
+            })) 
+        }
+        if(name !== ''){
+            if (!name.match(/^[0-9a-zA-Z]+$/)){
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, Name: true},
+                    error : {...prevState.error, Name : 'Special characters not accepted'}
+                }))
+            }
+            else{
+                debugger;
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, Name: false},
+                    error : {...prevState.error, Name : ''}
+                }))
+            }
+        }
+        
         this.setState({
             Name: e.target.value
         });
     }
     onChangePassword(e) {
+        let password = e.target.value;
+        
+        if (!password){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, Password: true},
+                error : {...prevState.error, Password : 'Cannot be empty'}
+            })) 
+        }
+        if(password !== ''){
+            if(password.length >= 8 ){
+                if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{7,15}$/)){
+                   debugger;
+                    this.setState(prevState => ({
+                        validateError: {...prevState.validateError, Password: true},
+                        error : {...prevState.error, Password : 'Including at least an upercase, a lowercase a number and a special character'}
+                    }))
+                }
+                else{
+                    debugger;
+                    this.setState(prevState => ({
+                        validateError: {...prevState.validateError, Password: false},
+                        error : {...prevState.error, Password : ''}
+                    }))
+                }
+            }
+            else{
+                this.setState(prevState => ({
+                    validateError: {...prevState.validateError, Password: true},
+                    error : {...prevState.error, Password : 'Must contain more than 8 characters'}
+                }))
+            }
+        }
         this.setState({
             Password: e.target.value
         });
     }
 
     onChangeRank(e) {
-        this.setState({
-            Rank: e.target.value
-        });
+        this.setState(prevState => ({
+            Rank: e.target.value,
+            validateError: {...prevState.validateError, PollingCenter: false, Rank: false},
+            error: {...prevState.error,  Rank: ''}
+        }));
 
+        if (!e.target.value){
+            debugger;
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError,  Rank: true},
+                error: {...prevState.error,  Rank: 'Select a rank'}
+            }))
+        }
         if (e.target.value === 'Rank4Admin') {
-            this.setState({disabled: false})
+            
+            this.setState(prevState => ({
+                disable: false,
+                validateError: {...prevState.validateError,  PollingCenter: true},
+            }));
+            debugger;
         }
         else{
             this.setState({
-                disabled: true,
+                disable: true,
                 obj: {
                     Name: this.state.Name,
                     Password: this.state.Password,
@@ -91,6 +165,20 @@ export default class AddAdmin extends Component {
         debugger;
     }
     onChangeCenter(e) {
+        let center = e.target.value;
+        let available = !this.state.disabled;
+        if(available && !center){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, PollingCenter: true},
+                error : {...prevState.error, PollingCenter : 'cannot be empty'}
+            }))
+        }
+        if(available && center){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError, PollingCenter: false},
+                error : {...prevState.error, PollingCenter : ''}
+            }))
+        }
         this.setState({
             PollingCenter: e.target.value,
             obj: {
@@ -111,18 +199,16 @@ export default class AddAdmin extends Component {
                 debugger;
                 console.log(json.statusText);
                 debugger;
-                alert("Data Save Successfully");
                 this.setState({
                     setMessage: true,
-                    message: 'Data Save Successfully',
+                    message: 'Admin Save Successfully',
                 });
             }
             else{
                 debugger;
-                alert('Data not Saved');
                 this.setState({
                     setMessage: true,
-                    message: 'Data not Saved',
+                    message: 'Admin not Saved',
                 });
             }
         });
@@ -131,9 +217,14 @@ export default class AddAdmin extends Component {
 
     formReset(){
         this.setState({
-            setMessage: true,
-            message: 'Reset button clicked.',
-        });
+            Name: '',
+            Password:'',
+            Rank:'',
+            PollingCenter: '',
+            validateError: {Name: true, Password: true, Rank: true, PollingCenter: true},
+            error: {Name: '', Password: '', Rank: '', PollingCenter: ''},
+        
+        })
     }
 
     
@@ -160,6 +251,15 @@ export default class AddAdmin extends Component {
                                 onChange = {this.onChangeName}
                                 style= {styles.textField}
                             />
+                            <IconButton  className='tooltip'>
+                                <HelpOutlineRounded className= 'helpicon'/>
+                                <span className="tooltiptext">Name must contain only letters and numbers. Special characters are not allowed.</span>
+                            </IconButton>
+                            {this.state.validateError.Name? 
+                            <div>
+                                <h4 className= 'validate'>{this.state.error.Name}</h4> 
+                            </div>
+                            : null}
                             <TextField 
                                 name = "password"
                                 variant = "outlined"
@@ -168,7 +268,15 @@ export default class AddAdmin extends Component {
                                 onChange = {this.onChangePassword}
                                 style= {styles.textField}
                             />
-
+                            <IconButton  className='tooltip'>
+                                <HelpOutlineRounded className= 'helpicon'/>
+                                <span className="tooltiptext">Passwords must contain at least eight characters, including at least an upercase, a lowercase a number and a special character.</span>
+                            </IconButton>
+                            {this.state.validateError.Password? 
+                            <div>
+                                <h4 className= 'validate'>{this.state.error.Password}</h4> 
+                            </div>
+                            : null}
                             <FormControl variant="outlined" style={styles.formControl}>
                                 <InputLabel >Rank</InputLabel>
                                 {this.props.userRank === "1" ?
@@ -194,9 +302,14 @@ export default class AddAdmin extends Component {
                                 </Select>
                                 }
                             </FormControl>
+                            {this.state.validateError.Rank? 
+                            <div>
+                                <h4 className= 'validate'>{this.state.error.Rank}</h4> 
+                            </div>
+                            : null}
                             
                             {
-                            this.state.disabled? null :
+                            this.state.disable? null :
                             <TextField 
                                 name = "center"
                                 variant = "outlined"
@@ -204,8 +317,14 @@ export default class AddAdmin extends Component {
                                 value = {this.state.PollingCenter}
                                 onChange = {this.onChangeCenter}
                                 style= {styles.textField}
-                                disabled= {this.state.disabled}
+                                disabled= {this.state.disable}
                             />
+                            }
+                            {this.state.validateError.PollingCenter? 
+                                <div>
+                                    <h4 className= 'validate'>{this.state.error.PollingCenter}</h4> 
+                                </div>
+                                : null
                             }
                             <div>
                                 <Button
@@ -213,6 +332,10 @@ export default class AddAdmin extends Component {
                                     color = "primary"
                                     type = "submit"
                                     style= {styles.sMargin}
+                                    disabled= {this.state.validateError.Name 
+                                        || this.state.validateError.Password 
+                                        || this.state.validateError.Rank 
+                                        || this.state.validateError.PollingCenter}
                                 >
                                     Submit
                                 </Button>
