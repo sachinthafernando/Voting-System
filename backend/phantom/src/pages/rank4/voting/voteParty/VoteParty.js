@@ -87,7 +87,7 @@ componentDidMount(){
     
 }
 
-selectParty(e) {
+async selectParty(e) {
   debugger;
 
   const obj = {
@@ -98,9 +98,9 @@ selectParty(e) {
     personDiv: parseInt(this.state.personDiv),
   };
   debugger;
-  axios.post('https://localhost:5001/api/vote/', obj)
+  await axios.post('https://localhost:5001/api/vote/', obj)
   .then(json => {
-      if (json.statusText === 'Created'){
+      if (json.data){
           debugger;
           console.log(json.statusText);
           debugger;

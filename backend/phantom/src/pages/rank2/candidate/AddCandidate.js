@@ -207,7 +207,7 @@ debugger;
 
         await axios.post('https://localhost:5001/api/Candidate/', formData)
         .then(json => {
-            if (json.statusText === 'Created'){
+            if (json.data){
                 debugger;
                 console.log(json.statusText);
                 debugger;

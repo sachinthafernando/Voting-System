@@ -23,7 +23,7 @@ export default function PartyTable(props) {
             {
                 axios.delete('https://localhost:5001/api/party/'+props.obj.partyID)
             .then(json => {
-                if(json.statusText ==='OK'){
+                if(json.data){
                     alert('Record deleted successfully!!');
                 }
             })

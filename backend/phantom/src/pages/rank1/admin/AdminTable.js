@@ -25,7 +25,7 @@ export default function AdminTable(props) {
         if (props.obj.rank1AdminID) {debugger;
             axios.delete('https://localhost:5001/api/rank1Admin/'+props.obj.rank1AdminID)
             .then(json => {
-                if(json.statusText ==='OK'){
+                if(json.data){
                     alert('Record deleted successfully!!');
                 }
             })
@@ -33,7 +33,7 @@ export default function AdminTable(props) {
         if (props.obj.rank2AdminID) {debugger;
             axios.delete('https://localhost:5001/api/rank2Admin/'+props.obj.rank2AdminID)
             .then(json => {
-                if(json.statusText ==='OK'){
+                if(json.data){
                     alert('Record deleted successfully!!');
                 }
             })
@@ -41,7 +41,7 @@ export default function AdminTable(props) {
         if (props.obj.rank3AdminID) {debugger;
             axios.delete('https://localhost:5001/api/rank3Admin/'+props.obj.rank3AdminID)
             .then(json => {
-                if(json.statusText ==='OK'){
+                if(json.data){
                     alert('Record deleted successfully!!');
                 }
             })
@@ -49,7 +49,7 @@ export default function AdminTable(props) {
         if (props.obj.rank4AdminID) {debugger;
             axios.delete('https://localhost:5001/api/rank4Admin/'+props.obj.rank4AdminID)
             .then(json => {
-                if(json.statusText ==='OK'){
+                if(json.data){
                     alert('Record deleted successfully!!');
                 }
             })

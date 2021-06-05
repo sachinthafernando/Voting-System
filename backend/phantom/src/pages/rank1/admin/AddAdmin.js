@@ -103,6 +103,7 @@ export default class AddAdmin extends Component {
             })) 
         }
         if(password !== ''){
+            debugger;
             if(password.length >= 8 ){
                 if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{7,15}$/)){
                    debugger;
@@ -195,7 +196,7 @@ export default class AddAdmin extends Component {
         debugger;
         axios.post('https://localhost:5001/api/'+this.state.Rank, this.state.obj)
         .then(json => {
-            if (json.statusText === 'Created'){
+            if (json.data){
                 debugger;
                 console.log(json.statusText);
                 debugger;

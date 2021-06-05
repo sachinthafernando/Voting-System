@@ -44,10 +44,16 @@ export default class FreezeScreen extends Component {
         }
         debugger;
         axios.get('https://localhost:5001/api/Rank4Admin/'+ decoded.id)
-            .then(res => {debugger;
-                this.setState({
-                    onScreen: res.data.voteScreen,
-                });
+            .then(res => {
+                debugger;
+                if (res.data.voteScreen) {
+                    this.screen();
+                } else {
+                    this.setState({
+                        onScreen: res.data.voteScreen,
+                    });
+                }
+                
                 debugger;
             })
             .catch(function (error) {
@@ -58,7 +64,8 @@ export default class FreezeScreen extends Component {
     screen(){
         debugger;
         axios.get('https://localhost:5001/api/Rank4Admin/'+ this.state.PollingCenter.id)
-        .then(res => {debugger;
+        .then(res => {
+            debugger;
             this.setState({
                 onScreen: res.data.voteScreen,
             });

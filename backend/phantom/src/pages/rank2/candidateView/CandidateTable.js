@@ -27,7 +27,7 @@ export default function CandidateTable(props) {
             {
                 axios.delete('https://localhost:5001/api/candidate/'+props.obj.candidateID)
                 .then(json => {
-                    if(json.statusText ==='OK'){
+                    if(json.data){
                         alert('Record deleted successfully!!');
                     }
                 })

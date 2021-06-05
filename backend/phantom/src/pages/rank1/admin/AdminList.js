@@ -91,7 +91,7 @@ export default class AdminList extends Component {
                         {this.createAdmin()}
                         </Grid>
                     <Grid item xs= {5}>
-                        <TableContainer>
+                        <TableContainer style={{maxHeight: '700px'}}>
                             <Table>
                             <TableHead style={styles.root}>
                                 <TableRow>

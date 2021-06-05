@@ -114,7 +114,7 @@ export default class VoteCandidate extends Component {
       }
     }
     
-    selectCandidate(e) {
+    async selectCandidate(e) {
       debugger;
       const obj = {
         Time: this.state.currentTime,
@@ -123,9 +123,9 @@ export default class VoteCandidate extends Component {
         personDiv: parseInt(this.state.personDiv),
       };
       debugger;
-      axios.post('https://localhost:5001/api/voteCan/', obj)
+      await axios.post('https://localhost:5001/api/voteCan/', obj)
       .then(json => {
-          if (json.statusText === 'Created'){
+          if (json.data){
             debugger;
             console.log(json.statusText);
             debugger;
@@ -144,13 +144,13 @@ export default class VoteCandidate extends Component {
       });
     }
 
-    onSubmit() {
+    async onSubmit() {
       const obj = {
         ScanScreen: Boolean(true),
         VoteScreen: Boolean(false),
       };
       debugger;
-      axios.put('https://localhost:5001/api/Rank4Admin/Screen/'+this.state.PollingCenter.id, obj)
+      await axios.put('https://localhost:5001/api/Rank4Admin/Screen/'+this.state.PollingCenter.id, obj)
       .then(res => {
           console.log(res.config.data);
           debugger;

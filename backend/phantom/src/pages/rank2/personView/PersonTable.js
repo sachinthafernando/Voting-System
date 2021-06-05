@@ -33,7 +33,7 @@ export default function PersonTable(props) {
     const DeletePerson = () =>{
         axios.delete('https://localhost:5001/api/person/'+props.obj.nic)
         .then(json => {
-            if(json.statusText ==='OK'){
+            if(json.data){
                 alert('Record deleted successfully!!');
             }
         })

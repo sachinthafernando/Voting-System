@@ -85,11 +85,11 @@ export default class AddPerson extends Component {
             })) 
         }
         if(nic !== ''){
-            if (!nic.match(/^(([0-9]{9})(V))|(((19)|(20))([0-9]{10}))$/gm)){
+            if (!nic.match(/^(([0-9]{9}))|(((19)|(20))([0-9]{10}))$/gm)){
                 debugger;
                 this.setState(prevState => ({
                     validateError: {...prevState.validateError, NIC: true},
-                    error : {...prevState.error, NIC : 'eg.: 962235432V or 199602235432'}
+                    error : {...prevState.error, NIC : 'eg.: 962235432 or 199602235432'}
                 }))
             }
             else{
@@ -169,12 +169,12 @@ export default class AddPerson extends Component {
         const obj = {
             NIC: parseInt(this.state.NIC),
             SerialNo: parseInt(this.state.SerialNo),
-            Voted: Boolean(this.state.Voted),
+            Voted: false,
             GND: parseInt(this.state.GND)
         };
         axios.post('https://localhost:5001/api/person/', obj)
         .then(json => {
-            if (json.statusText === 'Created'){
+            if (json.data){
                 debugger;
                 console.log(json.statusText);
                 debugger;
