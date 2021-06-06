@@ -246,6 +246,7 @@ export default class AddAdmin extends Component {
                         <Grid >
                             <TextField 
                                 name = "name"
+                                required
                                 variant = "outlined"
                                 label = "Name"
                                 value = {this.state.Name}
@@ -264,6 +265,7 @@ export default class AddAdmin extends Component {
                             <TextField 
                                 name = "password"
                                 variant = "outlined"
+                                required
                                 label = "Password"
                                 value = {this.state.Password}
                                 onChange = {this.onChangePassword}
@@ -280,7 +282,7 @@ export default class AddAdmin extends Component {
                             : null}
                             <FormControl variant="outlined" style={styles.formControl}>
                                 <InputLabel >Rank</InputLabel>
-                                {this.props.userRank === "1" ?
+                                {this.props.userRank === "Rank1Admin" ?
                                 <Select
                                 name= "rank"
                                 value = {this.state.Rank}
@@ -314,6 +316,7 @@ export default class AddAdmin extends Component {
                             <TextField 
                                 name = "center"
                                 variant = "outlined"
+                                required
                                 label = "Polling Center"
                                 value = {this.state.PollingCenter}
                                 onChange = {this.onChangeCenter}

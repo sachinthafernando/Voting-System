@@ -275,6 +275,7 @@ debugger;
                                 <TextField
                                     name = "candidateNo"
                                     variant = "outlined"
+                                    required
                                     label = "CandidateNo"
                                     value = {this.state.CandidateNo}
                                     onChange = {this.onChangeCandidateNo}
@@ -288,6 +289,7 @@ debugger;
                                 <TextField
                                     name = "candidateName"
                                     variant = "outlined"
+                                    required
                                     label = "CandidateName"
                                     value = {this.state.CandidateName}
                                     onChange = {this.onChangeCandidateName}

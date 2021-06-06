@@ -51,6 +51,8 @@ import AddDistricts from './pages/rank1/setting/AddDistricts';
 import Settings from './pages/rank1/setting/Settings';
 import barChart from './pages/rank1/result/barChart';
 import FreezeScreen from './pages/rank4/barCode/FreezeScreen';
+import OperaterLogIn from './pages/rank2/OperaterLogIn';
+import OperatorView from './pages/rank2/OperatorEntryMenu';
 
 
 if (localStorage.token){
@@ -140,7 +142,8 @@ return (
           <Route path= "/freezeScreen" component={FreezeScreen}/>
 
 
-
+          <Route path= "/operator" component={OperaterLogIn}/>
+          <Route path= "/operatorView" component={OperatorView}/>
           <Route path= "/dataEntry" component={DataEntryMenu}/>
           <Route path = "/databaseView" component={DatabaseView} />
           <Route path= "/addPerson" component={AddPerson}/>

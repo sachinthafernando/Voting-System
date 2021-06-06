@@ -207,6 +207,7 @@ debugger;
                                 <TextField
                                     name = "partyName"
                                     variant = "outlined"
+                                    required
                                     label = "partyName"
                                     value = {this.state.partyName}
                                     onChange = {this.onChangePartyName}
@@ -220,6 +221,7 @@ debugger;
                                 <TextField
                                     type = "color"
                                     name = "color"
+                                    required
                                     variant = "outlined"
                                     label = "color"
                                     value = {this.state.color}

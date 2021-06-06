@@ -43,7 +43,7 @@ export default class AdminList extends Component {
         debugger;
         if(localStorage.token){
             var decoded = jwt_decode(localStorage.token);
-            this.setState({userRank: decoded.id})
+            this.setState({userRank: decoded.role})
             debugger;
         }
         debugger;
@@ -109,7 +109,7 @@ export default class AdminList extends Component {
                     <Grid item xs= {2}>
                         <FormControl variant="outlined" style={styles.formControl}>
                             <InputLabel >Rank</InputLabel>
-                            {this.state.userRank === "1" ?
+                            {this.state.userRank === "Rank1Admin" ?
                             <Select
                             name= "rank"
                             value = {this.state.Rank}

@@ -221,6 +221,7 @@ export default class AddPerson extends Component {
                             <TextField
                                 name = "nic"
                                 variant = "outlined"
+                                required
                                 label = "NIC"
                                 value = {this.state.NIC}
                                 onChange = {this.onChangeNIC}
@@ -234,6 +235,7 @@ export default class AddPerson extends Component {
                             <TextField
                                 name = "serialNo"
                                 variant = "outlined"
+                                required
                                 label = "Serial No"
                                 value = {this.state.SerialNo}
                                 onChange = {this.onChangeSerialNo}
@@ -247,6 +249,7 @@ export default class AddPerson extends Component {
                             <TextField
                                 name = "voted"
                                 variant = "outlined"
+                                required
                                 label = "Voted"
                                 value = {this.state.Voted}
                                 onChange = {this.onChangeVoted}
