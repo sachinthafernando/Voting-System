@@ -19,8 +19,8 @@ import jwt_decode from "jwt-decode"
 
 const SideNavbar = () => {debugger;
   const [sidebar, setSidebar] = useState(false);
-  const [userName, setuserName] = useState( localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest')
-  const [userRole, setuserRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest')
+  const [userName] = useState( localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest')
+  const [userRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest')
   var path = "/";
   switch (userRole) {
     case "Rank1Admin":

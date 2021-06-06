@@ -54,12 +54,19 @@ import FreezeScreen from './pages/rank4/barCode/FreezeScreen';
 import OperaterLogIn from './pages/rank2/OperaterLogIn';
 import OperatorView from './pages/rank2/OperatorEntryMenu';
 
+import jwt_decode from "jwt-decode"
 
 if (localStorage.token){
   Authtoken(localStorage.token);
 }
 
+
+
 const App = () => {
+
+  
+  const [userRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest')
+
       useEffect(() => {
         store.dispatch(loadUser());
     
@@ -80,6 +87,21 @@ window.addEventListener("storage", () => {
     setIsOpen(!isOpen);
   };
 
+  function RoleBasedRoute(router) {
+    debugger;
+    return (
+      <>
+        {userRole === router.role?
+
+        <Route path= {router.path} component={router.component}/>
+
+        : <Route exact path="*" render={() => {window.location.href="404.html"}} />
+        }
+      </>
+    )
+    
+  }
+
 return (
   <Provider store={store}>
   <Router >
@@ -94,7 +116,7 @@ return (
           {/* <Route exact path = "/" component={Home} /> */}
           <Route path="/login" component={Login} />
           {/* make private below */}
-          <Route path = "/rank1Home" component={Rank1Home} />
+          <PrivateRoute path = "/rank1Home" component={Rank1Home} />
           <PrivateRoute path = "/rank2Home" component={Rank2Home} />
           <PrivateRoute path = "/rank3Home" component={Rank3Home} />
           <PrivateRoute path = "/rank4Home" component={Rank4Home} />
@@ -125,29 +147,37 @@ return (
           />
 
 
-          <Route path = "/adminList" component={AdminList} />
-          <Route path = "/addCandidate" component={AddCandidate} />
-          <Route path = "/adminList" component={AdminList} />
+          {/* rank 1 routes */}
           
+          <RoleBasedRoute path= "/setting" component={Settings} role={"Rank1Admin"}/>
+          <RoleBasedRoute path = "/adminList" component={AdminList} role={"Rank1Admin"} />
+          <RoleBasedRoute path= "/barChart" component={barChart} role={"Rank1Admin"}/>
+          <RoleBasedRoute path= "/addDistricts" component={AddDistricts} role={"Rank1Admin"}/>
+
+          {/* rank 2 routes */}
+
+          <RoleBasedRoute path= "/dataEntry" component={DataEntryMenu} role={"Rank2Admin"}/>
+          <RoleBasedRoute path = "/databaseView" component={DatabaseView} role={"Rank2Admin"} />
+          <RoleBasedRoute path = "/addCandidate" component={AddCandidate} role={"Rank2Admin"} />
+          <RoleBasedRoute path= "/addParty" component={AddParty} role={"Rank2Admin"}/>
+          <RoleBasedRoute path= "/operator" component={OperaterLogIn} role={"Rank2Admin"}/>
+          <RoleBasedRoute path= "/operatorView" component={OperatorView} role={"Rank2Admin"}/>
+
+          <RoleBasedRoute path= "/settings" component={Settings} role={"Rank2Admin"}/>
+          <RoleBasedRoute path = "/adminLists" component={AdminList} role={"Rank2Admin"} />
+          
+          {/* rank 3 routes */}
+
+          <RoleBasedRoute path= "/addPerson" component={AddPerson} role={"Rank3Admin"}/>
+
+          {/* rank 4 routes */}
+
+          <RoleBasedRoute path= "/scanner" component={Scanner} role={"Rank4Admin"}/>
+          <RoleBasedRoute path= "/voteParty" component={VoteParty} role={"Rank4Admin"}/>
+          <RoleBasedRoute path= "/voteCandidate" component={VoteCandidate} role={"Rank4Admin"}/>
+          <RoleBasedRoute path= "/freezeScreen" component={FreezeScreen} role={"Rank4Admin"}/>
 
 
-          <Route path= "/scanner" component={Scanner}/>
-          <Route path= "/addDistricts" component={AddDistricts}/>
-          <Route path= "/setting" component={Settings}/>
-          <Route path= "/barChart" component={barChart}/>
-
-
-          <Route path= "/voteParty" component={VoteParty}/>
-          <Route path= "/voteCandidate" component={VoteCandidate}/>
-          <Route path= "/freezeScreen" component={FreezeScreen}/>
-
-
-          <Route path= "/operator" component={OperaterLogIn}/>
-          <Route path= "/operatorView" component={OperatorView}/>
-          <Route path= "/dataEntry" component={DataEntryMenu}/>
-          <Route path = "/databaseView" component={DatabaseView} />
-          <Route path= "/addPerson" component={AddPerson}/>
-          <Route path= "/addParty" component={AddParty}/>
           {/* below 404 should be at the bottom of rote paths */}
           <Route exact path="*" render={() => {window.location.href="404.html"}} />
         </Switch>    

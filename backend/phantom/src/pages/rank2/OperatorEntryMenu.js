@@ -11,14 +11,14 @@ export const images = [
         url: 'https://png.pngtree.com/png-vector/20190114/ourlarge/pngtree-vector-user-management-icon-png-image_313042.jpg',
         title: 'Create Admin',
         width: '50%',
-        path:'/adminList'
+        path:'/adminLists'
         
       },
       {
         url: 'https://cdn2.iconfinder.com/data/icons/metro-ui-dock/512/Administrative_Tools.png',
         title: 'Settings',
         width: '50%',
-        path:'/setting'
+        path:'/settings'
       },
  
 ];
