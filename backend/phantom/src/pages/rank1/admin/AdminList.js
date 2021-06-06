@@ -1,6 +1,6 @@
-import { FormControl, InputLabel, Select, MenuItem, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { FormControl, Typography, Select, MenuItem, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import axios from 'axios';
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import AddAdmin from './AddAdmin';
 import AdminTable from './AdminTable';
 import jwt_decode from "jwt-decode"
@@ -9,7 +9,6 @@ const styles = {
     root: {
         "& .MuiTableCellHead": {
             fontSize:"1.25px",
-
             margin: "50px auto",
             minWidth: 230,
             height: "800",
@@ -84,14 +83,15 @@ export default class AdminList extends Component {
 
     render() {
         return (
-            <Paper style={styles.paper} elevation={3} >
+            <Fragment>
+            <Paper className="AdminList_page" style={styles.paper} elevation={3} >
                 <Container >
                 <Grid container spacing={4}>
                     <Grid item xs= {5}>
                         {this.createAdmin()}
                         </Grid>
                     <Grid item xs= {5}>
-                        <TableContainer style={{maxHeight: '700px'}}>
+                        <TableContainer style={{maxHeight: '700px'}} className="tableContainer">
                             <Table>
                             <TableHead style={styles.root}>
                                 <TableRow>
@@ -106,9 +106,9 @@ export default class AdminList extends Component {
                             </Table>
                         </TableContainer>
                     </Grid>
-                    <Grid item xs= {2}>
+                    <Grid className="Rank_filter">
                         <FormControl variant="outlined" style={styles.formControl}>
-                            <InputLabel >Rank</InputLabel>
+                        <Typography className="Rank_label" >Select Rank</Typography>
                             {this.state.userRank === "Rank1Admin" ?
                             <Select
                             name= "rank"
@@ -136,6 +136,7 @@ export default class AdminList extends Component {
                 </Grid>
                 </Container>
             </Paper>
+            </Fragment>
         );
     }
 }

@@ -6,9 +6,9 @@ import { setAlert } from "../../Actions/alert";
 import './Login.css';
 import { login } from "../../Actions/auth";
 import ParticlesEffect from "../layout/ParticlesEffect";
-import { withRouter } from 'react-router-dom';
 import { SubButton } from "../SubButton";
-
+import { AiOutlineHome } from 'react-icons/ai';
+import Logo1 from '../../images/logo1.png';
 const Login = ({ setAlert, login, isAuthenticated, user }) => {
   const [formData, setFromData] = useState({
     name: "",
@@ -33,36 +33,36 @@ const Login = ({ setAlert, login, isAuthenticated, user }) => {
     if (isAuthenticated) {
       if (user.role === "Rank1Admin")
         return <Redirect to="/rank1Home" />;
-      else if (user.role === "Rank2Admin")
+      else if (user.role == "Rank2Admin")
         return <Redirect to="/rank2Home" />
-      else if (user.role === "Rank3Admin")
+      else if (user.role == "Rank3Admin")
         return <Redirect to="/rank3Home" />
-      else if (user.role === "Rank4Admin")
+      else if (user.role == "Rank4Admin")
         return <Redirect to="/rank4Home" />
       else
         console.log(user.role);
     }
     
-    //this is the back button
-const GoBackButton = withRouter(
-  ({ history }) => (
-    <SubButton onClick={history.goBack} primary='true'>⬅ BACK</SubButton>
-  )
-);
+  
+
+
 
   return (
-    <div className="LoginPage">
-      
+    <div className="LoginPage">  
     <Fragment>
-    
       <section className="login-container">
+      <div className="wrapper">
       <ParticlesEffect />
-
+    <div className="text">
+    <h1>WELCOME TO ELECTRONIC VOTING WEB PARTNER</h1>
+    <img src={Logo1} alt="logo" width="200px" height="150px"/>
+        
+    </div>
+    </div>
         <h1 className="large text-primary">Sign In</h1>
         <p className="lead">
           <i className="fas fa-user" /> Sign Into Admin Account
         </p>
-
         <form className="form" onSubmit={(e) => onSubmit(e)}>
             <div className="form-group">
               <small className="form-text"> Username</small>
@@ -74,8 +74,6 @@ const GoBackButton = withRouter(
                 onChange={(e) => onChange(e)}
               />
             </div>
-          
-
           <div className="form-group">
             <small className="form-text"> Password</small>
             <input
@@ -88,11 +86,11 @@ const GoBackButton = withRouter(
             />
           </div>
           <input type="submit" className="btn" value="Login" />
-          <GoBackButton/>
+          
         </form>
-       
+        <SubButton to='/home' primary= 'true'><AiOutlineHome/><span>Home</span></SubButton>
       </section>
-      
+     
     </Fragment>
     </div>
     

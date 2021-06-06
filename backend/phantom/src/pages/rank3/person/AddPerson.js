@@ -192,7 +192,6 @@ export default class AddPerson extends Component {
             }
         });
         debugger;
-        //this.props.history.push('/personList')
     }
     formReset(){
         this.setState({

@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Snackbar, Icon, IconButton } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Snackbar, IconButton, Typography } from '@material-ui/core';
 import { HelpOutlineRounded } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 const styles = {
     root: {
         padding:"auto",
-          margin: "20px auto",
+          margin: "50px 40px",
           minWidth: 230,
           height: "800",
           display:"flex",  
@@ -17,8 +17,10 @@ const styles = {
     formControl: {
         margin: "10px auto",
         minWidth: 230,
-       
-    
+           
+    },
+    heading:{
+        margin: "auto 100px",
         
     },
     textField: {
@@ -231,9 +233,11 @@ export default class AddAdmin extends Component {
     
     render() {
         return (
-          
-            <Container maxWidth="sm" >
-                    <h2>Enter Admin Information</h2>
+            <div className="add_admin_container">
+            <Container maxWidth="lgsm" >
+            <Typography style={styles.heading}>
+            <h2>CREATE NEW ADMIN</h2>
+            </Typography>
                 {/* <h4>Enter Admin Informations</h4> */}
                 <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
                     <Alert severity="success">
@@ -246,7 +250,6 @@ export default class AddAdmin extends Component {
                         <Grid >
                             <TextField 
                                 name = "name"
-                                required
                                 variant = "outlined"
                                 label = "Name"
                                 value = {this.state.Name}
@@ -265,7 +268,6 @@ export default class AddAdmin extends Component {
                             <TextField 
                                 name = "password"
                                 variant = "outlined"
-                                required
                                 label = "Password"
                                 value = {this.state.Password}
                                 onChange = {this.onChangePassword}
@@ -316,7 +318,6 @@ export default class AddAdmin extends Component {
                             <TextField 
                                 name = "center"
                                 variant = "outlined"
-                                required
                                 label = "Polling Center"
                                 value = {this.state.PollingCenter}
                                 onChange = {this.onChangeCenter}
@@ -353,15 +354,9 @@ export default class AddAdmin extends Component {
                             </div>
                         </Grid>
                     </Grid>
-                
-                
-                {/* <input name="name" placeholder="Name" onChange={this.onChangeName} value={this.state.Name} /> <br />
-                <input name="password" placeholder="Password" onChange={this.onChangePassword} value={this.state.Password} /> <br />
-                <input name="rank" placeholder="Rank" onChange={this.onChangeRank} value={this.state.Rank} /> <br />
-                <button type="submit">Submit</button> */}
             </form>
             </Container>
-          
+          </div>
         )
     }
 }

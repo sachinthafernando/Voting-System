@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Grid, Button, makeStyles, Typography } from '@material-ui/core';
 //import studentsPic from '../../img/bannerimg.png';
 import SLmap from '../images/SL-1.png';
@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
   content: {
     fontSize: '1.2rem',
     textAlign:'justify',
+    cursor:'pointer',
   },
 
   // mainview:{
@@ -28,13 +29,20 @@ const useStyles = makeStyles(theme => ({
   // },
 
   container: {
-    border: '1px solid white',
+    // border: '4px solid rgb(150, 240, 240)',
+    borderRadius:'10px',
+    //  backgroundColor:'#13DDB0',
+    WebkitBoxShadow:'2rem 2rem 2rem rgb(108 58 134 / 40%)',
+    boxShadow:'2rem 2rem 2rem rgb(108 58 134 / 63%)',
     padding: '10px',
     margin: '10px',
     textAlign: 'center',
-    // '&:hover': {
-    //   background: '#272C34',
-    // },
+    zIndex:'-1',
+    cursor:'pointer',
+    
+     '&:hover': {
+       background: '#35A7F8',
+     },
   },
   // btn: {
   //   color: '#53F2F5',
@@ -57,7 +65,8 @@ const MainContent = () => {
 
   return (
     
-    <>
+    <div className="MainContent_background">
+      <Fragment>
       <Grid container justify='space-around' alignItems='center'>
         <Grid md={5} item>
           <div className={classes.mainview}>
@@ -84,7 +93,7 @@ const MainContent = () => {
 
 <Grid md={5} item>
   <div className={classes.container}>
-    <Typography variant='h2'>Transparent,Immutable and Cryptographically verifiable system</Typography>
+    <Typography variant='h2'>Transparent and verified system</Typography>
     <p className={classes.content}>
     This is not traditional technology being used to build an online system that permits voting,
      but innovative technology, purpose-built for elections,
@@ -165,8 +174,8 @@ const MainContent = () => {
   </div>
 </Grid>
 </Grid>
-      
-    </>
+</Fragment> 
+    </div>
     
   );
 };

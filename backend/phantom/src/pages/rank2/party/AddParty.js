@@ -193,7 +193,8 @@ debugger;
 
     render() {
         return (
-            <Container maxWidth="sm">
+            <div styles={{backgroundImage: `url(${defaultPartyImg})`}}>
+            <Container maxWidth="sm" style={styles.paper} >
                 <Paper style={styles.paper} elevation={3}>
                 <Typography variant='h4' align='center'>Enter Party Informations </Typography>
                     <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
@@ -280,6 +281,7 @@ debugger;
                     </form>
                 </Paper>
             </Container>
+            </div>
         )
     }
 }

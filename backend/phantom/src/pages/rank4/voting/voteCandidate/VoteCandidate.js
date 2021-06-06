@@ -154,7 +154,6 @@ export default class VoteCandidate extends Component {
       .then(res => {
           console.log(res.config.data);
           debugger;
-          // this.props.history.push('/voteParty');
       })
       .catch(function (error) {
           console.log(error);

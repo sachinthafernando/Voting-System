@@ -5,6 +5,7 @@ import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import { ButtonBase } from '@material-ui/core';
 import Flip from 'react-reveal/Flip';
+import SideNavbar from '../../components/sidebar/SideNavbar';
 export const images = [
   {
     //url: '/static/images/grid-list/breakfast.jpg',
@@ -107,6 +108,8 @@ export default function ButtonBases() {
   const classes = useStyles();
 
   return (
+    <>
+    <SideNavbar/>
     <div className={classes.root}>
       {images.map((image) => (
         <ButtonBase to={image.path}
@@ -146,5 +149,6 @@ export default function ButtonBases() {
         </ButtonBase>
       ))}
     </div>
+    </>
   );
 }

@@ -144,7 +144,6 @@ export default class EditCandidate extends Component {
         debugger;
         this.props.close();
         
-        // this.props.history.push('/personList');
         // debugger;
     }
 

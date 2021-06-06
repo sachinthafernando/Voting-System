@@ -36,58 +36,78 @@ namespace VotingSystems.Controllers
         // POST api/<LogSignUpController>
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult>Login(Login login)
+        public async Task<IActionResult> Login(Login login)
         {
             try
             {            // VotingDB.Add(newadmin);
-                var CheckNameRank1Admin = _db.Rank1Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
-                var CheckPasswerdRank1Admin = _db.Rank1Admins.FirstOrDefault(m => m.Password == login.Password);
-
-                var CheckNameRank2Admin = _db.Rank2Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
-                var CheckPasswerdRank2Admin = _db.Rank2Admins.FirstOrDefault(m => m.Password == login.Password);
-
-                var CheckNameRank3Admin = _db.Rank3Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
-                var CheckPasswerdRank3Admin = _db.Rank3Admins.FirstOrDefault(m => m.Password == login.Password);
-
-                var CheckNameRank4Admin = _db.Rank4Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
-                var CheckPasswerdRank4Admin = _db.Rank4Admins.FirstOrDefault(m => m.Password == login.Password);
-
-
-
-
-
-                if ((CheckNameRank1Admin == null || CheckPasswerdRank1Admin == null) && (CheckNameRank2Admin == null || CheckPasswerdRank2Admin == null) && (CheckNameRank3Admin == null || CheckPasswerdRank3Admin == null) && (CheckNameRank4Admin == null || CheckPasswerdRank4Admin == null))
+                if ((_db.Rank1Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower()) != null))
                 {
-                    return BadRequest(); //New page
+                    var rank1Admin = _db.Rank1Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
+                    if (rank1Admin.Password == login.Password)
+                    {
+                        var tokenString = _jwtService.GenerateJWTtoken(login);
+                        return Ok(new
+                        {
+                            token = tokenString
+                        });
+                    }
+                    return BadRequest();
                 }
+                else if ((_db.Rank2Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower())) != null)
+                {
+                    var rank2Admin = _db.Rank2Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
+                    if (rank2Admin.Password == login.Password)
+                    {
+                        var tokenString = _jwtService.GenerateJWTtoken(login);
+                        return Ok(new
+                        {
+                            token = tokenString
+                        });
+                    }
+                    return BadRequest(); //New page
 
+                }
+                else if ((_db.Rank3Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower())) != null)
+                {
+                    var rank3Admin = _db.Rank3Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
+                    if (rank3Admin.Password == login.Password)
+                    {
+                        var tokenString = _jwtService.GenerateJWTtoken(login);
+                        return Ok(new
+                        {
+                            token = tokenString
+                        });
+                    }
+                    return BadRequest(); //New page
 
+                }
+                else if ((_db.Rank3Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower())) != null)
+                {
+                    var rank4Admin = _db.Rank3Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
+                    if (rank4Admin.Password == login.Password)
+                    {
+                        var tokenString = _jwtService.GenerateJWTtoken(login);
+                        return Ok(new
+                        {
+                            token = tokenString
+                        });
+                    }
+                    return BadRequest();
 
+                }
                 else
                 {
-
-                    // Return token
-                    var tokenString = _jwtService.GenerateJWTtoken(login);
-                    return Ok(new
-                    {
-                        token = tokenString
-                    });
-                    /// return Ok();
+                    return BadRequest();
                 }
-
-
-
             }
+
+
             catch (Exception ex)
             {
                 throw ex;
             }
 
         }
-
-
     }
-
-
 
 }

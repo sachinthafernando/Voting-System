@@ -8,6 +8,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Redirect } from 'react-router';
 
 function Copyright() {
   return (
@@ -52,7 +53,9 @@ export default function OperaterLogIn(props) {
     }
     const submit = () => {
         if (name === 'admin' && key === 'password') {
+          debugger;
             props.history.push('/operatorView');
+            debugger;
         }
         else {
             alert('You have entered wrong name or key. Please check again and proceed.')

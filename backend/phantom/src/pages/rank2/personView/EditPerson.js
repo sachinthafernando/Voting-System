@@ -104,7 +104,6 @@ export default class EditPerson extends Component {
         .then(res => {console.log(res.config.data);});
         debugger;
         this.props.close();
-        // this.props.history.push('/personList');
         // debugger;
     }
 

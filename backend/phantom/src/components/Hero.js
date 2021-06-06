@@ -1,14 +1,22 @@
+
 import React, {useEffect, useState, useRef} from 'react';
 import styled ,{css} from 'styled-components/macro';
 import{IoMdArrowRoundForward} from 'react-icons/io';
 import{IoArrowForward, IoArrowBack} from 'react-icons/io5';
+import { SliderData } from '../data/SliderData';
 import IconsGrid from '../components/IconsGrid'
 import MainContent from '../components/MainContent'
+
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import { SubButton } from './SubButton';
 import Fade from 'react-reveal/Fade';
 
 
+import { ThemeProvider, CssBaseline } from '@material-ui/core';
+import theme from './Theme';
+
 const HeroSection = styled.section`
-height : 100vh;
+height : 90vh;
 max-height: 1100px;
 position: relative;
 overflow: hidden;
@@ -84,11 +92,13 @@ h1{
     text-shadow: 0px 0px 20px rgba(0,0,0,0.4);
     /* text-align: left; */
     margin-bottom: 0.8rem;
+    cursor:pointer;
     
 }
 p{
     margin-bottom:1.2rem;
     text-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+    cursor:pointer;
 }
 `;
 const Arrow = styled(IoMdArrowRoundForward)`
@@ -160,7 +170,7 @@ const Hero = ({slides}) => {
             const nextSlide =() => {
                 setCurrent(current => (current === length  -1  ?  0 : current +1));
             };
-            timeout.current = setTimeout(nextSlide , 8000);
+            timeout.current = setTimeout(nextSlide , 16000);
 
             return function(){
                 if (timeout.current){
@@ -201,7 +211,7 @@ const Hero = ({slides}) => {
                     <HeroContent>
                     <Fade top>
                         <h1>{slide.title}</h1>
-                        <p>{slide.price}</p>
+                        <p>{slide.subtitle}</p>
                         {/* <SubButton to={slide.path}
                         primary ='true'
                         css={`

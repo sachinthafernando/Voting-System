@@ -123,12 +123,7 @@ export default class EditAdmin extends Component {
                                 Cancel
                             </Button>
                         </div>
-
-                {/* <input name="name" placeholder="Name" onChange={this.onChangeName} value={this.state.Name} /> <br />
-                <input name="password" placeholder="Password" onChange={this.onChangePassword} value={this.state.Password} /> <br />
-                <input name="rank" placeholder="Rank" onChange={this.onChangeRank} value={this.state.Rank} /> <br />
-                <button type="submit">Submit</button> */}
-                </form>
+                    </form>
             </Container>
         )
     }
