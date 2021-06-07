@@ -65,6 +65,11 @@ namespace VotingSystems.Models
                 .WithMany(v => v.District_Parties)
                 .HasForeignKey(dp => dp.Party_ID);
 
+            modelBuilder.Entity<Rank1Admin>()
+                .HasData(
+                    new { Rank1AdminID = 1, Name = "Admin", Password = "password" }
+                );
+
             base.OnModelCreating(modelBuilder);
         }
 
