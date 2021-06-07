@@ -66,7 +66,8 @@ if (localStorage.token){
 const App = () => {
 
   
-  const [userRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest')
+  const [userRole,setUserRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest');
+  const [userName, setUserName] = useState( localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest');
 
       useEffect(() => {
         store.dispatch(loadUser());
@@ -90,40 +91,69 @@ window.addEventListener("storage", () => {
 
   const RoleBasedRoute = (router) => {
     debugger;
-    switch (router.dynamicLayout) {
-      case true:
-        return (
-          <>
-            {userRole === router.role  ?
-              
-            <DynamicLayout exact path= {router.path} component={router.component} layout="SUB_NAV" />
-    
-            : <Route exact path="*" render={() => {window.location.href="404.html"}} />
+    setUserRole(localStorage.token ? jwt_decode(localStorage.token).role : 'Guest');
+    setUserName(localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest');
+    debugger;
+    if (userRole === 'Guest') {
+      debugger;
+      return(
+        <>
+          <Route  component={Login} />
+        </>
+      )
+    } else {
+      debugger;
+      switch (router.dynamicLayout) {
+        case true:
+          if (userRole === router.role) {
+            if (userRole === "Rank2Admin") {
+              if (userName === router.name) {
+                return (
+                  <>
+                    <DynamicLayout exact path= {router.path} component={router.hiddenComponent} layout="SUB_NAV" />
+                  </>
+                );
+              } else {
+                return (
+                  <>
+                    <DynamicLayout exact path= {router.path} component={router.component} layout="SUB_NAV" />
+                  </>
+                );
+              }
+            } else {
+              return (
+                <>
+                  <DynamicLayout exact path= {router.path} component={router.component} layout="SUB_NAV" />
+                </>
+              );
             }
-          </>
-        );
-
-      case false:
-        return (
-          <>
-            {userRole === router.role  ?
-              
-            <Route exact path= {router.path} component={router.component} />
-    
-            : <Route exact path="*" render={() => {window.location.href="404.html"}} />
-            }
-          </>
-        );
-    
-      default:
-        return (
-          <>
-            <Route exact path="*" render={() => {window.location.href="404.html"}} />
-          </>
-        );
+          } else {
+            return (
+              <>
+                <DynamicLayout exact path="/home" component={Home} /> 
+              </>
+            );
+          }
+        case false:
+          return (
+            <>
+              {userRole === router.role  ?
+                
+              <Route exact path= {router.path} component={router.component} />
+      
+              : <DynamicLayout exact path="/home" component={Home} />
+              }
+            </>
+          );
+      
+        default:
+          return (
+            <>
+              <Route exact path="*" render={() => {window.location.href="404.html"}} />
+            </>
+          );
+      }
     }
-    
-    
   }
 
 return (
@@ -158,15 +188,16 @@ return (
 
           {/* rank 2 routes */}
 
-          <RoleBasedRoute path= "/dataEntry" component={DataEntryMenu} role={"Rank2Admin"} dynamicLayout= {true}/>
-          <RoleBasedRoute path = "/databaseView" component={DatabaseView} role={"Rank2Admin"} dynamicLayout= {true} />
-          <RoleBasedRoute path = "/addCandidate" component={AddCandidate} role={"Rank2Admin"} dynamicLayout= {true} />
-          <RoleBasedRoute path= "/addParty" component={AddParty} role={"Rank2Admin"} dynamicLayout= {true}/>
-          <Route path= "/operator" component={OperaterLogIn} />
-          <RoleBasedRoute path= "/operatorView" component={OperatorView}  role={"Rank2Admin"} dynamicLayout= {true}/>
+          <RoleBasedRoute path= "/dataEntry" component={DataEntryMenu} role={"Rank2Admin"} dynamicLayout= {true} name={"Other"}/>
+          <RoleBasedRoute path = "/databaseView" component={DatabaseView} role={"Rank2Admin"} dynamicLayout= {true} name={"Other"}/>
+          <RoleBasedRoute path = "/addCandidate" component={AddCandidate} role={"Rank2Admin"} dynamicLayout= {true} name={"Other"} />
+          <RoleBasedRoute path= "/addParty" component={AddParty} role={"Rank2Admin"} dynamicLayout= {true} name={"Other"}/>
 
-          <RoleBasedRoute path= "/settings" component={Settings} role={"Rank2Admin"} dynamicLayout= {true}/>
-          <RoleBasedRoute path = "/adminLists" component={AdminList} role={"Rank2Admin"}  dynamicLayout= {true}/>
+          <PrivateRoute path= "/operator" component={OperaterLogIn} />
+          <RoleBasedRoute path= "/operatorView" component={DataEntryMenu} hiddenComponent={OperatorView} role={"Rank2Admin"} dynamicLayout= {true} name={"Operator"}/>
+
+          <RoleBasedRoute path= "/settings" component={DataEntryMenu} hiddenComponent={Settings} role={"Rank2Admin"} dynamicLayout= {true} name={"Operator"}/>
+          <RoleBasedRoute path = "/adminLists" component={DataEntryMenu} hiddenComponent={AdminList} role={"Rank2Admin"}  dynamicLayout= {true} name={"Operator"}/>
           
           {/* rank 3 routes */}
 

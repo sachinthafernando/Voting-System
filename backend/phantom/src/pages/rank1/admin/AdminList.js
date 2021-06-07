@@ -4,6 +4,7 @@ import React, { Component, Fragment } from 'react'
 import AddAdmin from './AddAdmin';
 import AdminTable from './AdminTable';
 import jwt_decode from "jwt-decode"
+import { BoxLoading } from 'react-loadingg';
 
 const styles = {
     root: {
@@ -34,12 +35,18 @@ export default class AdminList extends Component {
             business: [],
             Rank: 'Rank4Admin',
             userRank: '',
+            isLoading: true,
         };
     }
 
    
     componentDidMount(){
         debugger;
+        setTimeout(()=> {
+            this.setState({
+                isLoading: false,
+            })
+        },1500);
         if(localStorage.token){
             var decoded = jwt_decode(localStorage.token);
             this.setState({userRank: decoded.role})
@@ -48,7 +55,10 @@ export default class AdminList extends Component {
         debugger;
         axios.get('https://localhost:5001/api/Rank4Admin/')
         .then(response => {
-            this.setState({ business: response.data});
+            this.setState({ 
+                business: response.data,
+                
+            });
             debugger;
         })
         .catch(function (error) {
@@ -83,6 +93,7 @@ export default class AdminList extends Component {
 
     render() {
         return (
+            this.state.isLoading? <BoxLoading/> :
             <Fragment>
             <Paper className="AdminList_page" style={styles.paper} elevation={3} >
                 <Container >
@@ -92,7 +103,7 @@ export default class AdminList extends Component {
                         </Grid>
                     <Grid item xs= {5}>
                         <TableContainer style={{maxHeight: '700px'}} className="tableContainer">
-                            <Table>
+                            <Table  stickyHeader aria-label="sticky table">
                             <TableHead style={styles.root}>
                                 <TableRow>
                                     <TableCell>Name</TableCell>

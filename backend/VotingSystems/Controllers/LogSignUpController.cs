@@ -81,9 +81,9 @@ namespace VotingSystems.Controllers
                     return BadRequest(); //New page
 
                 }
-                else if ((_db.Rank3Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower())) != null)
+                else if ((_db.Rank4Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower())) != null)
                 {
-                    var rank4Admin = _db.Rank3Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
+                    var rank4Admin = _db.Rank4Admins.FirstOrDefault(m => m.Name.ToLower() == login.Name.ToLower());
                     if (rank4Admin.Password == login.Password)
                     {
                         var tokenString = _jwtService.GenerateJWTtoken(login);

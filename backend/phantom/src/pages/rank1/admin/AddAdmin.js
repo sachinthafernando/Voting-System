@@ -188,6 +188,8 @@ export default class AddAdmin extends Component {
                 Name: this.state.Name,
                 Password: this.state.Password,
                 PollingCenter: e.target.value,
+                ScanScreen: true,
+                VoteScreen: false,
             },
         });
         debugger;
@@ -198,9 +200,10 @@ export default class AddAdmin extends Component {
         debugger;
         axios.post('https://localhost:5001/api/'+this.state.Rank, this.state.obj)
         .then(json => {
+            debugger;
             if (json.data){
                 debugger;
-                console.log(json.statusText);
+                console.log(json.data);
                 debugger;
                 this.setState({
                     setMessage: true,
@@ -214,6 +217,9 @@ export default class AddAdmin extends Component {
                     message: 'Admin not Saved',
                 });
             }
+        })
+        .catch(function (error) {
+            console.log(error);
         });
         debugger;
     }
@@ -234,7 +240,7 @@ export default class AddAdmin extends Component {
     render() {
         return (
             <div className="add_admin_container">
-            <Container maxWidth="lgsm" >
+            <Container maxWidth="sm" >
             <Typography style={styles.heading}>
             <h2>CREATE NEW ADMIN</h2>
             </Typography>

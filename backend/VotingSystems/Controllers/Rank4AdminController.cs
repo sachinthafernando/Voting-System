@@ -86,7 +86,6 @@ namespace VotingSystems.Controllers
                 result.Rank4AdminID = result.Rank4AdminID;
                 result.Name = result.Name;
                 result.Password = result.Password;
-                result.Password = result.Password;
                 result.PersonDist = rank4Admin.PersonDist;
                 result.PersonDiv = rank4Admin.PersonDiv;
                 result.ScanScreen = rank4Admin.ScanScreen;
@@ -124,7 +123,6 @@ namespace VotingSystems.Controllers
             {
                 result.Rank4AdminID = result.Rank4AdminID;
                 result.Name = result.Name;
-                result.Password = result.Password;
                 result.Password = result.Password;
                 result.PersonDist = result.PersonDist;
                 result.PersonDiv = result.PersonDiv;
