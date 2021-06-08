@@ -2,8 +2,8 @@ import { Container, FormControl, Grid, InputLabel, MenuItem, Select, Snackbar, B
 import React, { Component } from 'react'
 import axios from 'axios';
 import DeleteIcon from "@material-ui/icons/Delete";
-import PartyDistrictTable from './dataTables/PartyDistrict'
 import { Alert } from '@material-ui/lab';
+import { SemipolarLoading } from 'react-loadingg';
 
 const styles = {
     root: {
@@ -40,6 +40,7 @@ export default class AssignParties extends Component {
             distPty : [],
             message: '',
             setMessage: false,
+            isLoading: true,
         }
     } 
 
@@ -47,7 +48,11 @@ export default class AssignParties extends Component {
     componentDidMount(){
         
         this.loading();
-
+        setTimeout(() => {
+            this.setState({
+                isLoading: false,
+            })
+        }, 1000);
     }
 
     loading(){
@@ -147,6 +152,7 @@ export default class AssignParties extends Component {
 
     render() {
         return (
+            this.state.isLoading? <SemipolarLoading color={"#ca0000"}/> :
             <Container>
                 <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
                     <Alert severity="success">

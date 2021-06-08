@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import PersonTable from './PersonTable';
 import SearchIcon from '@material-ui/icons/Search';
 import { CloseSharp } from '@material-ui/icons';
+import { CommonLoading  } from 'react-loadingg';
 
 const styles = {
     root: {
@@ -35,6 +36,7 @@ export default class PersonList extends Component {
             message: '',
             page: 0,
             rowsPerPage: 10,
+            isLoading: true,
         };
     }
 
@@ -48,6 +50,12 @@ export default class PersonList extends Component {
         .catch(function (error) {
             console.log(error);
         })
+
+        setTimeout(() => {
+            this.setState({
+                isLoading: false,
+            })
+        }, 1000);
     }
 
     getSearch(e){
@@ -115,6 +123,7 @@ export default class PersonList extends Component {
     
     render() {
         return (
+            this.state.isLoading? <CommonLoading /> :
             <Container>
                 <div style={{display: 'flex', alignItems: 'center', marginLeft: '20px'}}>
                     <InputBase

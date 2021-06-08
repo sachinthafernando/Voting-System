@@ -130,14 +130,17 @@ export default class EditParty extends Component {
                                 value = {this.state.PartyName}
                                 onChange = {this.onChangePartyName}
                                 style= {styles.textField}
+                                autoFocus
                             />
                             <TextField
+                                type = "color"
                                 name = "color"
                                 variant = "outlined"
                                 label = "color"
                                 value = {this.state.Color}
                                 onChange = {this.onChangeColor}
                                 style= {styles.textField}
+                                autoFocus
                             />
                             <div>
                                 <Button

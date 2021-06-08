@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import { Container, Grid, Paper } from '@material-ui/core';
 import AddDistricts from './AddDistricts';
 import AssignParties from './AssignParties';
+import { BoxLoading } from 'react-loadingg';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -61,13 +61,19 @@ function TabPanel(props) {
 
 export default function Settings() {
     const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  })
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
+    loading ? <BoxLoading/> :
     <Container>
         <Paper elevation={3} className={classes.paper}>
             <div className={classes.root}>

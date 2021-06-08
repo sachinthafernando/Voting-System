@@ -41,7 +41,6 @@ html,body{
 }
 
 
-
 //----------- Form Validate Error Message ---------------//
 .validate{
   font-size: smaller;

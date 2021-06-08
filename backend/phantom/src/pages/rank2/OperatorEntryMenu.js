@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {  makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import { ButtonBase } from '@material-ui/core';
 import Flip from 'react-reveal/Flip';
+import { LoopCircleLoading  } from 'react-loadingg';
+
 export const images = [
     {
         //url: '/static/images/grid-list/breakfast.jpg',
@@ -103,8 +105,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OperatorView() {
   const classes = useStyles();
+  const [loading, setloading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setloading(false); 
+    }, 1000);
+  })
 
   return (
+    loading? <LoopCircleLoading /> :
     <div className={classes.root}>
       {images.map((image) => (
         <ButtonBase to={image.path}

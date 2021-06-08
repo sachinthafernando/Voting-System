@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,7 +8,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Redirect } from 'react-router';
+import { BoxLoading } from 'react-loadingg';
 
 function Copyright() {
   return (
@@ -42,6 +42,11 @@ export default function OperaterLogIn(props) {
 
     const [name, setName] = useState('');
     const [key, setKey] = useState('');
+    const [loading, setloading] = useState(true);
+
+    useEffect(() => {
+      setloading(false);
+    })
 
     const onChangeName = (e) => {
         setName(e.target.value);
@@ -64,6 +69,7 @@ export default function OperaterLogIn(props) {
   const classes = useStyles();
 
   return (
+    loading? <BoxLoading/> :
     <Container  maxWidth="xs" style={{backgroundColor: "lightsteelblue"}}>
       <CssBaseline />
       <div className={classes.paper}>

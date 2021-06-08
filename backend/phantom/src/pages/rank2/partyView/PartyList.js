@@ -2,6 +2,7 @@ import { Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, Ta
 import axios from 'axios';
 import React, { Component } from 'react'
 import PartyTable from './PartyTable';
+import { CommonLoading  } from 'react-loadingg';
 
 const styles = {
     root: {
@@ -27,6 +28,7 @@ export default class PartyList extends Component {
             business: [],
             page: 0,
             rowsPerPage: 10,
+            isLoading: true,
         };
     }
 
@@ -40,6 +42,12 @@ export default class PartyList extends Component {
         .catch(function (error) {
             console.log(error);
         })
+
+        setTimeout(() => {
+            this.setState({
+                isLoading: false,
+            })
+        }, 1000);
     }
 
     handleChangePage(e, newpage){
@@ -63,6 +71,7 @@ export default class PartyList extends Component {
 
     render() {
         return (
+            this.state.isLoading? <CommonLoading /> :
             <Container>
                 <Paper style={styles.paper} elevation={3} >
                     <Grid container spacing={4}>

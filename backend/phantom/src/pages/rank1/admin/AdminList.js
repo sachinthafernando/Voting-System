@@ -42,11 +42,11 @@ export default class AdminList extends Component {
    
     componentDidMount(){
         debugger;
-        setTimeout(()=> {
-            this.setState({
-                isLoading: false,
-            })
-        },1500);
+        // setTimeout(()=> {
+        //     this.setState({
+        //         isLoading: false,
+        //     })
+        // },1500);
         if(localStorage.token){
             var decoded = jwt_decode(localStorage.token);
             this.setState({userRank: decoded.role})
@@ -57,12 +57,15 @@ export default class AdminList extends Component {
         .then(response => {
             this.setState({ 
                 business: response.data,
-                
             });
             debugger;
         })
         .catch(function (error) {
             console.log(error);
+        })
+
+        this.setState({
+            isLoading: false,
         })
     }
     onChangeRank(e) {

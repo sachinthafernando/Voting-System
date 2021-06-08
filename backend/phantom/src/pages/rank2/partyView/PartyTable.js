@@ -36,7 +36,7 @@ export default function PartyTable(props) {
                 <TableCell>{props.obj.partyName}</TableCell>
                 <TableCell><FiberManualRecordRounded style={{color: props.obj.color, fontSize: 'xxx-large'}}/></TableCell>
                 <TableCell>
-                    <img src={props.obj.logoSrc} />
+                    <img src={props.obj.logoSrc}  height={"150px"} />
                 </TableCell>
                 <TableCell>
                     <ButtonGroup variant="text">

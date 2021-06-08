@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import DistrictTable from './dataTables/DistrictTable';
 import DivisionTable from './dataTables/DivisionTable';
 import GNDivisionTable from './dataTables/GNDivisionTable';
+import { SemipolarLoading } from 'react-loadingg';
 
 const styles = {
     root: {
@@ -49,6 +50,7 @@ export default class AddDistricts extends Component {
             gndivision:'',
             message: '',
             setMessage: false,
+            isLoading: true,
         }
     } 
 
@@ -73,7 +75,11 @@ export default class AddDistricts extends Component {
         .catch(function (error) {
             console.log(error);
         });
-        
+        setTimeout(() => {
+            this.setState({
+                isLoading: false,
+            })
+        }, 1000);
     }
     onChangeDistrict(e) {
         this.setState({
@@ -207,6 +213,7 @@ export default class AddDistricts extends Component {
 
     render() {
         return (
+            this.state.isLoading? <SemipolarLoading color={"#ca0000"}/> :
             <Container maxWidth="lg">
                 <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
                     <Alert severity="success">

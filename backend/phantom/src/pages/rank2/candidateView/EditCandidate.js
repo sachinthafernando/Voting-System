@@ -155,15 +155,19 @@ export default class EditCandidate extends Component {
                         <Grid container>
                             <Grid item xs={6}>
                             <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >Party</InputLabel>
-                                <Select
-                                    value = {this.state.PartyID}
-                                    onChange= {this.onChangePartyID}
-                                >
-                                    {this.state.partyOptions.map((partyOption) => 
+                                
+                                <TextField
+                                    select
+                                    required
+                                    label="Party"
+                                    value={this.state.PartyID}
+                                    onChange={this.onChangePartyID}
+                                    variant="outlined"
+                                    >
+                                     {this.state.partyOptions.map((partyOption) => 
                                         <MenuItem key={partyOption.value} value={partyOption.value}>{partyOption.display}</MenuItem>
                                     )}
-                                </Select>
+                                    </TextField>
                             </FormControl>
                                 <TextField
                                     name = "candidateNo"
@@ -172,6 +176,7 @@ export default class EditCandidate extends Component {
                                     value = {this.state.CandidateNo}
                                     onChange = {this.onChangeCandidateNo}
                                     style= {styles.textField}
+                                    autoFocus
                                 />
                                 <TextField
                                     name = "candidateName"
@@ -180,6 +185,7 @@ export default class EditCandidate extends Component {
                                     value = {this.state.CandidateName}
                                     onChange = {this.onChangeCandidateName}
                                     style= {styles.textField}
+                                    autoFocus
                                 />
                                 
                                 <div>

@@ -8,14 +8,26 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-//import { Link } from 'react-router-dom';
+import { BoxLoading } from 'react-loadingg';
 
 import defaultPartyImg from '../../../images/image_placeholder.png'
 
 const styles = {
     root: {
-          margin: "30px auto",
-          minWidth: 230,
+        margin: "30px auto",
+        minWidth: 230,
+        backgroundColor: "#ffff89ed",
+        padding: "40px",
+        borderStyle: "double",
+        borderRadius: "40px",
+    },
+    background: {
+        position: "fixed",
+        minWidth: "100%",
+        minHeight: "100%",
+        background: "url(https://images.pexels.com/photos/1269968/pexels-photo-1269968.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center fixed",
+        backgroundSize: "cover",
+        overflow: "hidden",
     },
     formControl: {
         margin: "10px auto",
@@ -31,6 +43,8 @@ const styles = {
     paper : {
         margin: "30px auto",
         padding: 20,
+        backgroundColor: "#fdfd92c9",
+        borderRadius: '60px',
     } 
 }
 
@@ -56,9 +70,17 @@ export default class AddParty extends Component {
             setMessage: false,
             validateError: {PartyName: true, Color: true, Logo: true},
             error: {PartyName: '', Color: '', Logo: ''},
+            isLoading: true,
         
         }
     } 
+
+    componentDidMount(){
+        
+        this.setState({
+            isLoading: false,
+        })
+    }
 
     closeMessage(){
         this.setState({
@@ -77,7 +99,7 @@ export default class AddParty extends Component {
             })) 
         }
         if(party !== ''){
-            if (!party.match(/^[a-zA-Z]+$/)){
+            if (!party.match(/^[a-zA-Z_ ]+$/)){
                 debugger;
                 this.setState(prevState => ({
                     validateError: {...prevState.validateError, PartyName: true},
@@ -160,22 +182,26 @@ debugger;
         formData.append('logo',this.state.logo)
         formData.append('logoFile',this.state.logoFile)
         formData.append('color',this.state.color)
-
+        // const obj = {
+        //     PartyName: this.state.partyName,
+        //     Logo: this.state.logo,
+        //     LogoFile: this.state.logoFile,
+        //     Color: this.state.color,
+        // };
+        debugger;
         await axios.post('https://localhost:5001/api/party/', formData)
         .then(json => {
-            if (json.data){
-                debugger;
-                console.log(json.statusText);
-                debugger;
-                this.setState({
-                    setMessage: true,
-                    message: 'Party Save Successfully',
-                });
-            }
-            else{
-                debugger;
-                alert('Party not Saved');
-            }
+            debugger;
+            console.log(json.statusText);
+            debugger;
+            this.setState({
+                setMessage: true,
+                message: 'Party Save Successfully',
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert("Data not saved");
         });
     }
     formReset(){
@@ -193,8 +219,9 @@ debugger;
 
     render() {
         return (
-            <div styles={{backgroundImage: `url(${defaultPartyImg})`}}>
-            <Container maxWidth="sm" style={styles.paper} >
+            this.state.isLoading? <BoxLoading/> :
+            <div style={styles.background}>
+            <Container maxWidth="md">
                 <Paper style={styles.paper} elevation={3}>
                 <Typography variant='h4' align='center'>Enter Party Informations </Typography>
                     <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
@@ -204,7 +231,7 @@ debugger;
                     </Snackbar>
                     <form onSubmit={this.addParty} autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
-                            <Grid item xs={6}>
+                            <Grid item xs={4}>
                                 <TextField
                                     name = "partyName"
                                     variant = "outlined"
@@ -221,6 +248,7 @@ debugger;
                                 : null}
                                 <TextField
                                     type = "color"
+                                    autoFocus
                                     name = "color"
                                     required
                                     variant = "outlined"
@@ -256,13 +284,13 @@ debugger;
                                 </div>
                             </Grid>
 
-                            <Grid item xs={6}>
-                                <Card className="root" >
-                                    <CardActionArea>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Choose The Party Logo
-                                        </Typography>
-
+                            <Grid item xs={8}>
+                                <Card style={styles.root} >
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        Choose The Party Logo
+                                    </Typography>
+                                    <CardActionArea style={{display: "flex"}}>
+                                        
                                         {this.state.logoSrc ? (
                                             <img alt={this.state.logoSrc} src={this.state.logoSrc } />
                                             ) : null}

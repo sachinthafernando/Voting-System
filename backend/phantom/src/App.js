@@ -57,6 +57,9 @@ import ContactUs from './components/ContactUs.js';
 
 import jwt_decode from "jwt-decode"
 
+
+import { WaveLoading   } from 'react-loadingg';
+
 if (localStorage.token){
   Authtoken(localStorage.token);
 }
@@ -68,19 +71,20 @@ const App = () => {
   
   const [userRole,setUserRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest');
   const [userName, setUserName] = useState( localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest');
+  const [loading, setloading] = useState(true);
 
-      useEffect(() => {
-        store.dispatch(loadUser());
+useEffect(() => {
+        debugger;
+  setloading(false);
+  store.dispatch(loadUser());
     
-      
-
-
+   
 //make the admin completely loggedout
 window.addEventListener("storage", () => {
   if (!localStorage.token) store.dispatch({ type: LOGOUT });
 });
-},
- []);
+
+},[]);
 
 
  //define toggle function
@@ -106,20 +110,12 @@ window.addEventListener("storage", () => {
       switch (router.dynamicLayout) {
         case true:
           if (userRole === router.role) {
-            if (userRole === "Rank2Admin") {
-              if (userName === router.name) {
-                return (
-                  <>
-                    <DynamicLayout exact path= {router.path} component={router.hiddenComponent} layout="SUB_NAV" />
-                  </>
-                );
-              } else {
-                return (
-                  <>
-                    <DynamicLayout exact path= {router.path} component={router.component} layout="SUB_NAV" />
-                  </>
-                );
-              }
+            if (userRole === "Rank2Admin" && userName === router.name) {
+              return (
+                <>
+                  <DynamicLayout exact path= {router.path} component={router.hiddenComponent} layout="SUB_NAV" />
+                </>
+              );
             } else {
               return (
                 <>
@@ -157,6 +153,19 @@ window.addEventListener("storage", () => {
   }
 
 return (
+  loading? 
+  <div 
+  style={{
+    backgroundColor: "#232354", 
+    position: "fixed", 
+    minWidth: "100%", 
+    minHeight: "100%", 
+    display: "flex", 
+    top: "0", 
+    left: "0"}}
+    >
+      <WaveLoading  />
+    </div> :
   <Provider store={store}>
   <Router >
     <>

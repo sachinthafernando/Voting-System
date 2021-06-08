@@ -4,6 +4,7 @@ import { Paper, Grid } from '@material-ui/core';
 import Map from './dashboard/Map';
 import HeaderBar from './dashboard/HeaderBar';
 import CanResult from './dashboard/CanResult';
+import { BoxLoading } from 'react-loadingg';
 
 
 export default class barChart extends Component {
@@ -31,6 +32,7 @@ export default class barChart extends Component {
             districtCanData: [],
             divisionCanData: [],
             
+            isLoading: true,
         }
     } 
 
@@ -38,6 +40,11 @@ export default class barChart extends Component {
         debugger;
         this.partyClass();
         this.candidateClass();
+        setTimeout(() => {
+            this.setState({
+                isLoading: false,
+            })
+        }, 1000);
     }
 
     partyClass(){
@@ -351,6 +358,7 @@ export default class barChart extends Component {
 
     render() {    
         return (
+            this.state.isLoading? <BoxLoading/> :
             <div>
                 {this.openHeader()}
                 <Paper>

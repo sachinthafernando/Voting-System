@@ -1,12 +1,26 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Snackbar } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Snackbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import React, { Component } from 'react'
+import { BoxLoading } from 'react-loadingg';
+import personBackground from "../../../images/pexels-steve-johnson-1509534.jpg";
 
 const styles = {
     root: {
-          margin: "30px auto",
+          margin: "30px 30px",
           minWidth: 230,
+          backgroundColor: "#81f0ffd1",
+          padding: "40px 60px",
+          borderStyle: "double",
+          borderRadius: "40px",
+    },
+    background: {
+        position: "fixed",
+        minWidth: "100%",
+        minHeight: "100%",
+        background: "url(https://images.pexels.com/photos/1509534/pexels-photo-1509534.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center fixed",
+        backgroundSize: "cover",
+        overflow: "hidden",
     },
     formControl: {
         margin: "10px auto",
@@ -21,7 +35,9 @@ const styles = {
     },
     paper : {
         margin: "30px auto",
-        padding: 20,
+        padding: "20px",
+        backgroundColor: "#53d2fdb8",
+        borderRadius: '60px',
     }
 }
 
@@ -32,8 +48,7 @@ export default class AddPerson extends Component {
 
         this.onChangeNIC = this.onChangeNIC.bind(this);
         this.onChangeSerialNo = this.onChangeSerialNo.bind(this);
-        this.onChangeVoted = this.onChangeVoted.bind(this);
-        this.onChangeGND = this.onChangeGND.bind(this);
+       this.onChangeGND = this.onChangeGND.bind(this);
         this.AddPerson = this.addPerson.bind(this);
         this.closeMessage = this.closeMessage.bind(this);
         this.formReset = this.formReset.bind(this);
@@ -41,13 +56,13 @@ export default class AddPerson extends Component {
         this.state = {
             NIC:'',
             SerialNo:'',
-            Voted:'false',
             gndOptions: [],
             GND: "",
             message: '',
             setMessage: false,
             validateError: {NIC: true, SerialNo: true, GND: true},
             error: {NIC: '', SerialNo: '', GND: ''},
+            isLoading: true,
         }
     }
 
@@ -72,6 +87,9 @@ export default class AddPerson extends Component {
         })
         .catch(function (error) {
             console.log(error);
+        })
+        this.setState({
+            isLoading: false,
         })
     }
 
@@ -136,12 +154,6 @@ export default class AddPerson extends Component {
         });
     }
 
-    onChangeVoted(e) {
-        this.setState({
-            Voted: e.target.value
-        });
-    }
-
     onChangeGND(e) {
         let gnd = e.target.value;
 
@@ -174,22 +186,17 @@ export default class AddPerson extends Component {
         };
         axios.post('https://localhost:5001/api/person/', obj)
         .then(json => {
-            if (json.data){
-                debugger;
-                console.log(json.statusText);
-                debugger;
-                this.setState({
-                    setMessage: true,
-                    message: 'Person Save Successfully',
-                });
-            }
-            else{
-                debugger;
-                this.setState({
-                    setMessage: true,
-                    message: 'Person not Saved',
-                });
-            }
+            debugger;
+            console.log(json.statusText);
+            debugger;
+            this.setState({
+                setMessage: true,
+                message: 'Person Save Successfully',
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert("Data not saved");
         });
         debugger;
     }
@@ -206,9 +213,11 @@ export default class AddPerson extends Component {
 
     render() {
         return (
-            <Container maxWidth="sm">
+            this.state.isLoading? <BoxLoading/> :
+            <div style={styles.background}>
+            <Container maxWidth="md" >
                 <Paper style={styles.paper} elevation={3}>
-                <h4>Enter Person Informations</h4>
+                <Typography variant='h4' align='center'>Enter Person Informations</Typography>
                 <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
                     <Alert severity="success">
                         {this.state.message}
@@ -245,35 +254,36 @@ export default class AddPerson extends Component {
                                 <h4 className= 'validate'>{this.state.error.SerialNo}</h4> 
                             </div>
                             : null}
-                            <TextField
-                                name = "voted"
-                                variant = "outlined"
-                                required
-                                label = "Voted"
-                                value = {this.state.Voted}
-                                onChange = {this.onChangeVoted}
-                                style= {styles.textField}
-                                disabled= "true"
-                            />
                         </Grid>
                         <Grid item xs={6}>
                             <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >GND</InputLabel>
-                                <Select
-                                    //name= "gND"
-                                    value = {this.state.GND}
-                                    onChange= {this.onChangeGND}
-                                >
-                                    {this.state.gndOptions.map((gndOption) => 
+                                
+                                <TextField
+                                    select
+                                    required
+                                    label="GND"
+                                    value={this.state.GND}
+                                    onChange={this.onChangeGND}
+                                    variant="outlined"
+                                    >
+                                     {this.state.gndOptions.map((gndOption) => 
                                         <MenuItem key={gndOption.value} value={gndOption.value}>{gndOption.display}</MenuItem>
                                     )}
-                                </Select>
+                                    </TextField>
                             </FormControl>
                             {this.state.validateError.GND? 
                             <div>
                                 <h4 className= 'validate'>{this.state.error.GND}</h4> 
                             </div>
                             : null}
+                            <TextField
+                                name = "voted"
+                                variant = "outlined"
+                                required
+                                label = "Voted"
+                                style= {styles.textField}
+                                disabled= "true"
+                            />
                         </Grid>
                     </Grid>
                     <div>
@@ -299,6 +309,7 @@ export default class AddPerson extends Component {
             </form>
                 </Paper>
             </Container>
+            </div>
         )
     }
 }

@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { BoxLoading } from 'react-loadingg';
 
 import defaultCandidateImg from '../../../images/candidate_placeHolder.png'
 
@@ -14,6 +15,18 @@ const styles = {
     root: {
           margin: "30px auto",
           minWidth: 230,
+          backgroundColor: "#ffff89ed",
+          padding: "40px",
+          borderStyle: "double",
+          borderRadius: "40px",
+    },
+    background: {
+        position: "fixed",
+        minWidth: "100%",
+        minHeight: "100%",
+        background: "url(https://images.pexels.com/photos/1269968/pexels-photo-1269968.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center fixed",
+        backgroundSize: "cover",
+        overflow: "hidden",
     },
     formControl: {
         margin: "10px auto",
@@ -29,6 +42,8 @@ const styles = {
     paper : {
         margin: "30px auto",
         padding: 20,
+        backgroundColor: "#fdfd92c9",
+        borderRadius: '60px',
     }
 }
 
@@ -40,6 +55,7 @@ export default class AddCandidate extends Component {
         this.onChangeCandidateNo = this.onChangeCandidateNo.bind(this);
         this.onChangeCandidateName = this.onChangeCandidateName.bind(this);
         this.onChangePartyID= this.onChangePartyID.bind(this);
+        this.onChangeDistrictID= this.onChangeDistrictID.bind(this);
         this.onChangeImage= this.onChangeImage.bind(this);
         this.AddCandidate = this.addCandidate.bind(this);
         this.closeMessage = this.closeMessage.bind(this);
@@ -48,15 +64,18 @@ export default class AddCandidate extends Component {
         this.state = {
             CandidateNo:'',
             CandidateName:'',
-            partyOptions: [],
+            partyOptions: [{ value: '', display:'Select Party'}],
             PartyID:'',
+            districtOptions: [{ value: '', display:'Select District'}],
+            districtID:'',
             image: '',
             imageSrc: defaultCandidateImg,
             imageFile: null,
             message: '',
             setMessage: false,
-            validateError: {CandidateNo: true, CandidateName: true, Party: true, Image: true},
-            error: {CandidateNo: '', CandidateName: '', Party: '', Image: ''},
+            validateError: {CandidateNo: true, CandidateName: true, Party: true, District: true, Image: true},
+            error: {CandidateNo: '', CandidateName: '', Party: '', District: '', Image: ''},
+            isLoading: true,
         
         }
     }
@@ -69,19 +88,22 @@ export default class AddCandidate extends Component {
     }
 
     componentDidMount(){
-        axios.get('https://localhost:5001/api/party/')
-        .then(response => {
+        axios.get('https://localhost:5001/api/district/')
+        .then(res => {
             debugger;
-            let PartyfromApi = response.data.map(partyOption =>{
+            let DistrictfromApi = res.data.map(disrictOption =>{
                 debugger;
-                return { value: partyOption.partyID, display: partyOption.partyName}
+                return { value: disrictOption.id, display: disrictOption.name}
             });
             this.setState({
-                partyOptions: [{ value: '', display:'Select Party'}].concat(PartyfromApi)
+                districtOptions: [{ value: '', display:'Select District'}].concat(DistrictfromApi)
             });
         })
         .catch(function (error) {
             console.log(error);
+        })
+        this.setState({
+            isLoading: false,
         })
     }
 
@@ -126,7 +148,7 @@ export default class AddCandidate extends Component {
             })) 
         }
         if(name !== ''){
-            if (!name.match(/^[a-zA-Z]+$/)){
+            if (!name.match(/^[a-zA-Z_ ]+$/)){
                 debugger;
                 this.setState(prevState => ({
                     validateError: {...prevState.validateError, CandidateName: true},
@@ -167,6 +189,40 @@ export default class AddCandidate extends Component {
             PartyID: e.target.value
         });
     }
+
+    onChangeDistrictID(e) {
+        let district = e.target.value;
+
+        if(!district){
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError,  District: true},
+                error: {...prevState.error,  District: 'Select a district'}
+            }))
+        }
+        else{
+            this.setState(prevState => ({
+                validateError: {...prevState.validateError,  District: false},
+                error: {...prevState.error,  District: ''}
+            }))
+        }
+        debugger;
+        axios.get('https://localhost:5001/api/party/district/' + district)
+          .then(response => {
+
+            let PartyfromApi = response.data.map(partyOption =>{
+                debugger;
+                return { value: partyOption.partyID, display: partyOption.partyName}
+            });
+            this.setState({
+                districtID: district,
+                partyOptions: [{ value: '', display:'Select Party'}].concat(PartyfromApi)
+            });
+          })
+          .catch(function (error) {
+              console.log(error);
+          })
+    }
+
     onChangeImage(e) {
         e.preventDefault();
 
@@ -201,29 +257,24 @@ debugger;
         const formData = new FormData()
         formData.append('candidateNo',this.state.CandidateNo)
         formData.append('candidateName',this.state.CandidateName)
-        formData.append('partyID',parseInt(this.state.PartyID))
         formData.append('image',this.state.image)
         formData.append('imageFile',this.state.imageFile)
-
+        formData.append('party_ID',this.state.PartyID)
+        formData.append('district_ID',this.state.districtID)
+        
+        debugger;
         await axios.post('https://localhost:5001/api/Candidate/', formData)
         .then(json => {
-            if (json.data){
-                debugger;
-                console.log(json.statusText);
-                debugger;
-                this.setState({
-                    setMessage: true,
-                    message: 'Candidate Save Successfully',
-                });
-            }
-            else{
-                debugger;
-                alert('Data not Saved');
-                this.setState({
-                    setMessage: true,
-                    message: 'Candidate not Saved',
-                });
-            }
+            debugger;
+            console.log(json.data);
+            this.setState({
+                setMessage: true,
+                message: 'Candidate Save Successfully',
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert("Data not saved");
         });
         debugger;
     }
@@ -232,11 +283,12 @@ debugger;
             CandidateNo:'',
             CandidateName:'',
             PartyID:'',
+            districtID: '',
             image: '',
             imageSrc: defaultCandidateImg,
             imageFile: null,
-            validateError: {CandidateNo: true, CandidateName: true, Party: true, Image: true},
-            error: {CandidateNo: '', CandidateName: '', Party: '', Image: ''},
+            validateError: {CandidateNo: true, CandidateName: true, Party: true, District: true, Image: true},
+            error: {CandidateNo: '', CandidateName: '', Party: '', District: '', Image: ''},
         
 
         })
@@ -244,28 +296,53 @@ debugger;
 
     render() {
         return (
-            
-            <Container maxWidth="sm">
+            this.state.isLoading? <BoxLoading/> :
+            <div style={styles.background}>
+            <Container maxWidth="md">
                 <Paper style={styles.paper} elevation={3}>
                     <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
                         <Alert severity="success">
                             {this.state.message}
                         </Alert>
                     </Snackbar>
-                    <h4>Enter Candidate Informations</h4>
+                    <Typography variant='h4' align='center'>Enter Candidate Informations </Typography>
                     <form onSubmit={this.addCandidate} autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
-                            <Grid item xs={6}>
-                            <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >Party</InputLabel>
-                                <Select
-                                    value = {this.state.PartyID}
-                                    onChange= {this.onChangePartyID}
-                                >
+                            <Grid item xs={5}>
+                            <FormControl variant="outlined" style={styles.formControl} required>
+                                
+                                <TextField
+                                    select
+                                    required
+                                    label="District"
+                                    value={this.state.districtID}
+                                    onChange={this.onChangeDistrictID}
+                                    variant="outlined"
+                                    >
+                                     {this.state.districtOptions.map((districtOption) => 
+                                        <MenuItem key={districtOption.value} value={districtOption.value}>{districtOption.display}</MenuItem>
+                                    )}
+                                    </TextField>
+                            </FormControl>
+                                {this.state.validateError.District? 
+                                <div>
+                                    <h4 className= 'validate'>{this.state.error.District}</h4> 
+                                </div>
+                                : null}
+                            <FormControl variant="outlined" style={styles.formControl} required>
+                                
+                                <TextField
+                                    select
+                                    required
+                                    label="Party"
+                                    value={this.state.PartyID}
+                                    onChange={this.onChangePartyID}
+                                    variant="outlined"
+                                    >
                                     {this.state.partyOptions.map((partyOption) => 
                                         <MenuItem key={partyOption.value} value={partyOption.value}>{partyOption.display}</MenuItem>
                                     )}
-                                </Select>
+                                    </TextField>
                             </FormControl>
                                 {this.state.validateError.Party? 
                                 <div>
@@ -323,14 +400,14 @@ debugger;
                                     </Button>
                                 </div>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={7}>
 
-                            <Card className="root" >
-                                    <CardActionArea>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Choose The Candidate Image
-                                        </Typography>
-
+                            <Card style={styles.root} >
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        Choose The Candidate Image
+                                    </Typography>
+                                    <CardActionArea style={{display: "flex"}}>
+                             
                                         {this.state.imageSrc ? (
                                             <img alt={this.state.imageSrc} src={this.state.imageSrc} />
                                             ) : null}
@@ -349,6 +426,7 @@ debugger;
                 </form>
             </Paper>
         </Container>
+        </div>
         )
     }
 }

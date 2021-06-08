@@ -121,6 +121,7 @@ export default class EditPerson extends Component {
                                 value = {this.state.NIC}
                                 onChange = {this.onChangeNIC}
                                 style= {styles.textField}
+                                autoFocus
                             />
                             <TextField
                                 name = "serialNo"
@@ -129,19 +130,23 @@ export default class EditPerson extends Component {
                                 value = {this.state.SerialNo}
                                 onChange = {this.onChangeSerialNo}
                                 style= {styles.textField}
+                                autoFocus
                             />
                         </Grid>
                         <Grid item xs={6}>
                             <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >GND</InputLabel>
-                                <Select
-                                    value = {this.state.GND}
-                                    onChange= {this.onChangeGND}
-                                >
-                                    {this.state.gndOptions.map((gndOption) => 
+                                <TextField
+                                    select
+                                    required
+                                    label="GND"
+                                    value={this.state.GND}
+                                    onChange={this.onChangeGND}
+                                    variant="outlined"
+                                    >
+                                     {this.state.gndOptions.map((gndOption) => 
                                         <MenuItem key={gndOption.value} value={gndOption.value}>{gndOption.display}</MenuItem>
                                     )}
-                                </Select>
+                                </TextField>
                             </FormControl>
                         </Grid>
                     </Grid>
