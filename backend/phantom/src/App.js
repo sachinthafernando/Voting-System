@@ -31,7 +31,7 @@ import Footer from './components/Footer';
 import Hero from './components/Hero';
 
 import { SliderData } from './data/SliderData';
-import GlobalStyle from './components/globalStyles';
+import GlobalStyle from './components/GlobalStyles';
 
 import { ThemeProvider, CssBaseline } from '@material-ui/core';
 import theme from './components/Theme';
