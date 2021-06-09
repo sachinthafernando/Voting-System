@@ -19,7 +19,6 @@ namespace VotingSystems.Models
         [Column(TypeName = "nvarchar(100)")]
         public string CandidateName { get; set; }
 
-        public int CandidateVoteCount { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string Image { get; set; }
         [NotMapped]
@@ -30,6 +29,9 @@ namespace VotingSystems.Models
         public int Party_ID { get; set; }
         [ForeignKey("Party_ID")]
         public virtual Party Party { get; set; }
+        public int District_ID { get; set; }
+        [ForeignKey("District_ID")]
+        public virtual District District { get; set; }
 
         public virtual ICollection<VoteCan> VoteCandidates { get; set; }
     }

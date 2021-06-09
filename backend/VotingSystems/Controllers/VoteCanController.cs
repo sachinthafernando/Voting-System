@@ -44,7 +44,7 @@ namespace VotingSystems.Controllers
         // PUT: api/VoteCan/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public async Task<IActionResult> PutVoteCan(int id, VoteCan voteCan)
         {
             voteCan.VoteCanID = id;
@@ -68,7 +68,7 @@ namespace VotingSystems.Controllers
             }
 
             return NoContent();
-        }
+        }*/
 
         // POST: api/VoteCan
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -83,7 +83,7 @@ namespace VotingSystems.Controllers
         }
 
         // DELETE: api/VoteCan/5
-        [HttpDelete("{id}")]
+        /*[HttpDelete("{id}")]
         public async Task<ActionResult<VoteCan>> DeleteVoteCan(int id)
         {
             var voteCan = await _context.VoteCan.FindAsync(id);
@@ -96,7 +96,7 @@ namespace VotingSystems.Controllers
             await _context.SaveChangesAsync();
 
             return voteCan;
-        }
+        }*/
 
         private bool VoteCanExists(int id)
         {

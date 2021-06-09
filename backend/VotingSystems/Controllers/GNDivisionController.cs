@@ -41,6 +41,23 @@ namespace VotingSystems.Controllers
             return gNDivision;
         }
 
+        //GET: api/GNDivision/GetByDivision/5
+        [HttpGet("GetByDivision/{division}")]
+        public async Task<ActionResult<IEnumerable<GNDivision>>> GetByDivision(int division)
+        {
+            //return Ok();
+
+            return await _context.GNDivisions
+                .Where(x => x.PD_ID == division)
+                .Select(x => new GNDivision()
+                {
+                    ID = x.ID,
+                    Name = x.Name,
+                    PD_ID = x.PD_ID,
+                })
+                .ToListAsync();
+        }
+
         // PUT: api/GNDivision/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
