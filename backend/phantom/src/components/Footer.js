@@ -11,8 +11,7 @@ import logo from '../images/logo1.png';
 
 function Footer() {
   return (
-    
-     
+     <>
         <Grid container className="footer__container">
           <Grid container md={4} sm={12} alignItems="center" className="center">
             <img src={logo} alt="logo" className="logo" />
@@ -165,7 +164,7 @@ function Footer() {
             </div>
           </Grid>
         </Grid>
-     
+     </>
     
   );
 }

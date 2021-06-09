@@ -1,36 +1,29 @@
 import React from 'react';
 import {  makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { BrowserRouter as Router, Route, Switch,NavLink, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ButtonBase } from '@material-ui/core';
 import Flip from 'react-reveal/Flip';
+import SideNavbar from '../../components/sidebar/SideNavbar';
 export const images = [
-  {
-    //url: '/static/images/grid-list/breakfast.jpg',
-    url: 'https://png.pngtree.com/png-vector/20190114/ourlarge/pngtree-vector-user-management-icon-png-image_313042.jpg',
-    title: 'Create Admin',
-    width: '25%',
-    path:'/adminList'
-    
-  },
+  
   {
     url: 'https://ak.picdn.net/shutterstock/videos/20789104/thumb/1.jpg',
     title: 'Data Entry',
-    width: '25%',
+    width: '33%',
     path:'/dataEntry'
-  },
-  {
-    url: 'https://media.istockphoto.com/vectors/document-and-checkmark-vector-icon-concept-or-correct-form-or-symbol-vector-id956346728?k=6&m=956346728&s=170667a&w=0&h=uJb6MpEmIZ8w7VKLDJ2BoAXG9RwgMksP9HcffIdzeik=',
-    title: 'NIC Data Verify',
-    width: '25%',
-    path:'/addPerson'
   },
   {
     url: 'https://www.kindpng.com/picc/m/149-1492068_enterprise-document-search-document-search-icon-png-transparent.png',
     title: 'View Database',
-    width: '25%',
+    width: '34%',
     path:'/databaseView'
+  },
+  {
+    url: 'https://cdn2.iconfinder.com/data/icons/metro-ui-dock/512/Administrative_Tools.png',
+    title: 'Operator',
+    width: '33%',
+    path:'/operator'
   },
 ];
 
@@ -116,6 +109,8 @@ export default function ButtonBases() {
   const classes = useStyles();
 
   return (
+    <>
+    <SideNavbar/>
     <div className={classes.root}>
       {images.map((image) => (
         <ButtonBase to={image.path}
@@ -155,5 +150,6 @@ export default function ButtonBases() {
         </ButtonBase>
       ))}
     </div>
+    </>
   );
 }

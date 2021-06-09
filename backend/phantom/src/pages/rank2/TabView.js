@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -61,14 +61,18 @@ function TabPanel(props) {
 
 export default function TabView() {
     const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [loading, setloading] = useState(true)
 
+  useEffect(() => {
+    setloading(false);
+  })
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <Container>
+    <Container maxWidth="xl ">
         <Paper elevation={3} className={classes.paper}>
             <div className={classes.root}>
                 <AppBar position="static">

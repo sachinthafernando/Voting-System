@@ -5,11 +5,6 @@ import axios from 'axios';
 import React from 'react'
 import EditCandidate from './EditCandidate';
 
-// import GridListTileBar from '@material-ui/core/GridListTileBar';
-// import IconButton from '@material-ui/core/IconButton';
-// import InfoIcon from '@material-ui/icons/Info';
-// import GridListTile from '@material-ui/core/GridListTile';
-
 export default function CandidateTable(props) {
 
     const [open, setOpen] = React.useState(false);debugger;
@@ -25,9 +20,9 @@ export default function CandidateTable(props) {
         const DeleteCandidate = () =>{
             if(window.confirm('Are you sure to delete this record?'))
             {
-                axios.delete('http://localhost:5000/api/candidate/'+props.obj.candidateID)
+                axios.delete('https://localhost:5001/api/candidate/'+props.obj.candidateID)
                 .then(json => {
-                    if(json.statusText=='OK'){
+                    if(json.data){
                         alert('Record deleted successfully!!');
                     }
                 })
@@ -40,9 +35,8 @@ export default function CandidateTable(props) {
                 <TableCell>{props.obj.candidateNo}</TableCell>
                 <TableCell>{props.obj.candidateName}</TableCell>
                 <TableCell>{props.obj.party_ID}</TableCell>
-                <TableCell>{props.obj.image}</TableCell>
                 <TableCell>
-                    <img src={props.obj.imageSrc} />
+                    <img src={props.obj.imageSrc} height={"150px"}/>
                 </TableCell>
                 <TableCell>
                     <ButtonGroup variant="text">

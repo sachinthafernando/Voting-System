@@ -1,3 +1,5 @@
+
+import{useEffect} from 'react';
 import { BrowserRouter as Router, Route, Switch,NavLink, Link, Redirect } from 'react-router-dom';
 //import './App.css';
 //import Candidate from './pages/candidate/Candidate';
@@ -5,38 +7,19 @@ import { BrowserRouter as Router, Route, Switch,NavLink, Link, Redirect } from '
 import Home from './pages/home/Home';
 //import HomeRank2 from './pages/rank2/HomeRank2';
 
-import AdminList from './pages/admin/AdminList';
-import AddAdmin from './pages/admin/AddAdmin';
-import AdminTable from './pages/admin/AdminTable';
-import EditAdmin from './pages/admin/EditAdmin';
+import AdminList from './pages/rank1/admin/AdminList';
 
-import AddCandidate from './pages/candidate/AddCandidate';
-import CandidateList from './pages/rank2/candidateView/CandidateList';
-import CandidateTable from './pages/rank2/candidateView/CandidateTable';
-import EditCandidate from './pages/rank2/candidateView/EditCandidate';
+import AddCandidate from './pages/rank2/candidate/AddCandidate';
 
-import AddPerson from './pages/person/AddPerson';
-import PersonTable from './pages/rank2/personView/PersonTable';
-import EditPerson from './pages/rank2/personView/EditPerson';
-import PersonList from './pages/rank2/personView/PersonList';
+import AddPerson from './pages/rank3/person/AddPerson';
 
-import AddParty from './pages/party/AddParty';
-import PartyList from './pages/rank2/partyView/PartyList';
-import PartyTable from './pages/rank2/partyView/PartyTable';
-import EditParty from './pages/rank2/partyView/EditParty';
+import AddParty from './pages/rank2/party/AddParty';
 
 import React, {useState} from 'react';
-import Dropdown from './components/Dropdown';
-import Footer from './components/Footer';
-import Hero from './components/Hero';
-
-import { SliderData } from './data/SliderData';
+// import Dropdown from './components/Dropdown';
 import GlobalStyle from './components/GlobalStyles';
 
-import { ThemeProvider, CssBaseline } from '@material-ui/core';
-import theme from './components/Theme';
-import HomePolling from './pages/homePolling/HomePolling';
-import Navbar from './components/Navbar';
+import { CssBaseline } from '@material-ui/core';
 import Rank1Home from './pages/home/Rank1Home';
 import Rank2Home from './pages/home/Rank2Home';
 import Rank3Home from './pages/home/Rank3Home';
@@ -47,81 +30,217 @@ import DataEntryMenu from './pages/rank2/DataEntryMenu';
 
 import AboutUs from './components/AboutUs';
 
-
 import { Provider } from "react-redux";
-import { Fragment } from "react";
 import store from "./store";
 import Login from "./components/auth/Login";
 import Alert from "./components/layout/Alert";
-import VoteParty from './pages/rank4/voteParty/VoteParty';
+
+
+// import { PublicRoute, PrivateRoute } from "react-private-public-route";
+import  PrivateRoute  from "./components/PrivateRoutes/PrivateRoute";
+import Authtoken from './utilities/Authtoken';
+import { loadUser } from './Actions/auth';
+import { LOGOUT } from './Actions/types';
+import DynamicLayout from './components/layout/DynamicLayout';
+import ScrollTop from './components/layout/ScrollTop';
+
+import Scanner from './pages/rank4/barCode/Scanner';
+import VoteCandidate from './pages/rank4/voting/voteCandidate/VoteCandidate';
+import VoteParty from './pages/rank4/voting/voteParty/VoteParty';
+import AddDistricts from './pages/rank1/setting/AddDistricts';
+import Settings from './pages/rank1/setting/Settings';
+import barChart from './pages/rank1/result/barChart';
+import FreezeScreen from './pages/rank4/barCode/FreezeScreen';
+import OperaterLogIn from './pages/rank2/OperaterLogIn';
+import OperatorView from './pages/rank2/OperatorEntryMenu';
+import ContactUs from './components/ContactUs.js';
+
+import jwt_decode from "jwt-decode"
+
+
+import { WaveLoading   } from 'react-loadingg';
+
+if (localStorage.token){
+  Authtoken(localStorage.token);
+}
 
 
 
+const App = () => {
+
+  
+  const [userRole,setUserRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest');
+  const [userName, setUserName] = useState( localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest');
+  const [loading, setloading] = useState(true);
+
+useEffect(() => {
+        debugger;
+  setloading(false);
+  store.dispatch(loadUser());
+    
+   
+//make the admin completely loggedout
+window.addEventListener("storage", () => {
+  if (!localStorage.token) store.dispatch({ type: LOGOUT });
+});
+
+},[]);
 
 
-function App() {
-
-  const [isOpen ,setIsOpen] = useState(false);
+ //define toggle function
+ const [isOpen ,setIsOpen] = useState(false);
   const toggle =() =>{
     setIsOpen(!isOpen);
   };
 
+  const RoleBasedRoute = (router) => {
+    debugger;
+    setUserRole(localStorage.token ? jwt_decode(localStorage.token).role : 'Guest');
+    setUserName(localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest');
+    debugger;
+    if (userRole === 'Guest') {
+      debugger;
+      return(
+        <>
+          <Route  component={Login} />
+        </>
+      )
+    } else {
+      debugger;
+      switch (router.dynamicLayout) {
+        case true:
+          if (userRole === router.role) {
+            if (userRole === "Rank2Admin" && userName === router.name) {
+              return (
+                <>
+                  <DynamicLayout exact path= {router.path} component={router.hiddenComponent} layout="SUB_NAV" />
+                </>
+              );
+            } else {
+              return (
+                <>
+                  <DynamicLayout exact path= {router.path} component={router.component} layout="SUB_NAV" />
+                </>
+              );
+            }
+          } else {
+            return (
+              <>
+                <DynamicLayout exact path="/home" component={Home} /> 
+              </>
+            );
+          }
+        case false:
+          return (
+            <>
+              {userRole === router.role  ?
+                
+              <Route exact path= {router.path} component={router.component} />
+      
+              : <DynamicLayout exact path="/home" component={Home} />
+              }
+            </>
+          );
+      
+        default:
+          return (
+            <>
+              <Route exact path="*" render={() => {window.location.href="404.html"}} />
+            </>
+          );
+      }
+    }
+  }
 
 return (
+  loading? 
+  <div 
+  style={{
+    backgroundColor: "#232354", 
+    position: "fixed", 
+    minWidth: "100%", 
+    minHeight: "100%", 
+    display: "flex", 
+    top: "0", 
+    left: "0"}}
+    >
+      <WaveLoading  />
+    </div> :
   <Provider store={store}>
-  <Router>
+  <Router >
     <>
-    <div>
+    <div >
     <GlobalStyle />
-    <Navbar toggle = {toggle} />
-    <Dropdown  isOpen = {isOpen} toggle={toggle}/>
-    {/* <ThemeProvider theme={theme}> */}
-    
+      <Alert />
         <Switch>
           
-          <Route exact path = "/" component={Home} />
-          <Route exact path = "/aboutUs" component={AboutUs} />
+          <Route path="/login" component={Login} />
+
+          {/* make private below */}
+          <PrivateRoute path = "/rank1Home" component={Rank1Home} />
+          <PrivateRoute path = "/rank2Home" component={Rank2Home} />
+          <PrivateRoute path = "/rank3Home" component={Rank3Home} />
+          <PrivateRoute path = "/rank4Home" component={Rank4Home} />
           
+          <DynamicLayout exact  path="/aboutUs" component={AboutUs} layout="MAIN_NAV" />
+          <DynamicLayout exact path="/" component={Home} layout="MAIN_NAV" />
+          <DynamicLayout exact path="/home" component={Home} />
+          <DynamicLayout exact path= "/contactUs" component={ContactUs} layout="MAIN_NAV"/>
 
 
-          <Route path = "/adminList" component={AdminList} />
-          {/* <Route path = "/editAdmin/:id" component={EditAdmin} /> */}
-          {/* <Route path = "/homeRank2" component={HomeRank2} /> */}
-      
+          {/* rank 1 routes */}
           
-          <Route path = "/addCandidate" component={AddCandidate} />
-          {/* <Route path = "/candidateList" component={CandidateList} />
-          <Route path = "/editCandidate/:id" component={EditCandidate} /> */}
-          <Route path = "/rank1Home" component={Rank1Home} />
-          <Route path = "/rank2Home" component={Rank2Home} />
-          <Route path = "/rank3Home" component={Rank3Home} />
-          <Route path = "/rank4Home" component={Rank4Home} />
-          <Route path = "/adminList" component={AdminList} />
-         
-          <Route path= "/dataEntry" component={DataEntryMenu}/>
+          <RoleBasedRoute path= "/setting" component={Settings} role={"Rank1Admin"} dynamicLayout= {true}/>
+          <RoleBasedRoute path = "/adminList" component={AdminList} role={"Rank1Admin"} dynamicLayout= {true}/>
+          <RoleBasedRoute path= "/barChart" component={barChart} role={"Rank1Admin"} dynamicLayout= {false}/>
+          <RoleBasedRoute path= "/addDistricts" component={AddDistricts} role={"Rank1Admin"} dynamicLayout= {true}/>
 
-          <Route path = "/databaseView" component={DatabaseView} />
-          <Route path = "/homePolling" component={HomePolling} />
-          <Route path= "/addPerson" component={AddPerson}/>
-          {/* <Route path = "/editPerson/:id" component={EditPerson} /> */}
-          <Route path= "/addParty" component={AddParty}/>
+          {/* rank 2 routes */}
 
-          <Route path= "/voteParty" component={VoteParty}/>
+          <RoleBasedRoute path= "/dataEntry" component={DataEntryMenu} role={"Rank2Admin"} dynamicLayout= {true} name={"Other"}/>
+          <RoleBasedRoute path = "/databaseView" component={DatabaseView} role={"Rank2Admin"} dynamicLayout= {true} name={"Other"}/>
+          <RoleBasedRoute path = "/addCandidate" component={AddCandidate} role={"Rank2Admin"} dynamicLayout= {true} name={"Other"} />
+          <RoleBasedRoute path= "/addParty" component={AddParty} role={"Rank2Admin"} dynamicLayout= {true} name={"Other"}/>
 
+          <PrivateRoute path= "/operator" component={OperaterLogIn} />
+          <RoleBasedRoute path= "/operatorView" component={DataEntryMenu} hiddenComponent={OperatorView} role={"Rank2Admin"} dynamicLayout= {true} name={"Operator"}/>
+
+          <RoleBasedRoute path= "/settings" component={DataEntryMenu} hiddenComponent={Settings} role={"Rank2Admin"} dynamicLayout= {true} name={"Operator"}/>
+          <RoleBasedRoute path = "/adminLists" component={DataEntryMenu} hiddenComponent={AdminList} role={"Rank2Admin"}  dynamicLayout= {true} name={"Operator"}/>
           
+          {/* rank 3 routes */}
 
-          <Route exact path="/login" component={Login} />
+          <RoleBasedRoute path= "/addPerson" component={AddPerson} role={"Rank3Admin"} dynamicLayout= {true}/>
 
-        </Switch>
-       
-    <Footer/>
+          {/* rank 4 routes */}
+
+          <RoleBasedRoute path= "/scanner" component={Scanner} role={"Rank4Admin"} dynamicLayout= {true}/>
+          <RoleBasedRoute path= "/voteParty" component={VoteParty} role={"Rank4Admin"} dynamicLayout= {false}/>
+          <RoleBasedRoute path= "/voteCandidate" component={VoteCandidate} role={"Rank4Admin"} dynamicLayout= {false}/>
+          <RoleBasedRoute path= "/freezeScreen" component={FreezeScreen} role={"Rank4Admin"} dynamicLayout= {false}/>
+
+
+          {/* below 404 should be at the bottom of rote paths */}
+          <Route exact path="*" render={() => {window.location.href="404.html"}} />
+        </Switch>    
     
     <CssBaseline />
-    {/* </ThemeProvider> */}
     </div>
+    <div>
+    {/* <Footer/> */}
+    </div>
+    <ScrollTop/>
     </> 
     </Router>
     </Provider>
   );
-}
+};
 export default App;
+
+
+
+
+
+{/* <Route path = "/editPerson/:id" component={EditPerson} /> */}
+{/* <Route path = "/candidateList" component={CandidateList} />
+          <Route path = "/editCandidate/:id" component={EditCandidate} /> */}

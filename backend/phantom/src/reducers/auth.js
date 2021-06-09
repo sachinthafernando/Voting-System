@@ -1,6 +1,6 @@
+
 import {
-    // REGISTER_FAIL,
-    // REGISTER_SUCCESS,
+  
     USER_LOADED,
     AUTH_ERROR,
     LOGIN_FAILED,
@@ -27,7 +27,7 @@ export default function(state = initialState, action) {
                 loading: false,
                 user: payload
             }
-        // case REGISTER_SUCCESS:
+        // case LOGIN_SUCCESS:
         case LOGIN_SUCCESS:
             localStorage.setItem("token", payload.token);
             return {
@@ -37,16 +37,18 @@ export default function(state = initialState, action) {
                 user: JSON.parse(atob(payload.token.split('.')[1])),
                 loading: false
             };
-        // case REGISTER_FAIL:
+       
         case AUTH_ERROR:
         case LOGIN_FAILED:
+            //logout
         case LOGOUT:
-            localStorage.removeItem("token");
+            localStorage.removeItem('token');
             return {
                 ...state,
                 token: null,
-                isAuthenticated: false,
-                loading: false
+                isAuthenticated: null,
+                loading: false,
+				user: null
             };
         default:
             return state;

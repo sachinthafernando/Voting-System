@@ -1,9 +1,8 @@
-import React from 'react';
+import React ,{useState, useEffect} from 'react';
 import {  makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Fade from 'react-reveal/Fade';
-import { BrowserRouter as Router, Route, Switch,NavLink, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ButtonBase } from '@material-ui/core';
 import Flip from 'react-reveal/Flip';
 export const images = [
@@ -108,6 +107,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonBases() {
   const classes = useStyles();
+  const [loading, setloading] = useState(true);
+
+  useEffect(() => {
+    setloading(false);
+  })
 
   return (
     <div className={classes.root}>

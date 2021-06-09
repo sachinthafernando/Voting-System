@@ -34,6 +34,27 @@ namespace VotingSystems.Models
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
+<<<<<<< HEAD
+=======
+            modelBuilder.Entity<District_Party>()          // To stop looping with models.
+               .HasKey(dp => new { dp.District_ID, dp.Party_ID });
+
+            modelBuilder.Entity<District_Party>()          // To stop looping with models.
+                .HasOne<District>(dp => dp.District)
+                .WithMany(v => v.District_Parties)
+                .HasForeignKey(dp => dp.District_ID);
+
+            modelBuilder.Entity<District_Party>()          // To stop looping with models.
+                .HasOne<Party>(dp => dp.Party)
+                .WithMany(v => v.District_Parties)
+                .HasForeignKey(dp => dp.Party_ID);
+
+            modelBuilder.Entity<Rank1Admin>()
+                .HasData(
+                    new { Rank1AdminID = 1, Name = "Admin", Password = "password" }
+                );
+
+>>>>>>> host
             base.OnModelCreating(modelBuilder);
         }
 

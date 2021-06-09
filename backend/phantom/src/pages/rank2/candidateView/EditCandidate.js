@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Dialog, DialogTitle, DialogContent, DialogContentText } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
 
@@ -21,7 +21,7 @@ const styles = {
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: "10px",
     },
     paper : {
         margin: "30px auto",
@@ -51,7 +51,7 @@ export default class EditCandidate extends Component {
     }
 
     componentDidMount() {debugger;
-        axios.get('http://localhost:5000/api/candidate/'+this.props.user)
+        axios.get('https://localhost:5001/api/candidate/'+this.props.user)
         .then(response => {
             this.setState({
                 CandidateNo: response.data.candidateNo,
@@ -66,7 +66,7 @@ export default class EditCandidate extends Component {
             console.log(error);
         })
 
-        axios.get('http://localhost:5000/api/party/')
+        axios.get('https://localhost:5001/api/party/')
         .then(response => {
             debugger;
             let PartyfromApi = response.data.map(partyOption =>{
@@ -139,32 +139,35 @@ export default class EditCandidate extends Component {
         formData.append('party_ID',parseInt(this.state.PartyID))
         formData.append('image',this.state.image)
         formData.append('imageFile',this.state.imageFile)
-        await axios.put('http://localhost:5000/api/candidate/'+this.props.user, formData)
+        await axios.put('https://localhost:5001/api/candidate/'+this.props.user, formData)
         .then(res => {console.log(res.config.data);});
         debugger;
         this.props.close();
         
-        // this.props.history.push('/personList');
         // debugger;
     }
 
     render() {
         return (
-            <Container maxWidth="sm">
+            <Container maxWidth="700px">
                     <h4>Enter Candidate Informations</h4>
                     <form onSubmit={this.onSubmit} autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
                             <Grid item xs={6}>
                             <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >Party</InputLabel>
-                                <Select
-                                    value = {this.state.PartyID}
-                                    onChange= {this.onChangePartyID}
-                                >
-                                    {this.state.partyOptions.map((partyOption) => 
+                                
+                                <TextField
+                                    select
+                                    required
+                                    label="Party"
+                                    value={this.state.PartyID}
+                                    onChange={this.onChangePartyID}
+                                    variant="outlined"
+                                    >
+                                     {this.state.partyOptions.map((partyOption) => 
                                         <MenuItem key={partyOption.value} value={partyOption.value}>{partyOption.display}</MenuItem>
                                     )}
-                                </Select>
+                                    </TextField>
                             </FormControl>
                                 <TextField
                                     name = "candidateNo"
@@ -173,6 +176,7 @@ export default class EditCandidate extends Component {
                                     value = {this.state.CandidateNo}
                                     onChange = {this.onChangeCandidateNo}
                                     style= {styles.textField}
+                                    autoFocus
                                 />
                                 <TextField
                                     name = "candidateName"
@@ -181,25 +185,9 @@ export default class EditCandidate extends Component {
                                     value = {this.state.CandidateName}
                                     onChange = {this.onChangeCandidateName}
                                     style= {styles.textField}
+                                    autoFocus
                                 />
                                 
-                            </Grid>
-                            <Grid item xs={6}>
-
-                            <Card className="root" >
-                                    <CardActionArea>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Choose The Candidate Image
-                                        </Typography>
-
-                                        {this.state.imageSrc ? (
-                                            <img alt={this.state.imageSrc} src={this.state.imageSrc} />
-                                            ) : null}
-                                        <CardContent>
-                                        <input  type="file" accept="image/*"  onChange = {this.onChangeImage} />
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
                                 <div>
                                     <Button
                                         variant = "contained"
@@ -217,6 +205,23 @@ export default class EditCandidate extends Component {
                                         Cancel
                                     </Button>
                                 </div>
+                            </Grid>
+                            <Grid item xs={6}>
+
+                            <Card className="root" >
+                                    <CardActionArea>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            Choose The Candidate Image
+                                        </Typography>
+
+                                        {this.state.imageSrc ? (
+                                            <img alt={this.state.imageSrc} src={this.state.imageSrc} />
+                                            ) : null}
+                                        <CardContent>
+                                        <input  type="file" accept="image/*"  onChange = {this.onChangeImage} />
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
                             </Grid>
                         </Grid>
                 </form>

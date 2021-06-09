@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Dialog, DialogTitle, DialogContent, DialogContentText } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
 
@@ -16,7 +16,7 @@ const styles = {
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: "10px",
     },
     paper : {
         margin: "30px auto",
@@ -46,7 +46,7 @@ export default class EditPerson extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/api/person/'+this.props.user)
+        axios.get('https://localhost:5001/api/person/'+this.props.user)
         .then(response => {
             this.setState({
                 NIC: response.data.nic,
@@ -58,7 +58,7 @@ export default class EditPerson extends Component {
             console.log(error);
         })
 
-        axios.get('http://localhost:5000/api/GNDivision/')
+        axios.get('https://localhost:5001/api/GNDivision/')
         .then(response => {
             debugger;
             let GNDfromApi = response.data.map(gndOption =>{
@@ -100,11 +100,10 @@ export default class EditPerson extends Component {
             SerialNo: parseInt(this.state.SerialNo),
             GND: parseInt(this.state.GND)
         };
-        axios.put('http://localhost:5000/api/person/'+this.props.user, obj)
+        axios.put('https://localhost:5001/api/person/'+this.props.user, obj)
         .then(res => {console.log(res.config.data);});
         debugger;
         this.props.close();
-        // this.props.history.push('/personList');
         // debugger;
     }
 
@@ -114,6 +113,7 @@ export default class EditPerson extends Component {
                 {/* <Paper style={styles.paper} elevation={3}> */}
                 <form onSubmit={this.onSubmit} autoComplete="off" noValidate style={styles.root}>
                     <Grid container>
+                        <Grid item xs={6}>
                             <TextField
                                 name = "nic"
                                 variant = "outlined"
@@ -121,6 +121,7 @@ export default class EditPerson extends Component {
                                 value = {this.state.NIC}
                                 onChange = {this.onChangeNIC}
                                 style= {styles.textField}
+                                autoFocus
                             />
                             <TextField
                                 name = "serialNo"
@@ -129,18 +130,25 @@ export default class EditPerson extends Component {
                                 value = {this.state.SerialNo}
                                 onChange = {this.onChangeSerialNo}
                                 style= {styles.textField}
+                                autoFocus
                             />
+                        </Grid>
+                        <Grid item xs={6}>
                             <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >GND</InputLabel>
-                                <Select
-                                    value = {this.state.GND}
-                                    onChange= {this.onChangeGND}
-                                >
-                                    {this.state.gndOptions.map((gndOption) => 
+                                <TextField
+                                    select
+                                    required
+                                    label="GND"
+                                    value={this.state.GND}
+                                    onChange={this.onChangeGND}
+                                    variant="outlined"
+                                    >
+                                     {this.state.gndOptions.map((gndOption) => 
                                         <MenuItem key={gndOption.value} value={gndOption.value}>{gndOption.display}</MenuItem>
                                     )}
-                                </Select>
+                                </TextField>
                             </FormControl>
+                        </Grid>
                     </Grid>
                     <div>
                         <Button

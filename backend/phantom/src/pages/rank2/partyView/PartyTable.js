@@ -4,6 +4,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import axios from 'axios';
 import React from 'react'
 import EditParty from './EditParty';
+import { FiberManualRecordRounded } from '@material-ui/icons';
 
 export default function PartyTable(props) {
 
@@ -20,9 +21,9 @@ export default function PartyTable(props) {
         const DeleteParty = () =>{
             if(window.confirm('Are you sure to delete this record?'))
             {
-                axios.delete('http://localhost:5000/api/party/'+props.obj.partyID)
+                axios.delete('https://localhost:5001/api/party/'+props.obj.partyID)
             .then(json => {
-                if(json.statusText=='OK'){
+                if(json.data){
                     alert('Record deleted successfully!!');
                 }
             })
@@ -33,10 +34,9 @@ export default function PartyTable(props) {
         <TableRow>
                 <TableCell>{props.obj.partyID}</TableCell>
                 <TableCell>{props.obj.partyName}</TableCell>
-                <TableCell>{props.obj.color}</TableCell>
-                <TableCell>{props.obj.logo}</TableCell>
+                <TableCell><FiberManualRecordRounded style={{color: props.obj.color, fontSize: 'xxx-large'}}/></TableCell>
                 <TableCell>
-                    <img src={props.obj.logoSrc} />
+                    <img src={props.obj.logoSrc}  height={"150px"} />
                 </TableCell>
                 <TableCell>
                     <ButtonGroup variant="text">

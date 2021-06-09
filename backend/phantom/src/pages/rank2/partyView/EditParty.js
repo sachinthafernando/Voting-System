@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Dialog, DialogTitle, DialogContent, DialogContentText } from '@material-ui/core';
+import { Button, Container, Grid, TextField } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
 
@@ -21,7 +21,7 @@ const styles = {
         width: 230,
       },
     sMargin:{
-        margin: "30px auto",
+        margin: "10px",
     },
     paper : {
         margin: "30px auto",
@@ -48,7 +48,7 @@ export default class EditParty extends Component {
     }
 
     componentDidMount() {debugger;
-        axios.get('http://localhost:5000/api/party/'+this.props.user)
+        axios.get('https://localhost:5001/api/party/'+this.props.user)
         .then(response => {
             this.setState({
                 PartyName: response.data.partyName,
@@ -109,12 +109,11 @@ export default class EditParty extends Component {
         formData.append('logo',this.state.logo)
         formData.append('logoFile',this.state.logoFile)
         formData.append('color',this.state.Color)
-        await axios.put('http://localhost:5000/api/party/'+this.props.user, formData)
+        await axios.put('https://localhost:5001/api/party/'+this.props.user, formData)
         .then(res => {console.log(res.config.data);});
         debugger;
         this.props.close();
         
-        // this.props.history.push('/personList');
         // debugger;
     }
 
@@ -131,14 +130,17 @@ export default class EditParty extends Component {
                                 value = {this.state.PartyName}
                                 onChange = {this.onChangePartyName}
                                 style= {styles.textField}
+                                autoFocus
                             />
                             <TextField
+                                type = "color"
                                 name = "color"
                                 variant = "outlined"
                                 label = "color"
                                 value = {this.state.Color}
                                 onChange = {this.onChangeColor}
                                 style= {styles.textField}
+                                autoFocus
                             />
                             <div>
                                 <Button
