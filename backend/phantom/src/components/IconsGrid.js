@@ -40,14 +40,14 @@ class IconsGrid extends React.Component {
 
         <div className="anime-text">
 	  <small>{this.state.text}</small>
-	  <i class="fa fa-i-cursor" aria-hidden="true"></i>
+	  <i className="fa fa-i-cursor" aria-hidden="true"></i>
 	</div>
 
         <div className="me">
 	  <p data-aos='fade-up'>The web app is developed with React.js and ASP.Net Core for the purpose of a Online voting demonstration in the covid-19 season.</p>
         </div>
         <div className="learn-more" data-aos='fade-up'>
-  	  <p1>Learn<Link className="a-link" to="/aboutUs">More about us</Link> or <Link className="a-link" to="/contactUs">Contact Us</Link></p1>
+  	  <p>Learn<Link className="a-link" to="/aboutUs">More about us</Link> or <Link className="a-link" to="/contactUs">Contact Us</Link></p>
         </div>
         </Fragment>
       </div>

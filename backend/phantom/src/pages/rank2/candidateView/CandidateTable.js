@@ -36,7 +36,7 @@ export default function CandidateTable(props) {
                 <TableCell>{props.obj.candidateName}</TableCell>
                 <TableCell>{props.obj.party_ID}</TableCell>
                 <TableCell>
-                    <img src={props.obj.imageSrc} height={"150px"}/>
+                    <img src={props.obj.imageSrc} height={"150px"} alt={props.obj.candidateName}/>
                 </TableCell>
                 <TableCell>
                     <ButtonGroup variant="text">

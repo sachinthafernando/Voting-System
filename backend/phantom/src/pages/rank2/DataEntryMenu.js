@@ -1,4 +1,4 @@
-import React ,{useState, useEffect} from 'react';
+import React from 'react';
 import {  makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Fade from 'react-reveal/Fade';
@@ -107,11 +107,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonBases() {
   const classes = useStyles();
-  const [loading, setloading] = useState(true);
-
-  useEffect(() => {
-    setloading(false);
-  })
+  
 
   return (
     <div className={classes.root}>

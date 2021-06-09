@@ -1,4 +1,4 @@
-import { FormControl, Typography, Select, MenuItem, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { FormControl, Typography, Select, MenuItem, Container, Grid, Paper } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component, Fragment } from 'react'
 import AddAdmin from './AddAdmin';
@@ -22,13 +22,12 @@ const styles = {
     }
 }
 
-//const classes = styles();
 
 export default class AdminList extends Component {
 
     constructor(props) {
         super(props);
-        
+        debugger;
         this.onChangeRank = this.onChangeRank.bind(this);
 
         this.state = {
@@ -42,11 +41,6 @@ export default class AdminList extends Component {
    
     componentDidMount(){
         debugger;
-        // setTimeout(()=> {
-        //     this.setState({
-        //         isLoading: false,
-        //     })
-        // },1500);
         if(localStorage.token){
             var decoded = jwt_decode(localStorage.token);
             this.setState({userRank: decoded.role})
@@ -102,23 +96,11 @@ export default class AdminList extends Component {
                 <Container >
                 <Grid container spacing={4}>
                     <Grid item xs= {5}>
-                        {this.createAdmin()}
-                        </Grid>
+                        {/* {this.createAdmin()} */}
+                        <AddAdmin userRank={ this.state.userRank}/>
+                    </Grid>
                     <Grid item xs= {5}>
-                        <TableContainer style={{maxHeight: '700px'}} className="tableContainer">
-                            <Table  stickyHeader aria-label="sticky table">
-                            <TableHead style={styles.root}>
-                                <TableRow>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>Password</TableCell>
-                                    <TableCell>Actions</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {this.tabRow()}
-                            </TableBody>
-                            </Table>
-                        </TableContainer>
+                        <AdminTable rank={this.state.Rank} />
                     </Grid>
                     <Grid className="Rank_filter">
                         <FormControl variant="outlined" style={styles.formControl}>

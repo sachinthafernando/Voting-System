@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import styled, {css} from 'styled-components/macro';
-import { useHistory, Route,Link, BrowserRouter as Router} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 // import { menuData } from '../data/MenuData.js';
 import { SubButton } from '../components/SubButton.js';
 import Drop from '../images/drop.svg';
@@ -9,8 +9,6 @@ import Logo1 from '../images/logo1.png';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import  {logout}  from '../Actions/auth';
-
-import { withRouter } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 
 import { AiOutlineLogout } from 'react-icons/ai';
@@ -118,7 +116,7 @@ margin-right:24px;
 
 const Navbar = ({auth: { isAuthenticated, loading }, logout, toggle}) => {
 
-  const [userRole, setuserRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest')
+  const [userRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest')
 
   var path = "/";
 switch (userRole) {
@@ -139,7 +137,9 @@ switch (userRole) {
 }
     const authLinks = (
         <Fragment>
-             <AppLogo to = '/home' src={Logo1} alt="logo" ></AppLogo>
+          <a href="/home">
+            <AppLogo src={Logo1} alt="logo" />
+          </a>
           <MenuBars onClick={toggle} />
           <NavMenu>
           < NavMenuLinks to={path} >
@@ -164,7 +164,9 @@ switch (userRole) {
     
       const guestLinks = (
         <Fragment>
-          <AppLogo to = '/' src={Logo1} alt="logo" ></AppLogo>
+          <a href="/">
+          <AppLogo src={Logo1} alt="logo" />
+          </a>
           <MenuBars onClick={toggle} />
           <NavMenu>          
             <NavMenuLinks to='/home' >

@@ -46,7 +46,7 @@ export default function OperaterLogIn(props) {
 
     useEffect(() => {
       setloading(false);
-    })
+    },[])
 
     const onChangeName = (e) => {
         setName(e.target.value);

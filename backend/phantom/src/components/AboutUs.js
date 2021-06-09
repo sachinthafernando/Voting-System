@@ -8,7 +8,6 @@ import "aos/dist/aos.css";
 
 // IMPORTING REACT-ICONS
 import { GiCheckMark } from "react-icons/gi";
-import ParticlesEffect from "./layout/ParticlesEffect";
 
 const AboutUs = () => {
 	useEffect(() => {

@@ -13,7 +13,6 @@ import email_icon from "../images/SVG/email icon.svg";
 import {
   useStyles,
   ColorButton,
-  SubmitButton,
   FileSubmitButton,
   CssTextField,
 } from "./ContactUsStyles";

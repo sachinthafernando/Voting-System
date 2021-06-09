@@ -42,6 +42,8 @@ html,body{
 
 
 //----------- Form Validate Error Message ---------------//
+
+
 .validate{
   font-size: smaller;
   color: red;
@@ -473,8 +475,8 @@ p1{
     max-width: max-content;
     display: flex;
     position: absolute;
-    margin-left: 50%;
-    margin-top: 20px;
+    margin-left: 57%;
+    margin-top: 18px;
     align-items: center;
     justify-content: center;
     border-radius: 15px;
@@ -483,7 +485,8 @@ p1{
     }
     
     .clock {
-      font-size: 1.0rem;
+      width: max-content;
+      font-size: 2.0rem;
       letter-spacing: 4px;
       text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.7),
         -1px -1px 2px rgba(0, 0, 0, 0.3);

@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, TableCell, TableRow, Dialog, DialogContent, DialogTitle, TableContainer, Table, TableHead, TableBody, Popover, TextField, Box } from '@material-ui/core';
+import { Button, ButtonGroup, TableCell, TableRow, TableContainer, Table, TableHead, TableBody, Popover, TextField, Box } from '@material-ui/core';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import axios from 'axios';
@@ -12,6 +12,12 @@ export default function GNDivisionTable(props) {
     const [edit, setEdit] = useState('');
 
     useEffect(() => {
+        return () => {
+            console.log('GNDTable');
+        }
+    }, [])
+
+    useEffect(() => {
         axios.get('https://localhost:5001/api/gndivision/')
         .then(response => {
             setGnd(response.data) ;
@@ -19,7 +25,7 @@ export default function GNDivisionTable(props) {
         .catch(function (error) {
             console.log(error);
         });
-    })
+    },[edit])
     const deleteDistrict = (dist) => {
         debugger;
         if(window.confirm('Are you sure to delete '+dist.name+' ?'))

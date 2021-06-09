@@ -33,11 +33,11 @@ const Login = ({ setAlert, login, isAuthenticated, user }) => {
     if (isAuthenticated) {
       if (user.role === "Rank1Admin")
         return <Redirect to="/rank1Home" />;
-      else if (user.role == "Rank2Admin")
+      else if (user.role === "Rank2Admin")
         return <Redirect to="/rank2Home" />
-      else if (user.role == "Rank3Admin")
+      else if (user.role === "Rank3Admin")
         return <Redirect to="/rank3Home" />
-      else if (user.role == "Rank4Admin")
+      else if (user.role === "Rank4Admin")
         return <Redirect to="/rank4Home" />
       else
         console.log(user.role);
