@@ -1,9 +1,9 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Snackbar, Typography } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, FormControl, Paper, Snackbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import React, { Component } from 'react'
 import { BoxLoading } from 'react-loadingg';
-import personBackground from "../../../images/pexels-steve-johnson-1509534.jpg";
+
 
 const styles = {
     root: {
@@ -199,6 +199,7 @@ export default class AddPerson extends Component {
             alert("Data not saved");
         });
         debugger;
+        this.formReset();
     }
     formReset(){
         this.setState({
@@ -218,12 +219,12 @@ export default class AddPerson extends Component {
             <Container maxWidth="md" >
                 <Paper style={styles.paper} elevation={3}>
                 <Typography variant='h4' align='center'>Enter Person Informations</Typography>
-                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
                     <Alert severity="success">
                         {this.state.message}
                     </Alert>
                 </Snackbar>
-                <form onSubmit={this.addPerson} autoComplete="off" noValidate style={styles.root}>
+                <form  autoComplete="off" noValidate style={styles.root}>
                     <Grid container>
                         <Grid item xs={6}>
                             <TextField
@@ -290,7 +291,7 @@ export default class AddPerson extends Component {
                         <Button
                             variant = "contained"
                             color = "primary"
-                            type = "submit"
+                            onClick = {this.addPerson}
                             style= {styles.sMargin}
                             disabled= {this.state.validateError.NIC
                             || this.state.validateError.SerialNo

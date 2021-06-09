@@ -11,12 +11,12 @@ import {
 const initialState = {
     // store the token
     token: localStorage.getItem('token'),
-    isAuthenticated: null,
+    isAuthenticated: false,
     loading: true,
-    user: null
+    user: {}
 };
 
-export default function(state = initialState, action) {
+export default function foo(state = initialState, action) {
     const { type, payload } = action;
 
     switch(type) {
@@ -39,8 +39,9 @@ export default function(state = initialState, action) {
             };
        
         case AUTH_ERROR:
+            return {...state};
         case LOGIN_FAILED:
-            //logout
+            return {...state};
         case LOGOUT:
             localStorage.removeItem('token');
             return {

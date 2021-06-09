@@ -128,7 +128,7 @@ debugger;
       <Container style={styles.root}>
             <Paper style={styles.paper} elevation={3} >
               {/* <Grid  spacing={4}> */}
-              <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+              <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
                     <Alert severity="success">
                         {this.state.message}
                     </Alert>

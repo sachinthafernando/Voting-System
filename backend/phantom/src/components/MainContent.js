@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Grid, Button, makeStyles, Typography } from '@material-ui/core';
+import { Grid, makeStyles, Typography } from '@material-ui/core';
 //import studentsPic from '../../img/bannerimg.png';
 import SLmap from '../images/SL-1.png';
 import cryptoo from '../images/cryptoo.png';

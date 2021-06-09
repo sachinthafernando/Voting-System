@@ -169,7 +169,7 @@ export default class VoteCandidate extends Component {
         return (
         <Container style={styles.root} >
              <Paper style={styles.paper} elevation={3} >
-                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
                     <Alert severity="success">
                         {this.state.message}
                     </Alert>

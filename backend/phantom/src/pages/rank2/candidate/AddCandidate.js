@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper, Snackbar } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, FormControl, Paper, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
 import Card from '@material-ui/core/Card';
@@ -277,6 +277,7 @@ debugger;
             alert("Data not saved");
         });
         debugger;
+        this.formReset();
     }
     formReset(){
         this.setState({
@@ -300,13 +301,13 @@ debugger;
             <div style={styles.background}>
             <Container maxWidth="md">
                 <Paper style={styles.paper} elevation={3}>
-                    <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                    <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
                         <Alert severity="success">
                             {this.state.message}
                         </Alert>
                     </Snackbar>
                     <Typography variant='h4' align='center'>Enter Candidate Informations </Typography>
-                    <form onSubmit={this.addCandidate} autoComplete="off" noValidate style={styles.root}>
+                    <form autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
                             <Grid item xs={5}>
                             <FormControl variant="outlined" style={styles.formControl} required>
@@ -382,7 +383,7 @@ debugger;
                                     <Button
                                         variant = "contained"
                                         color = "primary"
-                                        type = "submit"
+                                        onClick = {this.addCandidate}
                                         style= {styles.sMargin}
                                         disabled= {this.state.validateError.CandidateNo
                                             || this.state.validateError.CandidateName

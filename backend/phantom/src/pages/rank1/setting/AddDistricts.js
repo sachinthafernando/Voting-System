@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Paper , Snackbar } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import React, { Component } from 'react'
@@ -64,7 +64,7 @@ export default class AddDistricts extends Component {
     componentDidMount(){
         axios.get('https://localhost:5001/api/District/')
         .then(response => {
-            debugger;
+            // debugger;
             let DisctfromApi = response.data.map(disctOption =>{
                 return { value: disctOption.id, display: disctOption.name}
             });
@@ -215,7 +215,7 @@ export default class AddDistricts extends Component {
         return (
             this.state.isLoading? <SemipolarLoading color={"#ca0000"}/> :
             <Container maxWidth="lg">
-                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
                     <Alert severity="success">
                         {this.state.message}
                     </Alert>

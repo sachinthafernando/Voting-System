@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl } from '@material-ui/core';
+import { Button, Container, Grid, TextField } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
 
@@ -12,7 +12,7 @@ const styles = {
         minWidth: 230,
     },
     textField: {
-        margin: "10px auto",
+        margin: "10px",
         width: 230,
       },
     sMargin:{
@@ -37,21 +37,37 @@ export default class EditAdmin extends Component {
         this.state = {
             Name: '',
             Password: '',
-            Rank: ''
+            PollingCenter: ''
         }
     }
 
     componentDidMount() {debugger;
-        axios.get('https://localhost:5001/api/'+ this.props.table + '/' +this.props.user)
-        .then(response => {
-            this.setState({
-                Name: response.data.name,
-                Password: response.data.password,
-            });debugger;
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+        if (this.props.table === "Rank4Admin") {
+            axios.get('https://localhost:5001/api/'+ this.props.table + '/' +this.props.user)
+            .then(response => {
+                debugger;
+                this.setState({
+                    Name: response.data.name,
+                    Password: response.data.password,
+                    PollingCenter: response.data.pollingCenter,
+                });debugger;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        } else {
+            axios.get('https://localhost:5001/api/'+ this.props.table + '/' +this.props.user)
+            .then(response => {
+                debugger;
+                this.setState({
+                    Name: response.data.name,
+                    Password: response.data.password,
+                });debugger;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
     }
 
     onChangeName(e) {
@@ -67,16 +83,48 @@ export default class EditAdmin extends Component {
     }
 
     onSubmit(e) {
-        debugger;
         e.preventDefault();
-        const obj = {
-            Id: this.state.adminID,
-            Name: this.state.Name,
-            Password: this.state.Password,
-        };
+        var obj = {};
+        switch (this.props.table) {
+            case "Rank1Admin":
+                obj = {
+                    Rank1AdminID: this.props.user,
+                    Name: this.state.Name,
+                    Password: this.state.Password,
+                };
+                break;
+            case "Rank2Admin":
+                obj = {
+                    Rank2AdminID: this.props.user,
+                    Name: this.state.Name,
+                    Password: this.state.Password,
+                };
+                break;
+            case "Rank3Admin":
+                obj = {
+                    Rank3AdminID: this.props.user,
+                    Name: this.state.Name,
+                    Password: this.state.Password,
+                };
+                break;
+            case "Rank4Admin":
+                obj = {
+                    Rank4AdminID: this.props.user,
+                    Name: this.state.Name,
+                    Password: this.state.Password,
+                    PollingCenter: this.state.PollingCenter
+                };
+                break;
+        
+            default:
+                break;
+        }
+        
         axios.put('https://localhost:5001/api/'+ this.props.table + '/' +this.props.user, obj)
-        .then(res => {console.log(res.config.data);});
-        debugger;
+        .then(res => {console.log(res.config.data);})
+        .catch(function (error) {
+            console.log(error);
+        });
         this.props.close();
     }
 

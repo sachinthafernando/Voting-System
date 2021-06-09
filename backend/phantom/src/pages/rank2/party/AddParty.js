@@ -203,6 +203,7 @@ debugger;
             console.log(error);
             alert("Data not saved");
         });
+        this.formReset();
     }
     formReset(){
         this.setState({
@@ -224,12 +225,12 @@ debugger;
             <Container maxWidth="md">
                 <Paper style={styles.paper} elevation={3}>
                 <Typography variant='h4' align='center'>Enter Party Informations </Typography>
-                    <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                    <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
                         <Alert severity="success">
                             {this.state.message}
                         </Alert>
                     </Snackbar>
-                    <form onSubmit={this.addParty} autoComplete="off" noValidate style={styles.root}>
+                    <form  autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
                             <Grid item xs={4}>
                                 <TextField
@@ -266,7 +267,7 @@ debugger;
                                     <Button
                                         variant = "contained"
                                         color = "primary"
-                                        type = "submit"
+                                        onClick = {this.addParty}
                                         style= {styles.sMargin}
                                         disabled= {this.state.validateError.PartyName
                                         || this.state.validateError.Color

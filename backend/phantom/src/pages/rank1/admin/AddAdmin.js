@@ -20,7 +20,7 @@ const styles = {
            
     },
     heading:{
-        margin: "auto 100px",
+        margin: "auto 50px",
         
     },
     textField: {
@@ -59,6 +59,7 @@ export default class AddAdmin extends Component {
     }
 
     closeMessage(){
+        debugger;
         this.setState({
             setMessage: false,
             message: '',
@@ -196,9 +197,9 @@ export default class AddAdmin extends Component {
     }
 
 
-    addAdmin=()=>{
+    addAdmin= async()=>{
         debugger;
-        axios.post('https://localhost:5001/api/'+this.state.Rank, this.state.obj)
+        await axios.post('https://localhost:5001/api/'+this.state.Rank, this.state.obj)
         .then(json => {
             debugger;
             if (json.data){
@@ -222,6 +223,7 @@ export default class AddAdmin extends Component {
             console.log(error);
         });
         debugger;
+        this.formReset();
     }
 
     formReset(){
@@ -241,16 +243,16 @@ export default class AddAdmin extends Component {
         return (
             <div className="add_admin_container">
             <Container maxWidth="sm" >
-            <Typography style={styles.heading}>
-            <h2>CREATE NEW ADMIN</h2>
+            <Typography variant="h4" style={styles.heading}>
+                CREATE NEW ADMIN
             </Typography>
                 {/* <h4>Enter Admin Informations</h4> */}
-                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}  anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
                     <Alert severity="success">
                         {this.state.message}
                     </Alert>
                 </Snackbar>
-                <form onSubmit={this.addAdmin} autoComplete="off" noValidate style={styles.root}>
+                <form  autoComplete="off" noValidate style={styles.root}>
                     <Grid container>
                     
                         <Grid >
@@ -341,7 +343,7 @@ export default class AddAdmin extends Component {
                                 <Button
                                     variant = "contained"
                                     color = "primary"
-                                    type = "submit"
+                                    onClick = {this.addAdmin}
                                     style= {styles.sMargin}
                                     disabled= {this.state.validateError.Name 
                                         || this.state.validateError.Password 

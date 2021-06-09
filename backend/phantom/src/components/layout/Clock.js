@@ -12,10 +12,10 @@ function App() {
   });
   return (
     <div className="clock-container">
-          <h2 className="clock">
+        <h2 className="clock">
             {time.toLocaleTimeString()}
-          </h2>
-        </div>
+        </h2>
+    </div>
   );
 }
 

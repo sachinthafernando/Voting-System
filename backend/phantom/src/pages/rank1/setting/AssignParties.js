@@ -46,7 +46,7 @@ export default class AssignParties extends Component {
 
 
     componentDidMount(){
-        
+        console.log('DistrictPartyTable');
         this.loading();
         setTimeout(() => {
             this.setState({
@@ -154,7 +154,7 @@ export default class AssignParties extends Component {
         return (
             this.state.isLoading? <SemipolarLoading color={"#ca0000"}/> :
             <Container>
-                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage}>
+                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
                     <Alert severity="success">
                         {this.state.message}
                     </Alert>
@@ -208,8 +208,8 @@ export default class AssignParties extends Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.state.distPty.map((dist) => (
-                                    <TableRow key= {dist.district_ID}>
+                                {this.state.distPty.map((dist, index) => (
+                                    <TableRow key= {index}>
                                     <TableCell>{dist.distName}</TableCell>
                                     <TableCell>{dist.ptyName}</TableCell>
                                     <TableCell>

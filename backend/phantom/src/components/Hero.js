@@ -1,19 +1,12 @@
 
 import React, {useEffect, useState, useRef} from 'react';
 import styled ,{css} from 'styled-components/macro';
-import{IoMdArrowRoundForward} from 'react-icons/io';
 import{IoArrowForward, IoArrowBack} from 'react-icons/io5';
-import { SliderData } from '../data/SliderData';
 import IconsGrid from '../components/IconsGrid'
 import MainContent from '../components/MainContent'
 
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
-import { SubButton } from './SubButton';
 import Fade from 'react-reveal/Fade';
 
-
-import { ThemeProvider, CssBaseline } from '@material-ui/core';
-import theme from './Theme';
 
 const HeroSection = styled.section`
 height : 90vh;
@@ -101,9 +94,9 @@ p{
     cursor:pointer;
 }
 `;
-const Arrow = styled(IoMdArrowRoundForward)`
-margin-left: 0.5rem;
-`;
+// const Arrow = styled(IoMdArrowRoundForward)`
+// margin-left: 0.5rem;
+// `;
 
 const SliderButtons = styled.div`
 position: absolute;
@@ -205,33 +198,19 @@ const Hero = ({slides}) => {
                 return(
                     <HeroSlide key={index}>
                         {index === current && (
-
-                    <HeroSlider>
-                    <HeroImage src = {slide.image} alt={slide.alt}/>
-                    <HeroContent>
-                    <Fade top>
-                        <h1>{slide.title}</h1>
-                        <p>{slide.subtitle}</p>
-                        {/* <SubButton to={slide.path}
-                        primary ='true'
-                        css={`
-                            max-width: 160px;
-                            `}
-                            
-                        >
-                            {slide.label}
-                            
-                        </SubButton> */}
-                        </Fade>
-                    </HeroContent>
-                    </HeroSlider>
-
+                            <HeroSlider>
+                                <HeroImage src = {slide.image} alt={slide.alt}/>
+                                <HeroContent>
+                                    <Fade top>
+                                        <h1>{slide.title}</h1>
+                                        <p>{slide.subtitle}</p>
+                                    </Fade>
+                                </HeroContent>
+                            </HeroSlider>
                         )}
-                       
                     </HeroSlide>
                 );
-            }
-            )}
+            })}
             <SliderButtons>
                 <PrevArrow onClick={prevSlide}/>
                 <NextArrow onClick ={nextSlide}/>
