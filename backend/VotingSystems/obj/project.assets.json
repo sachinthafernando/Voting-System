@@ -10049,11 +10049,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\backend\\VotingSystems\\VotingSystems.csproj",
+      "projectUniqueName": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\VotingSystems-backend\\VotingSystems.csproj",
       "projectName": "VotingSystems",
-      "projectPath": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\backend\\VotingSystems\\VotingSystems.csproj",
+      "projectPath": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\VotingSystems-backend\\VotingSystems.csproj",
       "packagesPath": "C:\\Users\\K.S.T.FERNANDO\\.nuget\\packages\\",
-      "outputPath": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\backend\\VotingSystems\\obj\\",
+      "outputPath": "H:\\Engineering\\6th Semester\\Academic\\Software Project\\Final Project\\VotingSystems-backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

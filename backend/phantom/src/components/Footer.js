@@ -14,7 +14,7 @@ function Footer() {
     
      
         <Grid container className="footer__container">
-          <Grid container item md={4} sm={12} alignItems="center" className="center">
+          <Grid container md={4} sm={12} alignItems="center" className="center">
             <img src={logo} alt="logo" className="logo" />
             <span className="logo__name">EASY.ONLINE.</span>
             <div className="logo__description">
@@ -27,8 +27,8 @@ function Footer() {
             <hr className="hr" />
           </Grid>
 
-          <Grid container item md sm={12}>
-            <Grid className="col" item xs={12} sm md>
+          <Grid container md sm={12}>
+            <Grid className="col" xs={12} sm md>
               <div className="col__title">Products</div>
               <div style={{ marginBottom: "0.4rem" }}>
                 <a href="www.google.com" className="col__links">
@@ -56,7 +56,7 @@ function Footer() {
                 </a>
               </div>
             </Grid>
-            <Grid className="col" item xs={12} sm md>
+            <Grid className="col" xs={12} sm md>
               <div className="col__title">Features</div>
               <div style={{ marginBottom: "0.4rem" }}>
                 <a href="www.google.com" className="col__links">
@@ -86,8 +86,8 @@ function Footer() {
               </div>
             </Grid>
           </Grid>
-          <Grid container item md sm={12}>
-            <Grid className="col" item xs={12} sm md>
+          <Grid container md sm={12}>
+            <Grid className="col" xs={12} sm md>
               <div className="col__title">Get Started</div>
               <div style={{ marginBottom: "0.4rem" }}>
                 <a href="www.google.com" className="col__links">
@@ -115,7 +115,7 @@ function Footer() {
                 </a>
               </div>
             </Grid>
-            <Grid className="col" item xs={12} sm md>
+            <Grid className="col" xs={12} sm md>
               <div className="col__title">About</div>
               <div style={{ marginBottom: "0.4rem" }}>
                 <a href="www.google.com" className="col__links">
@@ -144,7 +144,7 @@ function Footer() {
               </div>
             </Grid>
           </Grid>
-          <Grid item md={12} sm={12} className="social">
+          <Grid md={12} sm={12} className="social">
             <hr className="social__hr" />
             <div className="social__tags">
               <IconButton>

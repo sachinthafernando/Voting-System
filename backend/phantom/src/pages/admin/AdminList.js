@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, Select, MenuItem, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { Button, ButtonGroup, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component } from 'react'
 import AddAdmin from './AddAdmin';
@@ -27,12 +27,7 @@ export default class AdminList extends Component {
 
     constructor(props) {
         super(props);
-        this.onChangeRank = this.onChangeRank.bind(this);
-
-        this.state = {
-            business: [],
-            Rank: 'Rank1Admin'
-        };
+        this.state = {business: []};
     }
 
     // componentWillMount(){
@@ -42,21 +37,7 @@ export default class AdminList extends Component {
     // }
     componentDidMount(){
         debugger;
-        axios.get('http://localhost:5000/api/Rank1Admin/')
-        .then(response => {
-            this.setState({ business: response.data});
-            debugger;
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-    }
-    onChangeRank(e) {
-        this.setState({
-            Rank: e.target.value
-        });
-        debugger;
-        axios.get('http://localhost:5000/api/' + e.target.value)
+        axios.get('http://localhost:5000/api/admin/')
         .then(response => {
             this.setState({ business: response.data});
             debugger;
@@ -67,9 +48,8 @@ export default class AdminList extends Component {
     }
 
     tabRow(){
-        const rank = this.state.Rank;
-        return this.state.business.map(function (object, i ) {
-            return <AdminTable obj={object} key={i} rank={rank} />;
+        return this.state.business.map(function (object, i) {
+            return <AdminTable obj={object} key={i} />;
         })
     }
     createAdmin(){
@@ -81,17 +61,18 @@ export default class AdminList extends Component {
             <Paper style={styles.paper} elevation={3} >
                 <Container >
                 <Grid container spacing={4}>
-                    <Grid item xs= {5}>
+                    <Grid item xs= {6}>
                         {this.createAdmin()}
                         </Grid>
-                    <Grid item xs= {5}>
+                    <Grid item xs= {6}>
                         <TableContainer>
                             <Table>
                             <TableHead style={styles.root}>
                                 <TableRow>
                                     <TableCell>Name</TableCell>
                                     <TableCell>Password</TableCell>
-                                    <TableCell>Actions</TableCell>
+                                    <TableCell>Rank</TableCell>
+                                    <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -99,22 +80,6 @@ export default class AdminList extends Component {
                             </TableBody>
                             </Table>
                         </TableContainer>
-                    </Grid>
-                    <Grid item xs= {2}>
-                        <FormControl variant="outlined" style={styles.formControl}>
-                            <InputLabel >Rank</InputLabel>
-                            <Select
-                                name= "rank"
-                                value = {this.state.Rank}
-                                onChange= {this.onChangeRank}
-                            >
-                                <MenuItem value="">Select Rank</MenuItem>  
-                                <MenuItem value="Rank1Admin">Rank 1</MenuItem> 
-                                <MenuItem value="Rank2Admin">Rank 2</MenuItem> 
-                                <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
-                                <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
-                            </Select>
-                        </FormControl>
                     </Grid>
                 </Grid>
                 </Container>
