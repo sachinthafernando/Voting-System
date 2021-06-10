@@ -9,9 +9,8 @@ import Map from './dashboards/Map';
 import HeaderBar from './dashboards/HeaderBar';
 import CanResult from './dashboards/CanResult';
 import Sidebar from "./dashboards/Sidebar";
-import Footer from "../../../components/Footer";
-//import Navbar from './dashboards/Navbar';
-import Navbar from "../../../components/Navbar";
+
+import { BoxLoading } from 'react-loadingg';
 
 export default class barChart extends Component {
 
