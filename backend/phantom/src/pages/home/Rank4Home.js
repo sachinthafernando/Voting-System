@@ -9,7 +9,7 @@ import SideNavbar from '../../components/sidebar/SideNavbar';
 export const images = [
   {
     //url: '/static/images/grid-list/breakfast.jpg',
-    url: 'https://d3n8a8pro7vhmx.cloudfront.net/broadbent/pages/4770/attachments/original/1449673980/Reform_Webpage_Header.jpg?1449673980',
+    url: 'https://icon-library.com/images/data-entry-icon/data-entry-icon-25.jpg',
     title: 'NIC verify',
     width: '50%',
     path:'/scanner'
@@ -17,7 +17,7 @@ export const images = [
   },
   {
     //url: '/static/images/grid-list/breakfast.jpg',
-    url: 'https://d3n8a8pro7vhmx.cloudfront.net/broadbent/pages/4770/attachments/original/1449673980/Reform_Webpage_Header.jpg?1449673980',
+    url: 'https://lucascountyelections.iowa.gov/global/images/how_do_i_vote.png',
     title: 'Start Voting',
     width: '50%',
     path:'/freezeScreen'
