@@ -23,6 +23,7 @@ export default class PartyList extends Component {
         
         this.handleChangePage = this.handleChangePage.bind(this);
         this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
+        this.loadParty = this.loadParty.bind(this);
 
         this.state = {
             business: [],
@@ -34,6 +35,22 @@ export default class PartyList extends Component {
 
     componentDidMount(){
         debugger;
+        this.loadParty();
+
+        this.intervalID = setInterval(this.loadParty,1000);
+
+        setTimeout(() => {
+            this.setState({
+                isLoading: false,
+            })
+        }, 1000);
+    }
+    
+    componentWillUnmount(){
+        clearInterval(this.intervalID);
+    }
+
+    loadParty(){
         axios.get('https://localhost:5001/api/party/')
         .then(response => {
             this.setState({ business: response.data});
@@ -42,12 +59,6 @@ export default class PartyList extends Component {
         .catch(function (error) {
             console.log(error);
         })
-
-        setTimeout(() => {
-            this.setState({
-                isLoading: false,
-            })
-        }, 1000);
     }
 
     handleChangePage(e, newpage){
@@ -80,11 +91,11 @@ export default class PartyList extends Component {
                             <Table stickyHeader aria-label="sticky table">
                             <TableHead style={styles.root}>
                                 <TableRow>
-                                    <TableCell><h4>Party ID</h4></TableCell>
-                                    <TableCell><h4>Party Name</h4></TableCell>
-                                    <TableCell><h4>Color</h4></TableCell>
-                                    <TableCell><h4>Logo</h4></TableCell>
-                                    <TableCell><h4>Actions</h4></TableCell>
+                                    <TableCell style={{width: '10%', textAlign: 'center'}}><h4>Party ID</h4></TableCell>
+                                    <TableCell style={{width: '35%', textAlign: 'center'}}><h4>Party Name</h4></TableCell>
+                                    <TableCell style={{width: '20%', textAlign: 'center'}}><h4>Color</h4></TableCell>
+                                    <TableCell style={{width: '20%', textAlign: 'center'}}><h4>Logo</h4></TableCell>
+                                    <TableCell style={{width: '15%', textAlign: 'center'}}><h4>Actions</h4></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody style={{overflow:'auto'}}>

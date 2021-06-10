@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Grid, Container, Paper,  Button, Snackbar } from '@material-ui/core';
+import { Grid, Container, Paper,  Button, Snackbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import jwt_decode from "jwt-decode"
+
+import nota from '../../../../images/NOTA_Option_Logo.png'
 
 const styles = {
     root: {
           overflow: 'hidden',
+          position: 'fixed',
+          top: '80px',
+          bottom: '20px'
         },
         paper : {
           margin: "30px auto",
           padding: 20,
+          maxHeight: '700px',
+          overflowY: 'scroll'
         },
         card: {
           display: 'flex',
@@ -25,11 +32,10 @@ const styles = {
           padding: 10,
         },
         sMargin: {
-          position: 'fixed',
-          top: 100,
-          right: 0,
-          height: 600,
-          width: 140,
+          top: '20px',
+          height: '100%',
+          width: '100%',
+          left: '20px'
         }
   }
 
@@ -53,7 +59,8 @@ export default class VoteCandidate extends Component {
           PollingCenter: '',
           message: '',
           setMessage: false,
-          // onScreen: true,
+          votes: 3,
+          disableSubmit: true,
         };
     }
   
@@ -103,6 +110,7 @@ export default class VoteCandidate extends Component {
       this.setState({
         setMessage: true,
         message: 2-this.state.count +" votes left",
+        votes: 2-this.state.count
       });
       if (this.state.count < 3) {
         debugger;
@@ -132,6 +140,7 @@ export default class VoteCandidate extends Component {
             this.setState({
               setMessage: true,
               message: 'vote Saved Successfully',
+              disableSubmit: false,
             });
           }
           else{
@@ -159,53 +168,81 @@ export default class VoteCandidate extends Component {
           console.log(error);
       })
       debugger;
-    //   this.setState({
-    //     onScreen: false,
-    // });
     this.props.history.push('/freezeScreen');
     }
     
       render() {
         return (
-        <Container style={styles.root} >
-             <Paper style={styles.paper} elevation={3} >
-                <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
-                    <Alert severity="success">
-                        {this.state.message}
-                    </Alert>
-                </Snackbar>
-                <Grid  spacing={4} >
-                {this.state.business.map((tile, i) => (
+          <div>
+            <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+                <Alert severity="success">
+                    {this.state.message}
+                </Alert>
+            </Snackbar>
+            <Grid container className='voteHeader'>
+              <Grid item xs={4} style={{padding: '12px 30px'}}>
+                <Typography variant='h5'>You have left : {this.state.votes} votes</Typography>
+              </Grid>
+              <Grid item xs={8} >
+                <Typography variant='h2'>Vote Candidates</Typography>
+              </Grid>
+            </Grid>
+            <Container style={styles.root} maxWidth='xl'>
+             <Grid container>
+               <Grid item xs={10} >
+                <Paper style={styles.paper} elevation={3} >
+                  <Grid>
+                  {this.state.business.map((tile, i) => (
+                          <Button 
+                            key={i}
+                            onClick={() => this.nextVote(tile)}
+                            variant="contained"
+                            className="votebtn"
+                          >
+                            <div style={{backgroundColor:'#655a5a'}} className='tile'>
+                              <div style={styles.media}>
+                              <img src={tile.imageSrc} alt={tile.image} style={{maxWidth: '200px', height: '200px'}}/>
+                              </div>
+                              <div style={styles.text}>
+                                <Typography variant='h1'>x {tile.candidateNo}</Typography>
+                                <h1>{tile.candidateName}</h1>
+                              </div>
+                            </div>
+                          </Button>
+                      )).concat(
                         <Button 
-                          key={i}
-                          onClick={() => this.nextVote(tile)}
+                        onClick = {this.onSubmit}
                           variant="contained"
+                          className="votebtn"
                         >
-                          <div style={styles.card} >
+                          <div style={{backgroundColor:'gainsboro'}} className='tile'>
                             <div style={styles.media}>
-                            <img src={tile.imageSrc} alt={tile.image} />
+                            <img src={nota} alt='nota' style={{maxWidth: '200px', height: '200px'}}/>
                             </div>
                             <div style={styles.text}>
-                            <h1>{tile.candidateName}</h1>
+                              <Typography variant='h1'>NOTA</Typography>
+                              <h4>None of the above</h4>
                             </div>
                           </div>
                         </Button>
-                    ))}
-                </Grid>
-                <Grid>
-                  {/* <Link to="/voteParty"> */}
-                    <Button
-                      variant = "contained"
-                      color = "secondary"
-                      onClick = {this.onSubmit}
-                      style= {styles.sMargin}
-                    >
-                      <h2>Submit</h2>
-                    </Button>
-                  {/* </Link> */}
-                </Grid>
-            </Paper>
+                      )}
+                  </Grid>
+              </Paper>
+               </Grid>
+               <Grid item xs={2} > 
+                  <Button
+                    variant = "contained"
+                    color = "secondary"
+                    onClick = {this.onSubmit}
+                    style= {styles.sMargin}
+                    disabled= {this.state.disableSubmit}
+                  >
+                    <h2>Submit</h2>
+                  </Button>
+               </Grid>
+             </Grid>
         </Container>
+        </div>
         )
       }
     }

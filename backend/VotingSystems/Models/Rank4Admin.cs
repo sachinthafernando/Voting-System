@@ -23,8 +23,8 @@ namespace VotingSystems.Models
 
         public int? PersonDist { get; set; }
         public int? PersonDiv { get; set; }
-        public bool? ScanScreen { get; set; }
-        public bool? VoteScreen { get; set; }
+        public bool ScanScreen { get; set; }
+        public bool VoteScreen { get; set; }
 
         //public int Role { get; set; }
         public string Role = "Rank4Admin";

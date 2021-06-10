@@ -1,4 +1,4 @@
-import { FormControl, Typography, Select, MenuItem, Container, Grid, Paper } from '@material-ui/core';
+import { FormControl, Typography, TextField, MenuItem, Container, Grid, Paper } from '@material-ui/core';
 import axios from 'axios';
 import React, { Component, Fragment } from 'react'
 import AddAdmin from './AddAdmin';
@@ -106,26 +106,33 @@ export default class AdminList extends Component {
                         <FormControl variant="outlined" style={styles.formControl}>
                         <Typography className="Rank_label" >Select Rank</Typography>
                             {this.state.userRank === "Rank1Admin" ?
-                            <Select
-                            name= "rank"
-                            value = {this.state.Rank}
-                            onChange= {this.onChangeRank}
-                        >
-                            <MenuItem value="">Select Rank</MenuItem>  
-                            <MenuItem value="Rank1Admin">Rank 1</MenuItem> 
-                            <MenuItem value="Rank2Admin">Rank 2</MenuItem> 
-                            <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
-                            <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
-                            </Select>    :
-                            <Select
-                            name= "rank"
-                            value = {this.state.Rank}
-                            onChange= {this.onChangeRank}
-                        >
-                            <MenuItem value="">Select Rank</MenuItem>
-                            <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
-                            <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
-                        </Select>
+                                <TextField
+                                select
+                                required
+                                label="Rank"
+                                value={this.state.Rank}
+                                onChange={this.onChangeRank}
+                                variant="outlined"
+                                >
+                                    <MenuItem value="">Select Rank</MenuItem>  
+                                    <MenuItem value="Rank1Admin">Rank 1</MenuItem> 
+                                    <MenuItem value="Rank2Admin">Rank 2</MenuItem> 
+                                    <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
+                                    <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
+                                </TextField>  
+                                :
+                                <TextField
+                                select
+                                required
+                                label="Rank"
+                                value={this.state.Rank}
+                                onChange={this.onChangeRank}
+                                variant="outlined"
+                                >
+                                    <MenuItem value="">Select Rank</MenuItem>  
+                                    <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
+                                    <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
+                                </TextField>
                             }
                         </FormControl>
                     </Grid>

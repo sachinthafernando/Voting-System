@@ -46,7 +46,8 @@ export default class EditCandidate extends Component {
             partyOptions: [],
             PartyID:'',
             imageSrc: '',
-            imageFile: ''
+            imageFile: '',
+            districtID: '',
         }
     }
 
@@ -59,7 +60,8 @@ export default class EditCandidate extends Component {
                 PartyID: response.data.party_ID,
                 image: response.data.image,
                 imageFile: response.data.imageFile,
-                imageSrc: response.data.imageSrc
+                imageSrc: response.data.imageSrc,
+                districtID: response.data.district_ID,
             });debugger;
         })
         .catch(function (error) {
@@ -139,6 +141,8 @@ export default class EditCandidate extends Component {
         formData.append('party_ID',parseInt(this.state.PartyID))
         formData.append('image',this.state.image)
         formData.append('imageFile',this.state.imageFile)
+        formData.append('district_ID',this.state.districtID)
+        debugger;
         await axios.put('https://localhost:5001/api/candidate/'+this.props.user, formData)
         .then(res => {console.log(res.config.data);});
         debugger;
@@ -149,7 +153,7 @@ export default class EditCandidate extends Component {
 
     render() {
         return (
-            <Container maxWidth="700px">
+            <Container maxWidth="sm">
                     <h4>Enter Candidate Informations</h4>
                     <form onSubmit={this.onSubmit} autoComplete="off" noValidate style={styles.root}>
                         <Grid container>
@@ -157,12 +161,12 @@ export default class EditCandidate extends Component {
                             <FormControl variant="outlined" style={styles.formControl}>
                                 
                                 <TextField
-                                    select
-                                    required
                                     label="Party"
                                     value={this.state.PartyID}
                                     onChange={this.onChangePartyID}
                                     variant="outlined"
+                                    required
+                                    select
                                     >
                                      {this.state.partyOptions.map((partyOption) => 
                                         <MenuItem key={partyOption.value} value={partyOption.value}>{partyOption.display}</MenuItem>
@@ -215,7 +219,7 @@ export default class EditCandidate extends Component {
                                         </Typography>
 
                                         {this.state.imageSrc ? (
-                                            <img alt={this.state.imageSrc} src={this.state.imageSrc} />
+                                            <img alt={this.state.imageSrc} src={this.state.imageSrc} style={{maxHeight: "200px"}}/>
                                             ) : null}
                                         <CardContent>
                                         <input  type="file" accept="image/*"  onChange = {this.onChangeImage} />

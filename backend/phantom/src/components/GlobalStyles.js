@@ -98,7 +98,92 @@ html,body{
 .searchButton {
     padding: 1;
 }
-/*-------------------------------------------------------------*/
+/*----------------------Operator login page--------------------------------*/
+.opbackground {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  min-height: 100%;
+  min-width: 100%;
+  background-size: cover;
+  position: fixed;
+  /* animation: newg 5s ease infinite; */
+}
+
+/* @keyframes newg {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+} */
+
+
+//---------------------------------Vote Button----------------//
+@media screen {
+  .votebtn {
+    width: 16.5%;
+    max-height: 250px;
+    background: content-box;
+  }
+}
+
+@media screen and (max-width: 2800px) {
+  .votebtn {
+    width: 25%;
+    max-height: 250px;
+    background: content-box;
+  }
+}
+
+@media screen and (max-width: 1920px) {
+  .votebtn {
+    width: 50%;
+    max-height: 250px;
+    background: content-box;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .votebtn {
+    width: 100%;
+    max-height: 250px;
+    background: content-box;
+  }
+}
+
+.voteHeader {
+  width: 100%;
+  position: fixed;        
+  background: #333;
+  padding: 10px 0;
+  color: #fff;
+  top: 0;
+  z-index: 10;
+  /* text-align: center; */
+}
+
+
+
+
+.tile {
+  display :flex; 
+  width: 100%
+}
+
+.tile:hover{
+  transition: ease-out;
+  opacity: 0.9;
+}
+
+.votebtn:hover{
+  /* opacity: 1; */
+  transition: ease-out;
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+}
+
 /*-------------------------------------------------------------*/
 /*login page*/
 

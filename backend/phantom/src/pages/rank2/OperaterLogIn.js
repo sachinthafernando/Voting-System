@@ -20,7 +20,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    // marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -70,7 +70,8 @@ export default function OperaterLogIn(props) {
 
   return (
     loading? <BoxLoading/> :
-    <Container  maxWidth="xs" style={{backgroundColor: "lightsteelblue"}}>
+    <div className="opbackground">
+    <Container  maxWidth="xs" style={{backgroundColor: "lightsteelblue", position: "absolute", top: "20%", left: "35%"}} >
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -79,7 +80,7 @@ export default function OperaterLogIn(props) {
         <Typography component="h1" variant="h5">
           Log in
         </Typography>
-        <form onSubmit={submit} className={classes.form} noValidate>
+        <form  className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -110,6 +111,7 @@ export default function OperaterLogIn(props) {
             type="submit"
             fullWidth
             variant="contained"
+            onClick={submit}
             color="primary"
             className={classes.submit}
           >
@@ -121,5 +123,6 @@ export default function OperaterLogIn(props) {
         <Copyright />
       </Box>
     </Container>
+    </div>
   );
 }

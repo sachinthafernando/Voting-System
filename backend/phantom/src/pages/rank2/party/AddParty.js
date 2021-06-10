@@ -25,7 +25,7 @@ const styles = {
         position: "fixed",
         minWidth: "100%",
         minHeight: "100%",
-        background: "url(https://images.pexels.com/photos/1269968/pexels-photo-1269968.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center fixed",
+        background: 'linear-gradient(113deg, #f04c19, #f4005e, #03bbfd, #12e87b, #91ff00, #ffc100)',
         backgroundSize: "cover",
         overflow: "hidden",
     },
@@ -44,7 +44,6 @@ const styles = {
         margin: "30px auto",
         padding: 20,
         backgroundColor: "#fdfd92c9",
-        borderRadius: '60px',
     } 
 }
 

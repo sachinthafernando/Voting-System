@@ -25,10 +25,10 @@ display: flex;
 justify-content: space-between;
 padding: 2rem  2rem;
 z-index: 100;
-position: relative;//this line is changed to start the content from below to Navbar.otherwise below content and Navbar are overlayed
+position: fixed;//this line is changed to start the content from below to Navbar.otherwise below content and Navbar are overlayed
 width: 100%;
 //margin-top: -30px; 
-background: #2EAAD6;
+background: #00374a;
 `;
 
 const NavLink = css`
@@ -47,7 +47,7 @@ text-decoration : none;
 const AppLogo = styled.img`
   ${NavLink}
   margin-top:-40px;
-  height: 150px;
+  height: auto;
   width:200px;
   vertical-align: center;
   &:hover  {

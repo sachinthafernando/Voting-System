@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import jwt_decode from "jwt-decode"
-import { Grid, Container, Paper,  Button, Snackbar } from '@material-ui/core';
+import { Grid, Container, Paper,  Button, Snackbar, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
 
 const styles = {
   root: {
         overflow: 'hidden',
+        position: 'fixed',
+        top: '80px',
+        bottom: '20px'
       },
       paper : {
         margin: "30px auto",
         padding: 20,
+        maxHeight: '700px',
+        overflowY: 'scroll'
       },
       card: {
         display: 'contents',
@@ -19,6 +24,7 @@ const styles = {
       text: {
         alignSelf: 'center',
         paddingLeft: 30,
+        textAlign: 'start',
       },
       media: {
         paddingLeft: 20,
@@ -40,6 +46,8 @@ export default class VoteParty extends Component {
 
     this.state = {
       business: [],
+      district: '',
+      division: '',
       currentTime: time,
       personDist: '',
       personDiv: '',
@@ -68,7 +76,8 @@ componentDidMount(){
             personDiv: res.data.personDiv,
           });
           debugger;
-          const distId =  this.state.personDist;
+          const distId =  res.data.personDist;
+          const divId =  res.data.personDiv;
           axios.get('https://localhost:5001/api/party/district/' + distId)
           .then(response => {
               this.setState({ 
@@ -78,11 +87,31 @@ componentDidMount(){
           })
           .catch(function (error) {
               console.log(error);
+          });
+          axios.get('https://localhost:5001/api/district/'+ distId)
+          .then(dist => {debugger;
+              this.setState({ 
+                district: dist.data.name,
+              });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          axios.get('https://localhost:5001/api/division/'+ divId)
+          .then(div => {
+              this.setState({ 
+                division: div.data.name,
+              });
+          })
+          .catch(function (error) {
+            console.log(error);
           })
       })
       .catch(function (error) {
           console.log(error);
       })
+
+     
   }
     
 }
@@ -125,30 +154,37 @@ debugger;
 
   render() {
     return (
-      <Container style={styles.root}>
+      <div>
+        <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+          <Alert severity="success">
+              {this.state.message}
+          </Alert>
+        </Snackbar>
+        <Grid container className='voteHeader'>
+          <Grid item xs={4} style={{padding: '5px 30px'}}>
+            <Typography variant='h5'>Your District : {this.state.district}</Typography>
+            <Typography variant='h5'>Your Division : {this.state.division}</Typography>
+          </Grid>
+          <Grid item xs={8} >
+            <Typography variant='h2'>Select a Party</Typography>
+          </Grid>
+        </Grid>
+      <Container style={styles.root} maxWidth='xl'>
             <Paper style={styles.paper} elevation={3} >
-              {/* <Grid  spacing={4}> */}
-              <Snackbar open={this.state.setMessage} autoHideDuration={3000} onClose={this.closeMessage} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
-                    <Alert severity="success">
-                        {this.state.message}
-                    </Alert>
-              </Snackbar>
-              <Grid>
+              <Grid >
               {this.state.business.map((tile, i) => (
                       <Button 
                         key={i}
                         onClick={() => this.selectParty(tile)}
                         variant="contained"
-                        //style= {styles.card}
-                      // onMouseOver={MouseOver} 
-                      // onMouseOut={MouseOut}
+                        className="votebtn"
                       >
-                        <div style={{backgroundColor:tile.color, display :"flex", width: 1000}} >
+                        <div style={{backgroundColor:tile.color}} className='tile'>
                           <div style={styles.media}>
-                          <img src={tile.logoSrc} alt={tile.logo} />
+                            <img src={tile.logoSrc} alt={tile.logo} style={{maxWidth: '200px', height: '200px'}}/>
                           </div>
                           <div style={styles.text}>
-                          <h1>{tile.partyName}</h1>
+                            <h1>{tile.partyName}</h1>
                           </div>
                         </div>
                       </Button>
@@ -156,6 +192,7 @@ debugger;
               </Grid>
           </Paper>
       </Container>
+      </div>
     )
   }
 }
