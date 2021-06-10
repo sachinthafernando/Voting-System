@@ -101,7 +101,7 @@ export default class Map extends Component {
             totalData = this.props.obj.partyData;
         }
         else{
-            if(parties.length == 0){
+            if(parties.length === 0){
                 totalData = [];
             }
             else{
@@ -150,7 +150,7 @@ export default class Map extends Component {
         
         const ptyList = [];
 
-        if (totalData.length != 0) {
+        if (totalData.length !== 0) {
             //debugger;
             let ptyVotecount=[];
             let ptyID= [];
@@ -167,7 +167,7 @@ export default class Map extends Component {
             for(let i=0; i< ptyVotecount.length; i++){
                 var numerator = ptyVotecount[i];
         
-                if(numerator==undefined){
+                if(numerator === undefined){
                 ptyPercent.push(0);
                 }
                 else{
