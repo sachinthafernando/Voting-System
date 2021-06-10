@@ -41,7 +41,6 @@ const styles = {
     formControl: {
         margin: "10px auto",
         minWidth: 230,
-        margin: "0px",
     },  
     cross: {
         Fontsize: "20px",
@@ -130,7 +129,6 @@ export default class CanResult extends Component {
         });
 
         const DisID = parseInt(e.target.value);
-        const DisName = e.target.name;
 
          const Candidates =  this.state.CanData
         .filter(item => item.districtID === DisID)
@@ -149,7 +147,6 @@ export default class CanResult extends Component {
          });
  
          const DisID = parseInt(e.target.value);
-         const DisName = e.target.name;
  
           const Candidates =  this.state.CanData
          .filter(item => item.districtID === DisID)
@@ -164,7 +161,7 @@ export default class CanResult extends Component {
     CanChart(DisID,Candidates){   
          var totData;
        debugger;
-         if(DisID == ''){
+         if(DisID === ''){
           //  totData = this.state.candidateData;
             <p>select the District you are looking forward Results</p>
          }
@@ -201,7 +198,7 @@ export default class CanResult extends Component {
            for (let i=0; i< canVotecount.length; i++){
                var numerator = canVotecount[i];
 
-               if(numerator == undefined){
+               if(numerator === undefined){
                    canPercent.push(0);
                }
                else{
