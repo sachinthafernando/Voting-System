@@ -31,14 +31,14 @@ export default function CandidateTable(props) {
 
     return (
         <TableRow>
-                <TableCell>{props.obj.candidateID}</TableCell>
-                <TableCell>{props.obj.candidateNo}</TableCell>
-                <TableCell>{props.obj.candidateName}</TableCell>
-                <TableCell>{props.obj.party_ID}</TableCell>
-                <TableCell>
+                <TableCell style={{width: '12%', textAlign: 'center'}}>{props.obj.candidateID}</TableCell>
+                <TableCell style={{width: '12%', textAlign: 'center'}}>{props.obj.candidateNo}</TableCell>
+                <TableCell style={{width: '25%'}}>{props.obj.candidateName}</TableCell>
+                <TableCell style={{width: '16%', textAlign: 'center'}}>{props.obj.party_ID}</TableCell>
+                <TableCell style={{width: '20%', textAlign: 'center'}}>
                     <img src={props.obj.imageSrc} height={"150px"} alt={props.obj.candidateName}/>
                 </TableCell>
-                <TableCell>
+                <TableCell style={{width: '15%', textAlign: 'center'}}>
                     <ButtonGroup variant="text">
                         <Button>
                         {/* <Link to={"/editPerson/"+this.props.obj.nic}>
@@ -49,6 +49,7 @@ export default function CandidateTable(props) {
                         <Dialog
                             open={open}
                             onClose={handleClose}
+                            maxWidth='md'
                             // PaperComponent={PaperComponent}
                             // aria-labelledby="draggable-dialog-title"
                         >

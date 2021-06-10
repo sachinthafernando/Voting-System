@@ -18,7 +18,7 @@ const styles = {
         position: "fixed",
         minWidth: "100%",
         minHeight: "100%",
-        background: "url(https://images.pexels.com/photos/1509534/pexels-photo-1509534.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) no-repeat center center fixed",
+        background: 'linear-gradient(113deg, #f04c19, #f4005e, #03bbfd, #12e87b, #91ff00, #ffc100)',
         backgroundSize: "cover",
         overflow: "hidden",
     },
@@ -37,7 +37,6 @@ const styles = {
         margin: "30px auto",
         padding: "20px",
         backgroundColor: "#53d2fdb8",
-        borderRadius: '60px',
     }
 }
 
@@ -280,10 +279,9 @@ export default class AddPerson extends Component {
                             <TextField
                                 name = "voted"
                                 variant = "outlined"
-                                required
-                                label = "Voted"
+                                label = "Voted false"
                                 style= {styles.textField}
-                                disabled= "true"
+                                disabled= {true}
                             />
                         </Grid>
                     </Grid>

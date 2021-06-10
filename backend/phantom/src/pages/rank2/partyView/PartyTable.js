@@ -32,13 +32,13 @@ export default function PartyTable(props) {
 
     return (
         <TableRow>
-                <TableCell>{props.obj.partyID}</TableCell>
-                <TableCell>{props.obj.partyName}</TableCell>
-                <TableCell><FiberManualRecordRounded style={{color: props.obj.color, fontSize: 'xxx-large'}}/></TableCell>
-                <TableCell>
+                <TableCell style={{width: '10%', textAlign: 'center'}}>{props.obj.partyID}</TableCell>
+                <TableCell style={{width: '35%'}}>{props.obj.partyName}</TableCell>
+                <TableCell style={{width: '20%', textAlign: 'center'}}><FiberManualRecordRounded style={{color: props.obj.color, fontSize: 'xxx-large'}}/></TableCell>
+                <TableCell style={{width: '20%', textAlign: 'center'}}>
                     <img src={props.obj.logoSrc}  height={"150px"} alt ={props.obj.partyName}/>
                 </TableCell>
-                <TableCell>
+                <TableCell style={{width: '15%', textAlign: 'center'}}>
                     <ButtonGroup variant="text">
                         <Button>
                         {/* <Link to={"/editPerson/"+this.props.obj.nic}>
@@ -49,6 +49,7 @@ export default function PartyTable(props) {
                         <Dialog
                             open={open}
                             onClose={handleClose}
+                            maxWidth='md'
                             // PaperComponent={PaperComponent}
                             // aria-labelledby="draggable-dialog-title"
                         >

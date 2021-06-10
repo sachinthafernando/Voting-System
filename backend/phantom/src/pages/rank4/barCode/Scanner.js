@@ -1,8 +1,9 @@
-import { Button, Container, Grid, TextField, Paper, Snackbar} from '@material-ui/core';
+import { Button, Container, Grid, TextField, Paper, Snackbar, Typography} from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import React, { Component } from 'react'
 import jwt_decode from "jwt-decode"
+import { DisappearedLoading   } from 'react-loadingg';
 
 
 const styles = {
@@ -71,7 +72,11 @@ export default class Scanner extends Component {
        
         debugger;
         this.onget();
-        setInterval(this.screen,2000);
+        this.IntervalId = setInterval(this.screen,2000);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.IntervalId);
     }
 
     screen(){
@@ -231,7 +236,7 @@ export default class Scanner extends Component {
                 {this.state.onScreen?
                 <Container maxWidth="sm">
                 <Paper style={styles.paper} elevation={3}>
-                <h4>Scan barcode to verify person</h4>
+                <h2>Scan barcode to verify person</h2>
                 <Snackbar open={this.state.setMessage} autoHideDuration={4000} onClose={this.closeMessage} >
                     <Alert severity="success" style={{ background: '#4ff398', color: '#060b26' }}>
                         {this.state.message}
@@ -314,22 +319,24 @@ export default class Scanner extends Component {
                             </Button>                    
                         </div>
                     </Grid>       
-                
-                
-                {/* <input name="name" placeholder="Name" onChange={this.onChangeName} value={this.state.Name} /> <br />
-                <input name="password" placeholder="Password" onChange={this.onChangePassword} value={this.state.Password} /> <br />
-                <input name="rank" placeholder="Rank" onChange={this.onChangeRank} value={this.state.Rank} /> <br />
-                <button type="submit">Submit</button> */}
             </form>
                 </Paper>
             </Container>
-            :<div>
-                <Container style={styles.root}>
-                    <Paper>
-                        <h1>Scanner screen locked</h1>
-                    </Paper>
-                </Container>
-            </div>
+                :
+                <div 
+                    style={{
+                    backgroundColor: "#0f1d28", 
+                    position: "fixed", 
+                    minWidth: "100%", 
+                    minHeight: "100%", 
+                    display: "flex", 
+                    top: "0", 
+                    left: "0"
+                    }}
+                >
+                    <Typography variant="h4" style={{position: 'fixed',top: '40%', left: '37%' , color: 'snow'}}>waiting for vote submission...</Typography>
+                    <DisappearedLoading   />
+                </div>
             }
             </div>
         )

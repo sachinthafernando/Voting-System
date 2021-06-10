@@ -119,7 +119,7 @@ export default class EditParty extends Component {
 
     render() {
         return (
-            <Container maxWidth="lg">
+            <Container maxWidth="sm">
                 <form onSubmit={this.onSubmit} autoComplete="off" noValidate style={styles.root}>
                     <Grid container>
                         <Grid item xs={6}>
@@ -168,7 +168,7 @@ export default class EditParty extends Component {
                                         </Typography>
 
                                         {this.state.logoSrc ? (
-                                            <img alt={this.state.logoSrc} src={this.state.logoSrc } />
+                                            <img alt={this.state.logoSrc} src={this.state.logoSrc }  style={{maxHeight: "200px"}}/>
                                             ) : null}
                                         <CardContent>
                                         <input  type="file" accept="image/*"  onChange = {this.onChangeLogo} />

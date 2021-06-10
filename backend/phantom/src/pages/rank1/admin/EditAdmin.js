@@ -112,7 +112,9 @@ export default class EditAdmin extends Component {
                     Rank4AdminID: this.props.user,
                     Name: this.state.Name,
                     Password: this.state.Password,
-                    PollingCenter: this.state.PollingCenter
+                    PollingCenter: this.state.PollingCenter,
+                    ScanScreen: true,
+                    VoteScreen: false,
                 };
                 break;
         

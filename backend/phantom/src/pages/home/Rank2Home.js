@@ -34,7 +34,17 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 300,
     maxHeight:'800',
     width: '100%',
-    backgroundImage: 'linear-gradient(45deg, #FFC312, #EE5A24, #00a8ff)',
+    backgroundImage: 'linear-gradient(180deg, #FFC312, #EE5A24, #00a8ff)',
+    position: 'absolute',
+    top: '10%',
+    padding: '20px',
+  },
+  homeback: {
+    background: 'linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)',
+    minHeight: '100%',
+    minWidth: '100%',
+    backgroundSize: 'cover',
+    position: 'fixed',
   },
   image: {
     position: 'relative',
@@ -111,6 +121,7 @@ export default function ButtonBases() {
   return (
     <>
     <SideNavbar/>
+    <div className={classes.homeback}>
     <div className={classes.root}>
       {images.map((image) => (
         <ButtonBase to={image.path}
@@ -149,6 +160,7 @@ export default function ButtonBases() {
           </span>
         </ButtonBase>
       ))}
+    </div>
     </div>
     </>
   );

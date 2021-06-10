@@ -2,18 +2,9 @@ import React, { Component } from 'react'
 
 import jwt_decode from "jwt-decode"
 import axios from 'axios';
-import { Container, Paper } from '@material-ui/core';
 import VoteVideo from '../../../images/video/voteVideo.mp4'
 
-const styles = {
-    root: {
-          margin: "5px auto",
-          minWidth: "100%",
-          minHeight: "100%",
-          
-    },
-    
-}
+
 
 export default class FreezeScreen extends Component {
 
@@ -86,12 +77,12 @@ export default class FreezeScreen extends Component {
 
     render() {
         return (
-            <Container style= {styles.root}>
-                <Paper>
-                    <video src={VoteVideo} width="auto" height="auto"  autoPlay="true" loop muted playsInline style={{minHeight:"100%", minWidth:"100%" }}/>
-                    {/* <VoteVideo/> */}
-                </Paper>
-            </Container>
+            // <Container style= {styles.root}>
+            //     <Paper>
+                    <video src={VoteVideo} width="auto" height="auto"  autoPlay="true" loop muted playsInline style={{minHeight:"100%", minWidth:"100%", overflow: 'hidden' }}/>
+                    
+            //     </Paper>
+            // </Container>
         )
     }
 }

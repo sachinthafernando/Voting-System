@@ -51,8 +51,8 @@ if (localStorage.token){
 const App = () => {
 
   
-  const [userRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest');
-  const [userName] = useState( localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest');
+  const [userRole,setUserRole] = useState( localStorage.token ? jwt_decode(localStorage.token).role : 'Guest');
+  const [userName, setUserName] = useState( localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest');
   const [loading, setloading] = useState(true);
 
   useEffect(() => {
@@ -70,9 +70,9 @@ const App = () => {
 
 
   const RoleBasedRoute = (router) => {
-    // debugger;
-    // setUserRole(localStorage.token ? jwt_decode(localStorage.token).role : 'Guest');
-    // setUserName(localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest');
+    debugger;
+    setUserRole(localStorage.token ? jwt_decode(localStorage.token).role : 'Guest');
+    setUserName(localStorage.token ? jwt_decode(localStorage.token).sub : 'Guest');
     // debugger;
     if (userRole === 'Guest') {
       debugger;

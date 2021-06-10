@@ -192,7 +192,7 @@ const Hero = ({slides}) => {
 
     return (
         <>
-        <HeroSection>
+        <HeroSection style={{top: '80px'}}>
             <HeroWrapper>
             {slides.map((slide , index ) => {
                 return(

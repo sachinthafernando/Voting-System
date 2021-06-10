@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, MenuItem, Select, InputLabel, FormControl, Snackbar, IconButton, Typography } from '@material-ui/core';
+import { Button, Container, Grid, TextField, MenuItem, FormControl, Snackbar, IconButton, Typography } from '@material-ui/core';
 import { HelpOutlineRounded } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import axios from 'axios';
@@ -291,28 +291,34 @@ export default class AddAdmin extends Component {
                             </div>
                             : null}
                             <FormControl variant="outlined" style={styles.formControl}>
-                                <InputLabel >Rank</InputLabel>
                                 {this.props.userRank === "Rank1Admin" ?
-                                <Select
-                                name= "rank"
-                                value = {this.state.Rank}
-                                onChange= {this.onChangeRank}
-                                >
-                                <MenuItem value="">Select Rank</MenuItem>  
-                                <MenuItem value="Rank1Admin">Rank 1</MenuItem> 
-                                <MenuItem value="Rank2Admin">Rank 2</MenuItem> 
-                                <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
-                                <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
-                                </Select>    :
-                                <Select
-                                name= "rank"
-                                value = {this.state.Rank}
-                                onChange= {this.onChangeRank}
-                                >
-                                <MenuItem value="">Select Rank</MenuItem>
-                                <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
-                                <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
-                                </Select>
+                                    <TextField
+                                    select
+                                    required
+                                    label="Rank"
+                                    value={this.state.Rank}
+                                    onChange={this.onChangeRank}
+                                    variant="outlined"
+                                    >
+                                        <MenuItem value="">Select Rank</MenuItem>  
+                                        <MenuItem value="Rank1Admin">Rank 1</MenuItem> 
+                                        <MenuItem value="Rank2Admin">Rank 2</MenuItem> 
+                                        <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
+                                        <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
+                                    </TextField>  
+                                    :
+                                    <TextField
+                                    select
+                                    required
+                                    label="Rank"
+                                    value={this.state.Rank}
+                                    onChange={this.onChangeRank}
+                                    variant="outlined"
+                                    >
+                                        <MenuItem value="">Select Rank</MenuItem>  
+                                        <MenuItem value="Rank3Admin">Rank 3</MenuItem> 
+                                        <MenuItem value="Rank4Admin">Rank 4</MenuItem> 
+                                    </TextField>
                                 }
                             </FormControl>
                             {this.state.validateError.Rank? 
